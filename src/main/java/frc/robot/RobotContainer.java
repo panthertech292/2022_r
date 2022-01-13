@@ -6,8 +6,12 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.ExampleSubsystem;
+import edu.wpi.first.wpilibj.XboxController.Button;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.*;
+
+//Subsystems
+import frc.robot.subsystems.DriveSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /**
@@ -18,14 +22,22 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  private final static XboxController io_drivercontroller = new XboxController(Constants.kDriverController);
+  private final static XboxController io_opercontroller = new XboxController(Constants.kOperController);
 
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  // Subsystems
+  private final DriveSubsystem s_DriveSubsystem = new DriveSubsystem();
+
+  // Drive Commands
+  private final Command z_DriveTeleop = new DriveTeleop(s_DriveSubsystem);
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+
+    s_DriveSubsystem.setDefaultCommand(z_DriveTeleop);
   }
 
   /**
@@ -34,7 +46,31 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+    //Driver Controller
+    final JoystickButton d_aButton = new JoystickButton(io_drivercontroller, Button.kA.value);
+    final JoystickButton d_bButton = new JoystickButton(io_drivercontroller, Button.kB.value);
+    final JoystickButton d_xButton = new JoystickButton(io_drivercontroller, Button.kX.value);
+    final JoystickButton d_startButton = new JoystickButton(io_drivercontroller, Button.kStart.value);
+    final JoystickButton d_backButton = new JoystickButton(io_drivercontroller, Button.kBack.value);
+    final JoystickButton d_yButton = new JoystickButton(io_drivercontroller, Button.kY.value);
+
+    //Operator Controller
+    final JoystickButton o_aButton = new JoystickButton(io_opercontroller, Button.kA.value);
+    final JoystickButton o_bButton = new JoystickButton(io_opercontroller, Button.kB.value);
+    final JoystickButton o_xButton = new JoystickButton(io_opercontroller, Button.kX.value);
+    final JoystickButton o_yButton = new JoystickButton(io_opercontroller, Button.kY.value);
+    final JoystickButton o_startButton = new JoystickButton(io_opercontroller, Button.kStart.value);
+    final JoystickButton o_backButton = new JoystickButton(io_opercontroller, Button.kBack.value);
+  }
+  public static double getLeftSpeed() {
+    //return io_drivercontroller.getY(GenericHID.Hand.kLeft);
+    return io_drivercontroller.getLeftY();
+  }
+
+  public static double getRightSpeed() {
+    return io_drivercontroller.getRightY();
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -43,6 +79,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return null; //m_autoCommand; Returning null for now by the virture of their being no auto commands.
   }
 }
