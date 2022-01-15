@@ -12,8 +12,10 @@ public class DriveTeleop extends CommandBase {
   private final DriveSubsystem DriveSubsystem;
   /** Creates a new DriveTeleop. */
   public DriveTeleop(DriveSubsystem s_DriveSubsystem) {
-    // Use addRequirements() here to declare subsystem dependencies.
     DriveSubsystem = s_DriveSubsystem;
+    // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(s_DriveSubsystem);
+    
   }
 
   // Called when the command is initially scheduled.

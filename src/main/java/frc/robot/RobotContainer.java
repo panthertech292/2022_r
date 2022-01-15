@@ -6,13 +6,14 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
 
 //Subsystems
 import frc.robot.subsystems.DriveSubsystem;
-import edu.wpi.first.wpilibj2.command.Command;
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -64,7 +65,6 @@ public class RobotContainer {
     final JoystickButton o_backButton = new JoystickButton(io_opercontroller, Button.kBack.value);
   }
   public static double getLeftSpeed() {
-    //return io_drivercontroller.getY(GenericHID.Hand.kLeft);
     return io_drivercontroller.getLeftY();
   }
 

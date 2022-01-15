@@ -20,11 +20,11 @@ public class DriveSubsystem extends SubsystemBase {
   /** Creates a new DriveSubsystem. */
   private final CANSparkMax FrontLeftMotor;
   private final CANSparkMax FrontRightMotor;
-  private final CANSparkMax BackLeftMotor;
-  private final CANSparkMax BackRightMotor;
+  //private final CANSparkMax BackLeftMotor;
+  //private final CANSparkMax BackRightMotor;
 
-  private final MotorControllerGroup LeftSide;
-  private final MotorControllerGroup RightSide;
+  //private final MotorControllerGroup LeftSide;
+  //private final MotorControllerGroup RightSide;
 
   private final DifferentialDrive DifDrive;
   private double v_leftSpeed;
@@ -39,13 +39,14 @@ public class DriveSubsystem extends SubsystemBase {
   public DriveSubsystem() {
     FrontLeftMotor = new CANSparkMax(DriveConstants.kFrontLeftMotor, MotorType.kBrushless);
     FrontRightMotor = new CANSparkMax(DriveConstants.kFrontRightMotor, MotorType.kBrushless);
-    BackLeftMotor = new CANSparkMax(DriveConstants.kBackLeftMotor, MotorType.kBrushless);
-    BackRightMotor = new CANSparkMax(DriveConstants.kBackRightMotor, MotorType.kBrushless);
+    //BackLeftMotor = new CANSparkMax(DriveConstants.kBackLeftMotor, MotorType.kBrushless);
+    //BackRightMotor = new CANSparkMax(DriveConstants.kBackRightMotor, MotorType.kBrushless);
 
-    LeftSide = new MotorControllerGroup(FrontLeftMotor, BackLeftMotor);
-    RightSide = new MotorControllerGroup(FrontRightMotor, BackRightMotor);
+    //LeftSide = new MotorControllerGroup(FrontLeftMotor, BackLeftMotor);
+    //RightSide = new MotorControllerGroup(FrontRightMotor, BackRightMotor);
 
-    DifDrive = new DifferentialDrive(LeftSide,RightSide);
+    //DifDrive = new DifferentialDrive(LeftSide,RightSide);
+    DifDrive = new DifferentialDrive(FrontLeftMotor,FrontRightMotor);
 
     c_modeTeleop = 0;
     c_modeSetPoint = 1;
@@ -59,7 +60,7 @@ public class DriveSubsystem extends SubsystemBase {
   }
   public void differentialDrive(double leftspeed, double rightspeed) {
     v_leftSpeed = -leftspeed;
-    v_rightSpeed = -rightspeed;
+    v_rightSpeed = rightspeed;
     DifDrive.tankDrive(v_leftSpeed, v_rightSpeed);
   }
   //Auto
