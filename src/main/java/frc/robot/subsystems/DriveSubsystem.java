@@ -29,6 +29,8 @@ public class DriveSubsystem extends SubsystemBase {
   private final DifferentialDrive DifDrive;
   private double v_leftSpeed;
   private double v_rightSpeed;
+  private double v_leftXSpeed;
+  private double v_rightYSpeed;
   private double v_setPointLeft;
   private double v_setPointRight;
 
@@ -58,17 +60,22 @@ public class DriveSubsystem extends SubsystemBase {
     addChild("Left Side", LeftSide);
     addChild("Right Side", RightSide); */
   }
-  public void differentialDrive(double leftspeed, double rightspeed) {
+  public void differentialTankDrive(double leftspeed, double rightspeed) {
     v_leftSpeed = -leftspeed;
     v_rightSpeed = rightspeed;
     DifDrive.tankDrive(v_leftSpeed, v_rightSpeed);
+  }
+  public void differentialArcadeDrive(double leftXspeed, double rightYspeed) {
+    v_leftXSpeed = leftXspeed;
+    v_rightYSpeed = rightYspeed;
+    DifDrive.arcadeDrive(v_leftXSpeed, v_rightYSpeed);
   }
   //Auto
   public void driveModePowerSetPoint() {
     v_driveMode = c_modeSetPoint;
   }
   public void driveAuto() {
-    differentialDrive(-v_setPointLeft, -v_setPointRight);
+    differentialTankDrive(-v_setPointLeft, -v_setPointRight);
   }
 
   // Teleop
@@ -77,7 +84,7 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public void driveTeleop() {
-    differentialDrive((RobotContainer.getLeftSpeed()), RobotContainer.getRightSpeed());
+    differentialTankDrive((RobotContainer.getLeftSpeed()), RobotContainer.getRightSpeed());
   }
 
   @Override
