@@ -16,6 +16,7 @@ public final class Constants {
     //Controller Mapping
     static final int kDriverController = 0; // USB
     static final int kOperController = 1; // USB
+    static final double kControllerDeadZone = 0.16;
 
     public static final class DriveConstants {
         //Motor Mapping

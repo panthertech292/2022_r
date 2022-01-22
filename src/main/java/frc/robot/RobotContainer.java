@@ -8,8 +8,6 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.XboxController.Button;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
-import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
 
@@ -41,8 +39,6 @@ public class RobotContainer {
     configureButtonBindings();
 
     s_DriveSubsystem.setDefaultCommand(z_DriveTeleop);
-
-    ShuffleboardTab MainTab = Shuffleboard.getTab("Main Tab");
   }
 
   /**
@@ -68,17 +64,26 @@ public class RobotContainer {
     final JoystickButton o_startButton = new JoystickButton(io_opercontroller, Button.kStart.value);
     final JoystickButton o_backButton = new JoystickButton(io_opercontroller, Button.kBack.value);
   }
+
+  public static double deadZoneCheck(double rawControllerInput){
+    if (rawControllerInput > Constants.kControllerDeadZone || rawControllerInput < -Constants.kControllerDeadZone){
+      return rawControllerInput;
+    }
+    else{
+      return 0;
+    }
+  }
   public static double getLeftSpeed() {
-    return io_drivercontroller.getLeftY();
+    return deadZoneCheck(io_drivercontroller.getLeftY());
   }
   public static double getRightSpeed() {
-    return io_drivercontroller.getRightY();
+    return deadZoneCheck(io_drivercontroller.getRightY());
   }
   public static double getLeftSpeedX() {
-    return io_drivercontroller.getLeftX();
+    return deadZoneCheck(io_drivercontroller.getLeftX());
   }
   public static double getRightSpeedX() {
-    return io_drivercontroller.getRightX();
+    return deadZoneCheck(io_drivercontroller.getRightX());
   }
 
   /**

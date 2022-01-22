@@ -4,23 +4,21 @@
 
 package frc.robot.subsystems;
 
+import frc.robot.RobotContainer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.DriveConstants;
 
-
+//Motor&Drive
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+
+//Shuffleboard & Network Tables
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import frc.robot.Robot;
-import frc.robot.RobotContainer;
-import frc.robot.Constants.DriveConstants;
-
 
 public class DriveSubsystem extends SubsystemBase {
   /** Creates a new DriveSubsystem. */
@@ -37,13 +35,13 @@ public class DriveSubsystem extends SubsystemBase {
   private double v_rightSpeed;
   private double v_leftXSpeed;
   private double v_rightYSpeed;
+
+  //Auto
   private double v_setPointLeft;
   private double v_setPointRight;
 
-  private int c_modeTeleop;
-  private int v_driveMode;
-  private int c_modeSetPoint;
-
+  //Drive Modes
+  private boolean v_driveModeTeleop;
   private boolean v_arcadeDrive;
 
   //Network Tables
@@ -61,10 +59,8 @@ public class DriveSubsystem extends SubsystemBase {
     //DifDrive = new DifferentialDrive(LeftSide,RightSide);
     DifDrive = new DifferentialDrive(FrontLeftMotor,FrontRightMotor);
 
-    c_modeTeleop = 0;
-    c_modeSetPoint = 1;
-    v_driveMode = c_modeTeleop;
-
+    //Drive Modes
+    v_driveModeTeleop = true;
     v_arcadeDrive = true;
 
     //Netowrk Tables
@@ -89,7 +85,7 @@ public class DriveSubsystem extends SubsystemBase {
   }
   //Auto
   public void driveModePowerSetPoint() {
-    v_driveMode = c_modeSetPoint;
+    v_driveModeTeleop = false;
   }
   public void driveAuto() {
     differentialTankDrive(-v_setPointLeft, -v_setPointRight);
@@ -97,7 +93,7 @@ public class DriveSubsystem extends SubsystemBase {
 
   // Teleop
   public void driveModeTeleop() {
-    v_driveMode = c_modeTeleop;
+    v_driveModeTeleop = true;
   }
 
   public void driveTeleop() {
@@ -110,11 +106,15 @@ public class DriveSubsystem extends SubsystemBase {
   }
   //Shuffleboard Handler
   public void updateShuffleBoard(){
-    //SmartDashboard.putBoolean("Arcade Drive Enabled", v_arcadeDrive);
-    //Shuffleboard.ta
-    //System.out.println(v_networkTableDriveMode.getBoolean(true));
-    System.out.println(v_networkTableDriveMode.getBoolean(true));
     v_arcadeDrive = v_networkTableDriveMode.getBoolean(true);
+  }
+  public void driveMain(){
+    if (v_driveModeTeleop == true){
+      driveTeleop();
+    }
+    else{
+      driveAuto();
+    }
   }
 
   @Override
@@ -122,11 +122,7 @@ public class DriveSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
 
     //Sets drive mode
-    if (v_driveMode == c_modeTeleop) {
-      driveTeleop();
-    } else {
-      driveAuto();
-    }
+    driveMain();
     //Update Shuffleboard(Maybe I should stop making useless comments like these?)
     updateShuffleBoard();
   }
