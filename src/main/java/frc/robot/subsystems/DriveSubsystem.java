@@ -10,8 +10,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.Constants.DriveConstants;
 
@@ -38,6 +44,11 @@ public class DriveSubsystem extends SubsystemBase {
   private int v_driveMode;
   private int c_modeSetPoint;
 
+  private boolean v_arcadeDrive;
+
+  //Network Tables
+  private NetworkTableEntry v_networkTableDriveMode;
+
   public DriveSubsystem() {
     FrontLeftMotor = new CANSparkMax(DriveConstants.kFrontLeftMotor, MotorType.kBrushless);
     FrontRightMotor = new CANSparkMax(DriveConstants.kFrontRightMotor, MotorType.kBrushless);
@@ -53,6 +64,12 @@ public class DriveSubsystem extends SubsystemBase {
     c_modeTeleop = 0;
     c_modeSetPoint = 1;
     v_driveMode = c_modeTeleop;
+
+    v_arcadeDrive = true;
+
+    //Netowrk Tables
+    ShuffleboardTab MainTab = Shuffleboard.getTab("Main Tab");
+    v_networkTableDriveMode = MainTab.add("Arcade Drive Enabled", v_arcadeDrive).withWidget(BuiltInWidgets.kToggleButton).getEntry();
 
     /*
     Not sure if I need these. Gonna leave them here just in case I need them.
@@ -84,17 +101,33 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   public void driveTeleop() {
-    differentialTankDrive((RobotContainer.getLeftSpeed()), RobotContainer.getRightSpeed());
+    if(v_arcadeDrive == true){
+      differentialArcadeDrive(RobotContainer.getLeftSpeedX(), RobotContainer.getRightSpeed());
+    }
+    else{
+      differentialTankDrive((RobotContainer.getLeftSpeed()), RobotContainer.getRightSpeed());
+    }
+  }
+  //Shuffleboard Handler
+  public void updateShuffleBoard(){
+    //SmartDashboard.putBoolean("Arcade Drive Enabled", v_arcadeDrive);
+    //Shuffleboard.ta
+    //System.out.println(v_networkTableDriveMode.getBoolean(true));
+    System.out.println(v_networkTableDriveMode.getBoolean(true));
+    v_arcadeDrive = v_networkTableDriveMode.getBoolean(true);
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+
     //Sets drive mode
     if (v_driveMode == c_modeTeleop) {
       driveTeleop();
     } else {
       driveAuto();
     }
+    //Update Shuffleboard(Maybe I should stop making useless comments like these?)
+    updateShuffleBoard();
   }
 }

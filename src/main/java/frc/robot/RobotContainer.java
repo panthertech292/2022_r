@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.XboxController.Button;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
 
@@ -39,6 +41,8 @@ public class RobotContainer {
     configureButtonBindings();
 
     s_DriveSubsystem.setDefaultCommand(z_DriveTeleop);
+
+    ShuffleboardTab MainTab = Shuffleboard.getTab("Main Tab");
   }
 
   /**
@@ -67,9 +71,14 @@ public class RobotContainer {
   public static double getLeftSpeed() {
     return io_drivercontroller.getLeftY();
   }
-
   public static double getRightSpeed() {
     return io_drivercontroller.getRightY();
+  }
+  public static double getLeftSpeedX() {
+    return io_drivercontroller.getLeftX();
+  }
+  public static double getRightSpeedX() {
+    return io_drivercontroller.getRightX();
   }
 
   /**
