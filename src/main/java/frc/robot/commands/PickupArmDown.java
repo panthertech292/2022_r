@@ -5,33 +5,35 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.Constants.PickupConstant;
+import frc.robot.subsystems.PickupSubsystem;
 
-
-public class DriveTeleop extends CommandBase {
-  private final DriveSubsystem DriveSubsystem;
-  /** Creates a new DriveTeleop. */
-  public DriveTeleop(DriveSubsystem s_DriveSubsystem) {
-    DriveSubsystem = s_DriveSubsystem;
+public class PickupArmDown extends CommandBase {
+  private final PickupSubsystem PickupSubsystem;
+  /** Creates a new PickupArmUp. */
+  public PickupArmDown(PickupSubsystem s_PickupSubsystem) {
+    PickupSubsystem = s_PickupSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(s_DriveSubsystem);
-    
+    addRequirements(s_PickupSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    PickupSubsystem.ChangePickupArmMotor(0);
+    PickupSubsystem.ChangePickupMotor(PickupConstant.kPickupMotorSpeed);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    //DriveSubsystem.driveModeTeleop();
-    DriveSubsystem.driveTeleop();
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    PickupSubsystem.ChangePickupArmMotor(0);
+    PickupSubsystem.ChangePickupMotor(0);
+  }
 
   // Returns true when the command should end.
   @Override

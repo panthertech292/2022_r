@@ -20,6 +20,9 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.networktables.NetworkTableEntry;
 
+//Encoders & Sensors
+import com.revrobotics.RelativeEncoder;
+
 public class DriveSubsystem extends SubsystemBase {
   /** Creates a new DriveSubsystem. */
   private final CANSparkMax FrontLeftMotor;
@@ -30,18 +33,17 @@ public class DriveSubsystem extends SubsystemBase {
   //private final MotorControllerGroup LeftSide;
   //private final MotorControllerGroup RightSide;
 
+  //Encoders
+  private RelativeEncoder FrontLeftMotorEncoder;
+  private RelativeEncoder FrontRightMotorEncoder;
+
   private final DifferentialDrive DifDrive;
   private double v_leftSpeed;
   private double v_rightSpeed;
   private double v_leftXSpeed;
   private double v_rightYSpeed;
 
-  //Auto
-  private double v_setPointLeft;
-  private double v_setPointRight;
-
   //Drive Modes
-  private boolean v_driveModeTeleop;
   private boolean v_arcadeDrive;
 
   //Network Tables
@@ -60,19 +62,44 @@ public class DriveSubsystem extends SubsystemBase {
     DifDrive = new DifferentialDrive(FrontLeftMotor,FrontRightMotor);
 
     //Drive Modes
-    v_driveModeTeleop = true;
     v_arcadeDrive = true;
+
+    //Encoders & Sensors
+    FrontLeftMotorEncoder = FrontLeftMotor.getEncoder();
+    FrontLeftMotorEncoder.setPositionConversionFactor(2.4); //3.168 is math, not sure why so off
+    
+    FrontRightMotorEncoder = FrontRightMotor.getEncoder();
+    //FrontRightMotorEncoder.setPositionConversionFactor(3);
+    zeroLeftMotorEncoderPosition();
+    zeroRightMotorEncoderPosition();
+    
 
     //Netowrk Tables
     ShuffleboardTab MainTab = Shuffleboard.getTab("Main Tab");
     v_networkTableDriveMode = MainTab.add("Arcade Drive Enabled", v_arcadeDrive).withWidget(BuiltInWidgets.kToggleButton).getEntry();
 
-    /*
-    Not sure if I need these. Gonna leave them here just in case I need them.
-    addChild("DifDrive", DifDrive);
-    addChild("Left Side", LeftSide);
-    addChild("Right Side", RightSide); */
   }
+  //Encoders!
+  public double getLeftMotorEncoderVelocity(){
+    return -FrontLeftMotorEncoder.getVelocity();
+  }
+  public double getRightMotorEncoderVelocity(){
+    return -FrontRightMotorEncoder.getVelocity();
+  }
+  public double getLeftMotorEncoderPosition(){
+    return -FrontLeftMotorEncoder.getPosition();
+  }
+  public double getRightMotorEncoderPosition(){
+    return -FrontRightMotorEncoder.getPosition();
+  }
+  public void zeroLeftMotorEncoderPosition(){
+    FrontLeftMotorEncoder.setPosition(0);
+  }
+  public void zeroRightMotorEncoderPosition(){
+    FrontRightMotorEncoder.setPosition(0);
+  }
+
+  //Teleop
   public void differentialTankDrive(double leftspeed, double rightspeed) {
     v_leftSpeed = -leftspeed;
     v_rightSpeed = rightspeed;
@@ -83,19 +110,6 @@ public class DriveSubsystem extends SubsystemBase {
     v_rightYSpeed = rightYspeed;
     DifDrive.arcadeDrive(v_leftXSpeed, v_rightYSpeed);
   }
-  //Auto
-  public void driveModePowerSetPoint() {
-    v_driveModeTeleop = false;
-  }
-  public void driveAuto() {
-    differentialTankDrive(-v_setPointLeft, -v_setPointRight);
-  }
-
-  // Teleop
-  public void driveModeTeleop() {
-    v_driveModeTeleop = true;
-  }
-
   public void driveTeleop() {
     if(v_arcadeDrive == true){
       differentialArcadeDrive(RobotContainer.getLeftSpeedX(), RobotContainer.getRightSpeed());
@@ -104,25 +118,19 @@ public class DriveSubsystem extends SubsystemBase {
       differentialTankDrive((RobotContainer.getLeftSpeed()), RobotContainer.getRightSpeed());
     }
   }
+  //Auto
+  public void driveAuto(double autoLeftSpeed, double autoRightSpeed) {
+    differentialTankDrive(autoLeftSpeed, autoRightSpeed);
+  }
+
   //Shuffleboard Handler
   public void updateShuffleBoard(){
     v_arcadeDrive = v_networkTableDriveMode.getBoolean(true);
-  }
-  public void driveMain(){
-    if (v_driveModeTeleop == true){
-      driveTeleop();
-    }
-    else{
-      driveAuto();
-    }
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-
-    //Sets drive mode
-    driveMain();
     //Update Shuffleboard(Maybe I should stop making useless comments like these?)
     updateShuffleBoard();
   }

@@ -10,9 +10,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.*;
-
+import frc.robot.commands.Auto.*;
 //Subsystems
 import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.PickupSubsystem;
+
 
 
 /**
@@ -28,9 +30,17 @@ public class RobotContainer {
 
   // Subsystems
   private final DriveSubsystem s_DriveSubsystem = new DriveSubsystem();
+  private final PickupSubsystem s_PickupSubsystem = new PickupSubsystem();
 
   // Drive Commands
   private final Command z_DriveTeleop = new DriveTeleop(s_DriveSubsystem);
+
+  // Pickup Commands
+  private final Command z_PickupArmUp = new PickupArmUp(s_PickupSubsystem);
+  private final Command z_PickupArmDown = new PickupArmDown(s_PickupSubsystem);
+
+  //Auto Commands
+  private final Command z_AutoTest = new AutoTest(s_DriveSubsystem);
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -39,6 +49,7 @@ public class RobotContainer {
     configureButtonBindings();
 
     s_DriveSubsystem.setDefaultCommand(z_DriveTeleop);
+    s_PickupSubsystem.setDefaultCommand(z_PickupArmUp);
   }
 
   /**
@@ -63,6 +74,8 @@ public class RobotContainer {
     final JoystickButton o_yButton = new JoystickButton(io_opercontroller, Button.kY.value);
     final JoystickButton o_startButton = new JoystickButton(io_opercontroller, Button.kStart.value);
     final JoystickButton o_backButton = new JoystickButton(io_opercontroller, Button.kBack.value);
+
+    d_aButton.toggleWhenPressed(z_PickupArmDown);
   }
 
   public static double deadZoneCheck(double rawControllerInput){
@@ -93,6 +106,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return null; //m_autoCommand; Returning null for now by the virture of their being no auto commands.
+    return z_AutoTest; 
   }
 }
