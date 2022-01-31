@@ -27,11 +27,11 @@ public class DriveSubsystem extends SubsystemBase {
   /** Creates a new DriveSubsystem. */
   private final CANSparkMax FrontLeftMotor;
   private final CANSparkMax FrontRightMotor;
-  //private final CANSparkMax BackLeftMotor;
-  //private final CANSparkMax BackRightMotor;
+  private final CANSparkMax BackLeftMotor;
+  private final CANSparkMax BackRightMotor;
 
-  //private final MotorControllerGroup LeftSide;
-  //private final MotorControllerGroup RightSide;
+  private final MotorControllerGroup LeftSide;
+  private final MotorControllerGroup RightSide;
 
   //Encoders
   private RelativeEncoder FrontLeftMotorEncoder;
@@ -52,14 +52,13 @@ public class DriveSubsystem extends SubsystemBase {
   public DriveSubsystem() {
     FrontLeftMotor = new CANSparkMax(DriveConstants.kFrontLeftMotor, MotorType.kBrushless);
     FrontRightMotor = new CANSparkMax(DriveConstants.kFrontRightMotor, MotorType.kBrushless);
-    //BackLeftMotor = new CANSparkMax(DriveConstants.kBackLeftMotor, MotorType.kBrushless);
-    //BackRightMotor = new CANSparkMax(DriveConstants.kBackRightMotor, MotorType.kBrushless);
+    BackLeftMotor = new CANSparkMax(DriveConstants.kBackLeftMotor, MotorType.kBrushless);
+    BackRightMotor = new CANSparkMax(DriveConstants.kBackRightMotor, MotorType.kBrushless);
 
-    //LeftSide = new MotorControllerGroup(FrontLeftMotor, BackLeftMotor);
-    //RightSide = new MotorControllerGroup(FrontRightMotor, BackRightMotor);
+    LeftSide = new MotorControllerGroup(FrontLeftMotor, BackLeftMotor);
+    RightSide = new MotorControllerGroup(FrontRightMotor, BackRightMotor);
 
-    //DifDrive = new DifferentialDrive(LeftSide,RightSide);
-    DifDrive = new DifferentialDrive(FrontLeftMotor,FrontRightMotor);
+    DifDrive = new DifferentialDrive(LeftSide,RightSide);
 
     //Drive Modes
     v_arcadeDrive = true;
@@ -127,11 +126,11 @@ public class DriveSubsystem extends SubsystemBase {
   public void updateShuffleBoard(){
     v_arcadeDrive = v_networkTableDriveMode.getBoolean(true);
   }
-
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     //Update Shuffleboard(Maybe I should stop making useless comments like these?)
     updateShuffleBoard();
+    System.out.println(getLeftMotorEncoderVelocity());
   }
 }

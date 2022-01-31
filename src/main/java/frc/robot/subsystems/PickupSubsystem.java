@@ -62,7 +62,7 @@ public class PickupSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     //pickupMotorArm.set(v_pickupSpeedArm);
-    pickupMotorArm.set(v_pickupSpeedArm);
+    //pickupMotorArm.set(v_pickupSpeedArm);
     //System.out.println(pickupMotorArmEncoder.getVelocity());
     //System.out.println(pickupMotorArmEncoder.getPosition());
     
