@@ -131,6 +131,5 @@ public class DriveSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
     //Update Shuffleboard(Maybe I should stop making useless comments like these?)
     updateShuffleBoard();
-    System.out.println(getLeftMotorEncoderVelocity());
   }
 }

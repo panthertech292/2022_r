@@ -19,34 +19,34 @@ public class PickupArmUp extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    PickupSubsystem.ChangePickupArmMotor(0);
-    PickupSubsystem.ChangePickupMotor(0);
+    PickupSubsystem.setPickupArmMotorSpeed(0);
+    PickupSubsystem.setPickupMotorSpeed(0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // if (PickupSubsystem.getArmUpLimitSwitch() == true){
-    //  PickupSubsystem.ChangePickupArmMotor(.05);
-    //}
-    //else{
-    //  PickupSubsystem.ChangePickupArmMotor(.05);
-    //}
-    if (PickupSubsystem.getArmEncoderVelocity() < 260){
-      //System.out.println("Fast run");
-      PickupSubsystem.ChangePickupArmMotor(.20);
+    if (PickupSubsystem.getArmUpLimitSwitch() == true){
+      //Stops arm when on limit switch.
+      PickupSubsystem.setPickupArmMotorSpeed(0);
     }
     else{
-      //System.out.println("Slow run");
-      PickupSubsystem.ChangePickupArmMotor(.05);
+      if (PickupSubsystem.getArmEncoderVelocity() < 260){
+        //If arm is going slow, speed it up
+        PickupSubsystem.setPickupArmMotorSpeed(.20); //Placeholder value
+      }
+      else{
+        //Arm speed is fine, don't need to increase it
+        PickupSubsystem.setPickupArmMotorSpeed(.05); //Placeholder value
+      }
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    PickupSubsystem.ChangePickupArmMotor(0);
-    PickupSubsystem.ChangePickupMotor(0);
+    PickupSubsystem.setPickupArmMotorSpeed(0);
+    PickupSubsystem.setPickupMotorSpeed(0);
   }
 
   // Returns true when the command should end.

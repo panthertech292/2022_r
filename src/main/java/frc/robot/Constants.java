@@ -25,7 +25,7 @@ public final class Constants {
         public static final int kBackLeftMotor = 3;
         public static final int kBackRightMotor = 4;
     }
-    public static final class PickupConstant{
+    public static final class PickupConstants{
         //Motors
         public static final int kPickupMotor = 9; // place holder value
         public static final int kPickupMotorArm = 43; // place holder value //3 for test bot
@@ -34,5 +34,14 @@ public final class Constants {
         public static final int kPickupArmUpSwitch = 0; //DIO - place holder value
         //Speeds
         public static final double kPickupMotorSpeed = 0.52;
-    } 
+    }
+    public static final class ShooterConstants{
+        //Motors
+        public static final int kShooterMotorLow = 11; // place holder value
+        public static final int kShooterMotorHigh = 12; // place holder value
+
+        //Speeds
+        public static final double kShooterLowSpeed = 0.5; // place holder value
+        public static final double kShooterHighSpeed = 0.5; // place holder value
+    }
 }

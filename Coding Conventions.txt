@@ -1,0 +1,49 @@
+﻿Coding Conventions
+
+
+Current as of 08-20-2020
+________________
+Naming Conventions
+Constants: camel Case, preface with c_ for local instances, preface with k in Constants.java
+
+
+Variables: camel Case, preface with v_ for all variables
+
+
+Subroutines (Methods): camel Case, always end with ()
+
+
+Subsystems Capitalize Each Word, preface local instances with s_, no preface for file names
+
+
+Commands: Capitalize Each Word, always ends with (), preface local instances with z_
+
+
+Input Device: lower case, preface with io_
+
+
+Objects: Capitalize Each Word
+
+
+Controllers: Use d and o.
+
+
+
+
+Comments
+        Comments should be used whenever:
+
+
+1. The usage of a piece of code is ambiguous. It has no clearly defined purpose, or the syntax/variables are confusing.
+
+
+2. A piece of code is deprecated, but may become useful in the future.
+
+
+3. To list changes in variables that may be reverted later.
+
+
+4. To plan future code
+
+
+

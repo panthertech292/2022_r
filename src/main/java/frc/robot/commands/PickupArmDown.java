@@ -5,7 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.PickupConstant;
+import frc.robot.Constants.PickupConstants;
 import frc.robot.subsystems.PickupSubsystem;
 
 public class PickupArmDown extends CommandBase {
@@ -20,19 +20,21 @@ public class PickupArmDown extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    PickupSubsystem.ChangePickupArmMotor(0);
-    PickupSubsystem.ChangePickupMotor(PickupConstant.kPickupMotorSpeed);
+    PickupSubsystem.setPickupArmMotorSpeed(0);
+    PickupSubsystem.setPickupMotorSpeed(PickupConstants.kPickupMotorSpeed);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    PickupSubsystem.setPickupMotorSpeed(PickupConstants.kPickupMotorSpeed);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    PickupSubsystem.ChangePickupArmMotor(0);
-    PickupSubsystem.ChangePickupMotor(0);
+    PickupSubsystem.setPickupArmMotorSpeed(0);
+    PickupSubsystem.setPickupMotorSpeed(0);
   }
 
   // Returns true when the command should end.

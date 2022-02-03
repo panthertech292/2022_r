@@ -9,11 +9,14 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.*;
 import frc.robot.commands.Auto.*;
 //Subsystems
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.PickupSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
+
 
 
 
@@ -31,6 +34,7 @@ public class RobotContainer {
   // Subsystems
   private final DriveSubsystem s_DriveSubsystem = new DriveSubsystem();
   private final PickupSubsystem s_PickupSubsystem = new PickupSubsystem();
+  private final ShooterSubsystem s_ShooterSubsystem = new ShooterSubsystem();
 
   // Drive Commands
   private final Command z_DriveTeleop = new DriveTeleop(s_DriveSubsystem);
@@ -39,8 +43,12 @@ public class RobotContainer {
   private final Command z_PickupArmUp = new PickupArmUp(s_PickupSubsystem);
   private final Command z_PickupArmDown = new PickupArmDown(s_PickupSubsystem);
 
+  // Shooter Commands
+  private final Command z_RunShooter = new RunShooter(s_ShooterSubsystem, ShooterConstants.kShooterLowSpeed, ShooterConstants.kShooterHighSpeed);
+
   //Auto Commands
   private final Command z_AutoTest = new AutoTest(s_DriveSubsystem);
+  private final Command z_AutoMain = new AutoMain(s_DriveSubsystem, s_PickupSubsystem, s_ShooterSubsystem);
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -76,6 +84,7 @@ public class RobotContainer {
     final JoystickButton o_backButton = new JoystickButton(io_opercontroller, Button.kBack.value);
 
     d_aButton.toggleWhenPressed(z_PickupArmDown);
+    d_bButton.toggleWhenPressed(z_RunShooter);
   }
 
   public static double deadZoneCheck(double rawControllerInput){
@@ -106,6 +115,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return z_AutoTest; 
+    return z_AutoMain; 
   }
 }

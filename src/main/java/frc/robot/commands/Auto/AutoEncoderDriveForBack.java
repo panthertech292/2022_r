@@ -9,8 +9,8 @@ import frc.robot.subsystems.DriveSubsystem;
 
 public class AutoEncoderDriveForBack extends CommandBase {
   private final DriveSubsystem DriveSubsystem;
-  private final double v_encoderDistance;
-  private final double v_autoSpeed;
+  private double v_encoderDistance;
+  private double v_autoSpeed;
   
   /** Creates a new AutoEncoderDriveForBack. */
   public AutoEncoderDriveForBack(DriveSubsystem s_DriveSubsystem, double distance, double speed) {

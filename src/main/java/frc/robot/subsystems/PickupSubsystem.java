@@ -5,23 +5,24 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.PickupConstant;
+import frc.robot.Constants.PickupConstants;
 
+//Motors
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-
+//Senors & Encoders
 import edu.wpi.first.wpilibj.DigitalInput;
 import com.revrobotics.RelativeEncoder;
 
 public class PickupSubsystem extends SubsystemBase {
   /** Creates a new PickupSubsystem. */
-  private final CANSparkMax pickupMotor;
-  private final CANSparkMax pickupMotorArm;
+  private final CANSparkMax PickupMotor;
+  private final CANSparkMax PickupMotorArm;
 
   //Encoders & Switches
   private DigitalInput upArmSwitch;
-  private RelativeEncoder pickupMotorArmEncoder;
+  private RelativeEncoder PickupMotorArmEncoder;
 
   //Variable
   private double v_pickupSpeed;
@@ -29,29 +30,31 @@ public class PickupSubsystem extends SubsystemBase {
 
   public PickupSubsystem() {
     //Motors
-    pickupMotor = new CANSparkMax(PickupConstant.kPickupMotor, MotorType.kBrushless);
-    pickupMotorArm = new CANSparkMax(PickupConstant.kPickupMotorArm, MotorType.kBrushless);
+    PickupMotor = new CANSparkMax(PickupConstants.kPickupMotor, MotorType.kBrushless);
+    PickupMotorArm = new CANSparkMax(PickupConstants.kPickupMotorArm, MotorType.kBrushless);
     
 
     //Encoders & Switches
-    upArmSwitch = new DigitalInput(PickupConstant.kPickupArmUpSwitch);
-    pickupMotorArmEncoder = pickupMotorArm.getEncoder();
+    upArmSwitch = new DigitalInput(PickupConstants.kPickupArmUpSwitch);
+    PickupMotorArmEncoder = PickupMotorArm.getEncoder();
 
   }
+
   //Motors
-  public void ChangePickupMotor(double pickupspeed) {
+  public void setPickupMotorSpeed(double pickupspeed) {
     v_pickupSpeed = pickupspeed;
+    PickupMotor.set(v_pickupSpeed);
   }
-  public void ChangePickupArmMotor(double armpickupspeed){
+  public void setPickupArmMotorSpeed(double armpickupspeed){
     v_pickupSpeedArm = armpickupspeed;
-    
+    PickupMotorArm.set(v_pickupSpeedArm);
   }
   //Encoder & Limit Switches
   public double getArmEncoderVelocity(){ //This is a placeholder function, don't know what Encoder they are using
-    return pickupMotorArmEncoder.getVelocity();
+    return PickupMotorArmEncoder.getVelocity();
   }
   public double getArmEncoderPosition(){
-    return pickupMotorArmEncoder.getPosition();
+    return PickupMotorArmEncoder.getPosition();
   }
   public boolean getArmUpLimitSwitch(){
     return upArmSwitch.get();
@@ -61,12 +64,6 @@ public class PickupSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    //pickupMotorArm.set(v_pickupSpeedArm);
-    //pickupMotorArm.set(v_pickupSpeedArm);
-    //System.out.println(pickupMotorArmEncoder.getVelocity());
-    //System.out.println(pickupMotorArmEncoder.getPosition());
-    
-    
-      
+
   }
 }
