@@ -44,4 +44,14 @@ public final class Constants {
         public static final double kShooterLowSpeed = 0.5; // place holder value
         public static final double kShooterHighSpeed = 0.5; // place holder value
     }
+    public static final class LiftConstants{
+        //Motors
+        public static final int kRotationArmMotor = 21; // place holder value
+        public static final int kLeftArmMotor = 20; //placeholder
+        public static final int kRightArmMotor = 22; //placeholder
+        
+        //Speeds
+        public static final double kArmExtendSpeed = 0.4;
+        public static final double kArmRetractSpeed = -0.4;
+    }
 }

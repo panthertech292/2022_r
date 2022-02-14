@@ -16,6 +16,7 @@ import frc.robot.commands.Auto.*;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.PickupSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.LiftSubsystem;
 
 
 
@@ -35,6 +36,7 @@ public class RobotContainer {
   private final DriveSubsystem s_DriveSubsystem = new DriveSubsystem();
   private final PickupSubsystem s_PickupSubsystem = new PickupSubsystem();
   private final ShooterSubsystem s_ShooterSubsystem = new ShooterSubsystem();
+  private final LiftSubsystem s_LiftSubsystem = new LiftSubsystem();
 
   // Drive Commands
   private final Command z_DriveTeleop = new DriveTeleop(s_DriveSubsystem);
@@ -45,6 +47,11 @@ public class RobotContainer {
 
   // Shooter Commands
   private final Command z_RunShooter = new RunShooter(s_ShooterSubsystem, ShooterConstants.kShooterLowSpeed, ShooterConstants.kShooterHighSpeed);
+
+  //Lift Commands
+  private final Command z_LiftExtend = new LiftExtend(s_LiftSubsystem);
+  private final Command z_LiftRetract = new LiftRetract(s_LiftSubsystem);
+  private final Command z_LiftRotate = new LiftRotate(s_LiftSubsystem);
 
   //Auto Commands
   private final Command z_AutoTest = new AutoTest(s_DriveSubsystem);
@@ -58,6 +65,7 @@ public class RobotContainer {
 
     s_DriveSubsystem.setDefaultCommand(z_DriveTeleop);
     s_PickupSubsystem.setDefaultCommand(z_PickupArmUp);
+    s_LiftSubsystem.setDefaultCommand(z_LiftRotate);
   }
 
   /**
@@ -82,9 +90,16 @@ public class RobotContainer {
     final JoystickButton o_yButton = new JoystickButton(io_opercontroller, Button.kY.value);
     final JoystickButton o_startButton = new JoystickButton(io_opercontroller, Button.kStart.value);
     final JoystickButton o_backButton = new JoystickButton(io_opercontroller, Button.kBack.value);
+    final JoystickButton o_leftBumper = new JoystickButton(io_opercontroller, Button.kLeftBumper.value);
+    final JoystickButton o_rightBumper = new JoystickButton(io_opercontroller, Button.kRightBumper.value);
 
     d_aButton.toggleWhenPressed(z_PickupArmDown);
     d_bButton.toggleWhenPressed(z_RunShooter);
+
+    //Operator Controller Binds
+    o_leftBumper.whileHeld(z_LiftRetract);
+    o_rightBumper.whileHeld(z_LiftExtend);
+    o_aButton.whileHeld(z_RunShooter);
   }
 
   public static double deadZoneCheck(double rawControllerInput){
@@ -106,6 +121,9 @@ public class RobotContainer {
   }
   public static double getRightSpeedX() {
     return deadZoneCheck(io_drivercontroller.getRightX());
+  }
+  public static double getOperRightSpeedY(){
+    return deadZoneCheck(io_opercontroller.getRightY());
   }
 
   /**
