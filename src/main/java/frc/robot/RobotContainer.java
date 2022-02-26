@@ -93,9 +93,9 @@ public class RobotContainer {
     final JoystickButton o_leftBumper = new JoystickButton(io_opercontroller, Button.kLeftBumper.value);
     final JoystickButton o_rightBumper = new JoystickButton(io_opercontroller, Button.kRightBumper.value);
 
+    //Driver Controller Binds
     d_aButton.toggleWhenPressed(z_PickupArmDown);
-    d_bButton.toggleWhenPressed(z_RunShooter);
-
+    
     //Operator Controller Binds
     o_leftBumper.whileHeld(z_LiftRetract);
     o_rightBumper.whileHeld(z_LiftExtend);
@@ -110,21 +110,22 @@ public class RobotContainer {
       return 0;
     }
   }
-  public static double getLeftSpeed() {
+  public static double getDriverLeftSpeed(){
     return deadZoneCheck(io_drivercontroller.getLeftY());
   }
-  public static double getRightSpeed() {
+  public static double getDriverRightSpeed() {
     return deadZoneCheck(io_drivercontroller.getRightY());
   }
-  public static double getLeftSpeedX() {
+  public static double getDriverLeftSpeedX(){
     return deadZoneCheck(io_drivercontroller.getLeftX());
   }
-  public static double getRightSpeedX() {
+  public static double getDriverRightSpeedX(){
     return deadZoneCheck(io_drivercontroller.getRightX());
   }
   public static double getOperRightSpeedY(){
     return deadZoneCheck(io_opercontroller.getRightY());
   }
+
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
