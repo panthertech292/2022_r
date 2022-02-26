@@ -11,6 +11,7 @@ import frc.robot.Constants.LiftConstants;
 //Motors
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.CANSparkMax.IdleMode;
 
 //Sensors & Encoders
 //import com.revrobotics.RelativeEncoder;
@@ -32,6 +33,16 @@ public class LiftSubsystem extends SubsystemBase {
     LeftArmMotor = new CANSparkMax(LiftConstants.kLeftArmMotor, MotorType.kBrushless);
     RightArmMotor = new CANSparkMax(LiftConstants.kRightArmMotor, MotorType.kBrushless);
 
+    RotationArmMotor.restoreFactoryDefaults();
+    LeftArmMotor.restoreFactoryDefaults();
+    RightArmMotor.restoreFactoryDefaults();
+
+    RotationArmMotor.setIdleMode(IdleMode.kBrake);
+    LeftArmMotor.setIdleMode(IdleMode.kBrake);
+    RightArmMotor.setIdleMode(IdleMode.kBrake);
+
+    LeftArmMotor.setInverted(true);
+    RightArmMotor.setInverted(true);
   }
   public void setRotationArmMotor(double rotationspeed){
     v_rotationSpeed = rotationspeed;

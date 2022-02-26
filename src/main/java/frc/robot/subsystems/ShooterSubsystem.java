@@ -13,6 +13,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 //Senors & Encoders
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.CANSparkMax.IdleMode;
 
 public class ShooterSubsystem extends SubsystemBase {
   //Motors
@@ -32,6 +33,10 @@ public class ShooterSubsystem extends SubsystemBase {
     //Motors
     ShooterMotorLow = new CANSparkMax(ShooterConstants.kShooterMotorLow, MotorType.kBrushless);
     ShooterMotorHigh = new CANSparkMax(ShooterConstants.kShooterMotorHigh, MotorType.kBrushless);
+    ShooterMotorLow.restoreFactoryDefaults();
+    ShooterMotorHigh.restoreFactoryDefaults();
+    ShooterMotorLow.setIdleMode(IdleMode.kCoast);
+    ShooterMotorHigh.setIdleMode(IdleMode.kCoast);
 
     //Sensors & Encoders
     ShooterMotorLowEncoder = ShooterMotorLow.getEncoder();

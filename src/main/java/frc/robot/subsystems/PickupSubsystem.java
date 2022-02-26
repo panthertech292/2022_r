@@ -10,6 +10,7 @@ import frc.robot.Constants.PickupConstants;
 //Motors
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.CANSparkMax.IdleMode;
 
 //Senors & Encoders
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -17,7 +18,8 @@ import com.revrobotics.RelativeEncoder;
 
 public class PickupSubsystem extends SubsystemBase {
   /** Creates a new PickupSubsystem. */
-  private final CANSparkMax PickupMotor;
+  private final CANSparkMax PickupMotorLow;
+  private final CANSparkMax PickupMotorHigh;
   private final CANSparkMax PickupMotorArm;
 
   //Encoders & Switches
@@ -30,20 +32,27 @@ public class PickupSubsystem extends SubsystemBase {
 
   public PickupSubsystem() {
     //Motors
-    PickupMotor = new CANSparkMax(PickupConstants.kPickupMotor, MotorType.kBrushless);
-    PickupMotorArm = new CANSparkMax(PickupConstants.kPickupMotorArm, MotorType.kBrushless);
-    
+    PickupMotorLow = new CANSparkMax(PickupConstants.kPickupMotorLow, MotorType.kBrushless);
+    PickupMotorHigh = new CANSparkMax(PickupConstants.kPickupMotorHigh, MotorType.kBrushless);
+    PickupMotorArm = new CANSparkMax(PickupConstants.kPickupMotorArm, MotorType.kBrushed);
+    PickupMotorLow.restoreFactoryDefaults();
+    PickupMotorHigh.restoreFactoryDefaults();
+    PickupMotorArm.restoreFactoryDefaults();
+    PickupMotorLow.setIdleMode(IdleMode.kCoast);
+    PickupMotorHigh.setIdleMode(IdleMode.kCoast);
+    PickupMotorArm.setIdleMode(IdleMode.kBrake);
+
 
     //Encoders & Switches
     upArmSwitch = new DigitalInput(PickupConstants.kPickupArmUpSwitch);
-    PickupMotorArmEncoder = PickupMotorArm.getEncoder();
-
+    //PickupMotorArmEncoder = PickupMotorArm.getEncoder();
   }
 
   //Motors
   public void setPickupMotorSpeed(double pickupspeed) {
     v_pickupSpeed = pickupspeed;
-    PickupMotor.set(v_pickupSpeed);
+    PickupMotorLow.set(v_pickupSpeed);
+    PickupMotorHigh.set(v_pickupSpeed);
   }
   public void setPickupArmMotorSpeed(double armpickupspeed){
     v_pickupSpeedArm = armpickupspeed;
@@ -59,7 +68,6 @@ public class PickupSubsystem extends SubsystemBase {
   public boolean getArmUpLimitSwitch(){
     return upArmSwitch.get();
   }
-
 
   @Override
   public void periodic() {

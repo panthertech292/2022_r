@@ -27,20 +27,6 @@ public class LiftRotate extends CommandBase {
   @Override
   public void execute() {
     LiftSubsystem.setRotationArmMotor(RobotContainer.getOperRightSpeedY());
-
-    //This code is deprecated, but kept in case we need it.
-    /*if (LiftSubsystem.getRotationArmRPM() < 80 && LiftSubsystem.getRotationArmRPM() > -80){
-      //Run with more power because we are slow
-      LiftSubsystem.setRotationArmMotor(RobotContainer.getOperRightSpeedY());
-      System.out.println("Fast running @" + RobotContainer.getOperRightSpeedY());
-    }
-    else{
-      //Run slower with less power
-      LiftSubsystem.setRotationArmMotor(RobotContainer.getOperRightSpeedY()*0.1);
-      System.out.println("Slow running @" + RobotContainer.getOperRightSpeedY()*0.1);
-    }
-    */
-
   }
 
   // Called once the command ends or is interrupted.

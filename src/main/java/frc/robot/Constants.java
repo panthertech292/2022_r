@@ -27,7 +27,8 @@ public final class Constants {
     }
     public static final class PickupConstants{
         //Motors
-        public static final int kPickupMotor = 9; // place holder value
+        public static final int kPickupMotorLow = 9; // place holder value
+        public static final int kPickupMotorHigh = 99; //place holder value
         public static final int kPickupMotorArm = 43; // place holder value //3 for test bot
         
         //Encoders & Switches
@@ -53,5 +54,10 @@ public final class Constants {
         //Speeds
         public static final double kArmExtendSpeed = 0.4;
         public static final double kArmRetractSpeed = -0.4;
+    }
+    public static final class BeltConstants{
+        //Motors
+        public static final int kFrontBeltMotor = 50; //placeholder
+        public static final int kBackBeltMotor = 51;
     }
 }
