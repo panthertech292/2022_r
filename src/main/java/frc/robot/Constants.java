@@ -59,5 +59,11 @@ public final class Constants {
         //Motors
         public static final int kFrontBeltMotor = 20; 
         public static final int kBackBeltMotor = 21;
+        //Sensors
+        public static final int kFrontBeltSensor = 1; //DIO - Place holder
+        public static final int kBackBeltSensor = 2; //DIO - Place holder 
+        //Speeds
+        public static final double kFrontBeltSpeed = 0.5;
+        public static final double kBackBeltSpeed = 0.5;
     }
 }

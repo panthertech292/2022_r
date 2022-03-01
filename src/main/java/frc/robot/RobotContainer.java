@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.Constants.BeltConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.*;
 import frc.robot.commands.Auto.*;
@@ -56,8 +57,9 @@ public class RobotContainer {
   private final Command z_LiftRotate = new LiftRotate(s_LiftSubsystem);
 
   //Belt Commands
+  private final Command z_ReloadBelts = new ReloadBelts(s_BeltSubsystem, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
   private final Command z_RunBelt = new RunBelt(s_BeltSubsystem);
-
+  
   //Auto Commands
   private final Command z_AutoTest = new AutoTest(s_DriveSubsystem);
   private final Command z_AutoMain = new AutoMain(s_DriveSubsystem, s_PickupSubsystem, s_ShooterSubsystem);
@@ -71,6 +73,7 @@ public class RobotContainer {
     s_DriveSubsystem.setDefaultCommand(z_DriveTeleop);
     //s_PickupSubsystem.setDefaultCommand(z_PickupArmUp);
     s_LiftSubsystem.setDefaultCommand(z_LiftRotate);
+    //s_BeltSubsystem.setDefaultCommand(z_ReloadBelts);
   }
 
   /**

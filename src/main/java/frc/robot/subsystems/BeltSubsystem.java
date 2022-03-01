@@ -3,14 +3,16 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.BeltConstants;
 
 //Motors
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.BeltConstants;
+//Sensors
+import edu.wpi.first.wpilibj.DigitalInput;
 
 public class BeltSubsystem extends SubsystemBase {
   //Motors
@@ -20,6 +22,11 @@ public class BeltSubsystem extends SubsystemBase {
   //Variables
   private double v_frontBeltSpeed;
   private double v_backBeltSpeed;
+
+  //Sensors
+  private DigitalInput frontBeltSensor;
+  private DigitalInput backBeltSensor;
+
   /** Creates a new BeltSubsystem. */
   public BeltSubsystem() {
     //Motors
@@ -29,6 +36,10 @@ public class BeltSubsystem extends SubsystemBase {
     BackBeltMotor.restoreFactoryDefaults();
     FrontBeltMotor.setIdleMode(IdleMode.kCoast);
     BackBeltMotor.setIdleMode(IdleMode.kCoast);
+
+    //Sensors
+    frontBeltSensor = new DigitalInput(BeltConstants.kFrontBeltSensor);
+    backBeltSensor = new DigitalInput(BeltConstants.kBackBeltSensor);
   }
   public void setFrontBelts(double frontbeltspeed){
     v_frontBeltSpeed = frontbeltspeed;
@@ -37,6 +48,12 @@ public class BeltSubsystem extends SubsystemBase {
   public void setBackBelts(double backbeltspeed){
     v_backBeltSpeed = backbeltspeed;
     BackBeltMotor.set(v_backBeltSpeed);
+  }
+  public boolean getFrontBeltBallSensor(){
+    return frontBeltSensor.get();
+  }
+  public boolean getBackBeltBallSensor(){
+    return backBeltSensor.get();
   }
 
   @Override
