@@ -27,19 +27,19 @@ public final class Constants {
     }
     public static final class PickupConstants{
         //Motors
-        public static final int kPickupMotorLow = 9; // place holder value
-        public static final int kPickupMotorHigh = 99; //place holder value
-        public static final int kPickupMotorArm = 43; // place holder value //3 for test bot
+        public static final int kPickupMotorLow = 12; // place holder value
+        public static final int kPickupMotorHigh = 11; 
+        public static final int kPickupMotorArm = 10; // place holder value //3 for test bot
         
         //Encoders & Switches
         public static final int kPickupArmUpSwitch = 0; //DIO - place holder value
         //Speeds
-        public static final double kPickupMotorSpeed = 0.52;
+        public static final double kPickupMotorSpeed = 0.62;
     }
     public static final class ShooterConstants{
         //Motors
-        public static final int kShooterMotorLow = 11; // place holder value
-        public static final int kShooterMotorHigh = 12; // place holder value
+        public static final int kShooterMotorLow = 40; 
+        public static final int kShooterMotorHigh = 41; 
 
         //Speeds
         public static final double kShooterLowSpeed = 0.5; // place holder value
@@ -47,9 +47,9 @@ public final class Constants {
     }
     public static final class LiftConstants{
         //Motors
-        public static final int kRotationArmMotor = 21; // place holder value
-        public static final int kLeftArmMotor = 20; //placeholder
-        public static final int kRightArmMotor = 22; //placeholder
+        public static final int kRotationArmMotor = 31; 
+        public static final int kLeftArmMotor = 32; 
+        public static final int kRightArmMotor = 30; 
         
         //Speeds
         public static final double kArmExtendSpeed = 0.4;
@@ -57,7 +57,7 @@ public final class Constants {
     }
     public static final class BeltConstants{
         //Motors
-        public static final int kFrontBeltMotor = 50; //placeholder
-        public static final int kBackBeltMotor = 51;
+        public static final int kFrontBeltMotor = 20; 
+        public static final int kBackBeltMotor = 21;
     }
 }

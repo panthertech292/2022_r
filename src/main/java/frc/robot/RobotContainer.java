@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.*;
 import frc.robot.commands.Auto.*;
+import frc.robot.subsystems.BeltSubsystem;
 //Subsystems
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.PickupSubsystem;
@@ -37,6 +38,7 @@ public class RobotContainer {
   private final PickupSubsystem s_PickupSubsystem = new PickupSubsystem();
   private final ShooterSubsystem s_ShooterSubsystem = new ShooterSubsystem();
   private final LiftSubsystem s_LiftSubsystem = new LiftSubsystem();
+  private final BeltSubsystem s_BeltSubsystem = new BeltSubsystem();
 
   // Drive Commands
   private final Command z_DriveTeleop = new DriveTeleop(s_DriveSubsystem);
@@ -53,6 +55,9 @@ public class RobotContainer {
   private final Command z_LiftRetract = new LiftRetract(s_LiftSubsystem);
   private final Command z_LiftRotate = new LiftRotate(s_LiftSubsystem);
 
+  //Belt Commands
+  private final Command z_RunBelt = new RunBelt(s_BeltSubsystem);
+
   //Auto Commands
   private final Command z_AutoTest = new AutoTest(s_DriveSubsystem);
   private final Command z_AutoMain = new AutoMain(s_DriveSubsystem, s_PickupSubsystem, s_ShooterSubsystem);
@@ -64,7 +69,7 @@ public class RobotContainer {
     configureButtonBindings();
 
     s_DriveSubsystem.setDefaultCommand(z_DriveTeleop);
-    s_PickupSubsystem.setDefaultCommand(z_PickupArmUp);
+    //s_PickupSubsystem.setDefaultCommand(z_PickupArmUp);
     s_LiftSubsystem.setDefaultCommand(z_LiftRotate);
   }
 
@@ -100,6 +105,7 @@ public class RobotContainer {
     o_leftBumper.whileHeld(z_LiftRetract);
     o_rightBumper.whileHeld(z_LiftExtend);
     o_aButton.whileHeld(z_RunShooter);
+    o_startButton.whileHeld(z_RunBelt);
   }
 
   public static double deadZoneCheck(double rawControllerInput){

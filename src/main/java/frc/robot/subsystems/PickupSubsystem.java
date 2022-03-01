@@ -41,6 +41,7 @@ public class PickupSubsystem extends SubsystemBase {
     PickupMotorLow.setIdleMode(IdleMode.kCoast);
     PickupMotorHigh.setIdleMode(IdleMode.kCoast);
     PickupMotorArm.setIdleMode(IdleMode.kBrake);
+    PickupMotorLow.setInverted(true);
 
 
     //Encoders & Switches

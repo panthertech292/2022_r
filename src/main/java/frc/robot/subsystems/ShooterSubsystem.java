@@ -37,6 +37,8 @@ public class ShooterSubsystem extends SubsystemBase {
     ShooterMotorHigh.restoreFactoryDefaults();
     ShooterMotorLow.setIdleMode(IdleMode.kCoast);
     ShooterMotorHigh.setIdleMode(IdleMode.kCoast);
+    ShooterMotorLow.setInverted(true);
+    ShooterMotorHigh.setInverted(true);
 
     //Sensors & Encoders
     ShooterMotorLowEncoder = ShooterMotorLow.getEncoder();
@@ -50,7 +52,7 @@ public class ShooterSubsystem extends SubsystemBase {
   }
   public void setShooterMotorHighSpeed(double highshooterspeed){
     v_highShooterSpeed = highshooterspeed;
-    ShooterMotorLow.set(v_highShooterSpeed);
+    ShooterMotorHigh.set(v_highShooterSpeed);
   }
   //Senors & Encoders - Might need to create functions for position? Don't think I wil need them though.
   public double getShooterMotorLowEncoderVelocity(){
