@@ -23,8 +23,8 @@ public class RunBelt extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    BeltSubsystem.setFrontBelts(.75);
-    BeltSubsystem.setBackBelts(-.75);
+    BeltSubsystem.setFrontBelts(.40);
+    BeltSubsystem.setBackBelts(-.40);
   }
 
   // Called once the command ends or is interrupted.

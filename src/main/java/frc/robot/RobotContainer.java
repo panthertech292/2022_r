@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.BeltConstants;
+import frc.robot.Constants.PickupConstants;
 import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.*;
 import frc.robot.commands.Auto.*;
@@ -45,8 +46,9 @@ public class RobotContainer {
   private final Command z_DriveTeleop = new DriveTeleop(s_DriveSubsystem);
 
   // Pickup Commands
-  private final Command z_PickupArmUp = new PickupArmUp(s_PickupSubsystem);
-  private final Command z_PickupArmDown = new PickupArmDown(s_PickupSubsystem);
+  private final Command z_PickupArmUp = new PickupArmUp(s_PickupSubsystem, PickupConstants.kPickupArmSpeedUp);
+  private final Command z_PickupArmDown = new PickupArmDown(s_PickupSubsystem, PickupConstants.kPickupArmSpeedDown);
+  private final Command z_PickUpArmDownBelts = new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, PickupConstants.kPickupArmSpeedDown, BeltConstants.kFrontBeltSpeed);
 
   // Shooter Commands
   private final Command z_RunShooter = new RunShooter(s_ShooterSubsystem, ShooterConstants.kShooterLowSpeed, ShooterConstants.kShooterHighSpeed);
@@ -71,7 +73,7 @@ public class RobotContainer {
     configureButtonBindings();
 
     s_DriveSubsystem.setDefaultCommand(z_DriveTeleop);
-    //s_PickupSubsystem.setDefaultCommand(z_PickupArmUp);
+    s_PickupSubsystem.setDefaultCommand(z_PickupArmUp);
     s_LiftSubsystem.setDefaultCommand(z_LiftRotate);
     //s_BeltSubsystem.setDefaultCommand(z_ReloadBelts);
   }
@@ -102,7 +104,7 @@ public class RobotContainer {
     final JoystickButton o_rightBumper = new JoystickButton(io_opercontroller, Button.kRightBumper.value);
 
     //Driver Controller Binds
-    d_aButton.toggleWhenPressed(z_PickupArmDown);
+    d_aButton.toggleWhenPressed(z_PickUpArmDownBelts);
     
     //Operator Controller Binds
     o_leftBumper.whileHeld(z_LiftRetract);

@@ -28,7 +28,7 @@ public class AutoMain extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
     new AutoEncoderDriveForBack(s_DriveSubsystem, 5, .4), //Place holder values, maybe should be constant? Not sure
-    new PickupArmDown(s_PickupSubsystem).withTimeout(5), //Added with timeout, need to test this
+    //new PickupArmDown(s_PickupSubsystem).withTimeout(5), //Added with timeout, need to test this
     //Pickup should go backup after this since up is the default command
     new AutoEncoderDriveForBack(s_DriveSubsystem, 5, 4), //Place holder value
     new RunShooter(s_ShooterSubsystem, .5, .5) //Could make this a constant, not sure if needed since this is in auto

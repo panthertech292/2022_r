@@ -10,9 +10,11 @@ import frc.robot.subsystems.PickupSubsystem;
 
 public class PickupArmDown extends CommandBase {
   private final PickupSubsystem PickupSubsystem;
+  private double v_pickupSpeedArmDown;
   /** Creates a new PickupArmUp. */
-  public PickupArmDown(PickupSubsystem s_PickupSubsystem) {
+  public PickupArmDown(PickupSubsystem s_PickupSubsystem, double downSpeed) {
     PickupSubsystem = s_PickupSubsystem;
+    v_pickupSpeedArmDown = downSpeed;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(s_PickupSubsystem);
   }
@@ -28,7 +30,9 @@ public class PickupArmDown extends CommandBase {
   @Override
   public void execute() {
     PickupSubsystem.setPickupMotorSpeed(PickupConstants.kPickupMotorSpeed);
-    PickupSubsystem.setPickupArmMotorSpeed(.30);
+    if (PickupSubsystem.getArmDownLimitSwitch() == false){
+      PickupSubsystem.setPickupArmMotorSpeed(v_pickupSpeedArmDown);
+    } 
   }
 
   // Called once the command ends or is interrupted.

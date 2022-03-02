@@ -32,7 +32,10 @@ public final class Constants {
         
         //Encoders & Switches
         public static final int kPickupArmUpSwitch = 0; //DIO - place holder value
+        public static final int kPickupArmDownSwitch = 1; //DIO
         //Speeds
+        public static final double kPickupArmSpeedUp = -0.5;
+        public static final double kPickupArmSpeedDown = 0.65; 
         public static final double kPickupMotorSpeed = 0.62;
     }
     public static final class ShooterConstants{
@@ -41,8 +44,8 @@ public final class Constants {
         public static final int kShooterMotorHigh = 41; 
 
         //Speeds
-        public static final double kShooterLowSpeed = 0.5; // place holder value
-        public static final double kShooterHighSpeed = 0.5; // place holder value
+        public static final double kShooterLowSpeed = 0.15; // place holder value
+        public static final double kShooterHighSpeed = 0.15; // place holder value
     }
     public static final class LiftConstants{
         //Motors
@@ -59,10 +62,10 @@ public final class Constants {
         public static final int kFrontBeltMotor = 20; 
         public static final int kBackBeltMotor = 21;
         //Sensors
-        public static final int kFrontBeltSensor = 1; //DIO - Place holder
-        public static final int kBackBeltSensor = 2; //DIO - Place holder 
+        public static final int kFrontBeltSensor = 2; //DIO - Place holder
+        public static final int kBackBeltSensor = 3; //DIO - Place holder 
         //Speeds
-        public static final double kFrontBeltSpeed = 0.5;
-        public static final double kBackBeltSpeed = 0.5;
+        public static final double kFrontBeltSpeed = 0.25;
+        public static final double kBackBeltSpeed = 0.25;
     }
 }

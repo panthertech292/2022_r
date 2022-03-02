@@ -14,7 +14,6 @@ import com.revrobotics.CANSparkMax.IdleMode;
 
 //Senors & Encoders
 import edu.wpi.first.wpilibj.DigitalInput;
-import com.revrobotics.RelativeEncoder;
 
 public class PickupSubsystem extends SubsystemBase {
   /** Creates a new PickupSubsystem. */
@@ -23,7 +22,7 @@ public class PickupSubsystem extends SubsystemBase {
 
   //Encoders & Switches
   private DigitalInput upArmSwitch;
-  private RelativeEncoder PickupMotorArmEncoder;
+  private DigitalInput downArmSwitch;
 
   //Variable
   private double v_pickupSpeed;
@@ -43,6 +42,7 @@ public class PickupSubsystem extends SubsystemBase {
 
     //Encoders & Switches
     upArmSwitch = new DigitalInput(PickupConstants.kPickupArmUpSwitch);
+    downArmSwitch = new DigitalInput(PickupConstants.kPickupArmDownSwitch);
     //PickupMotorArmEncoder = PickupMotorArm.getEncoder();
   }
 
@@ -56,19 +56,17 @@ public class PickupSubsystem extends SubsystemBase {
     PickupMotorArm.set(v_pickupSpeedArm);
   }
   //Encoder & Limit Switches
-  public double getArmEncoderVelocity(){ //This is a placeholder function, don't know what Encoder they are using
-    return PickupMotorArmEncoder.getVelocity();
-  }
-  public double getArmEncoderPosition(){
-    return PickupMotorArmEncoder.getPosition();
-  }
   public boolean getArmUpLimitSwitch(){
     return upArmSwitch.get();
+  }
+  public boolean getArmDownLimitSwitch(){
+    return downArmSwitch.get();
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-
+    //System.out.println("Up switch reads: " + getArmUpLimitSwitch());
+    //System.out.println("Down switch reads: " + getArmDownLimitSwitch());
   }
 }
