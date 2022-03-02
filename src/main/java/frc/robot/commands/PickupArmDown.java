@@ -28,6 +28,7 @@ public class PickupArmDown extends CommandBase {
   @Override
   public void execute() {
     PickupSubsystem.setPickupMotorSpeed(PickupConstants.kPickupMotorSpeed);
+    PickupSubsystem.setPickupArmMotorSpeed(.30);
   }
 
   // Called once the command ends or is interrupted.

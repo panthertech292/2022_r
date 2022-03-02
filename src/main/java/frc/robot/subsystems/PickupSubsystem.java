@@ -18,8 +18,7 @@ import com.revrobotics.RelativeEncoder;
 
 public class PickupSubsystem extends SubsystemBase {
   /** Creates a new PickupSubsystem. */
-  private final CANSparkMax PickupMotorLow;
-  private final CANSparkMax PickupMotorHigh;
+  private final CANSparkMax PickupMotor;
   private final CANSparkMax PickupMotorArm;
 
   //Encoders & Switches
@@ -32,16 +31,14 @@ public class PickupSubsystem extends SubsystemBase {
 
   public PickupSubsystem() {
     //Motors
-    PickupMotorLow = new CANSparkMax(PickupConstants.kPickupMotorLow, MotorType.kBrushless);
-    PickupMotorHigh = new CANSparkMax(PickupConstants.kPickupMotorHigh, MotorType.kBrushless);
+    PickupMotor = new CANSparkMax(PickupConstants.kPickupMotor, MotorType.kBrushless);
     PickupMotorArm = new CANSparkMax(PickupConstants.kPickupMotorArm, MotorType.kBrushed);
-    PickupMotorLow.restoreFactoryDefaults();
-    PickupMotorHigh.restoreFactoryDefaults();
+    PickupMotor.restoreFactoryDefaults();
     PickupMotorArm.restoreFactoryDefaults();
-    PickupMotorLow.setIdleMode(IdleMode.kCoast);
-    PickupMotorHigh.setIdleMode(IdleMode.kCoast);
+    PickupMotor.setIdleMode(IdleMode.kCoast);
     PickupMotorArm.setIdleMode(IdleMode.kBrake);
-    PickupMotorLow.setInverted(true);
+    PickupMotor.setInverted(true);
+    PickupMotorArm.setInverted(true);
 
 
     //Encoders & Switches
@@ -52,8 +49,7 @@ public class PickupSubsystem extends SubsystemBase {
   //Motors
   public void setPickupMotorSpeed(double pickupspeed) {
     v_pickupSpeed = pickupspeed;
-    PickupMotorLow.set(v_pickupSpeed);
-    PickupMotorHigh.set(v_pickupSpeed);
+    PickupMotor.set(v_pickupSpeed);
   }
   public void setPickupArmMotorSpeed(double armpickupspeed){
     v_pickupSpeedArm = armpickupspeed;

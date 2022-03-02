@@ -32,8 +32,10 @@ public class ReloadBelts extends CommandBase {
   public void execute() {
     //This could maybe me running all the time? Not sure need to consult with team.
     if (BeltSubsystem.getFrontBeltBallSensor() == true){
-    BeltSubsystem.setFrontBelts(v_frontBeltSpeed);
-    BeltSubsystem.setBackBelts(v_backBeltSpeed);
+      while (BeltSubsystem.getBackBeltBallSensor() == false){
+        BeltSubsystem.setFrontBelts(v_frontBeltSpeed);
+        BeltSubsystem.setBackBelts(v_backBeltSpeed);
+      }
     }
   }
 

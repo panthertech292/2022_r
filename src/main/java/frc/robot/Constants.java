@@ -16,7 +16,7 @@ public final class Constants {
     //Controller Mapping
     static final int kDriverController = 0; // USB
     static final int kOperController = 1; // USB
-    static final double kControllerDeadZone = 0.18;
+    static final double kControllerDeadZone = 0.19;
 
     public static final class DriveConstants {
         //Motor Mapping
@@ -27,8 +27,7 @@ public final class Constants {
     }
     public static final class PickupConstants{
         //Motors
-        public static final int kPickupMotorLow = 12; // place holder value
-        public static final int kPickupMotorHigh = 11; 
+        public static final int kPickupMotor = 12;
         public static final int kPickupMotorArm = 10; // place holder value //3 for test bot
         
         //Encoders & Switches
