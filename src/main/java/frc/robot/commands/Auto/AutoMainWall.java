@@ -19,13 +19,13 @@ import frc.robot.subsystems.ShooterSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoMain extends SequentialCommandGroup {
+public class AutoMainWall extends SequentialCommandGroup {
   private final DriveSubsystem DriveSubsystem;
   private final PickupSubsystem PickupSubsystem;
   private final ShooterSubsystem ShooterSubsystem;
   private final BeltSubsystem BeltSubsystem;
   /** Creates a new AutoMain. */
-  public AutoMain(DriveSubsystem s_DriveSubsystem, PickupSubsystem s_PickupSubsystem, ShooterSubsystem s_ShooterSubsystem, BeltSubsystem s_BeltSubsystem) {
+  public AutoMainWall(DriveSubsystem s_DriveSubsystem, PickupSubsystem s_PickupSubsystem, ShooterSubsystem s_ShooterSubsystem, BeltSubsystem s_BeltSubsystem) {
     DriveSubsystem = s_DriveSubsystem;
     PickupSubsystem = s_PickupSubsystem;
     ShooterSubsystem = s_ShooterSubsystem;
@@ -39,8 +39,8 @@ public class AutoMain extends SequentialCommandGroup {
     new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, PickupConstants.kPickupArmSpeedDown, BeltConstants.kFrontBeltSpeed).withTimeout(0.5), //Put the arm down
     new DrivePickup(s_DriveSubsystem, s_PickupSubsystem, s_BeltSubsystem), //Drive with pickup down to get ball
     new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, 0.30, 0.30, 1700, BeltConstants.kFrontBeltSpeed, -BeltConstants.kBackBeltSpeed).withTimeout(3), //Run the shooter
-    new PickupArmUp(s_PickupSubsystem, PickupConstants.kPickupArmSpeedUp).withTimeout(2), //Raise arm
-    new AutoEncoderDriveForBack(s_DriveSubsystem, 25, .4) //Drive back to get off line
+    new PickupArmUp(s_PickupSubsystem, PickupConstants.kPickupArmSpeedUp).withTimeout(2) //Raise arm
+    //new AutoEncoderDriveForBack(s_DriveSubsystem, 25, .4) //Drive back to get off line
     );
   }
 }

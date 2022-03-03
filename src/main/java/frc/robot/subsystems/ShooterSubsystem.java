@@ -18,8 +18,6 @@ import com.revrobotics.CANSparkMax.IdleMode;
 
 //Senors & Encoders
 import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkMaxPIDController;
-
 
 public class ShooterSubsystem extends SubsystemBase {
   //Motors
@@ -33,11 +31,6 @@ public class ShooterSubsystem extends SubsystemBase {
   //Network Tables
   private NetworkTableEntry v_networkShooterSpeed1;
   private NetworkTableEntry v_networkShooterSpeed2;
-
-  //PIDS
-  //private SparkMaxPIDController ShooterLowPID;
-  //private SparkMaxPIDController ShooterHighPID;
-  //private double v_lowP, v_lowI, v_lowD, v_lowFF, v_lowTargetRPM;
 
   //Variables
   private double v_lowShooterSpeed;
@@ -54,6 +47,8 @@ public class ShooterSubsystem extends SubsystemBase {
     ShooterMotorHigh.setIdleMode(IdleMode.kCoast);
     ShooterMotorLow.setInverted(true);
     ShooterMotorHigh.setInverted(true);
+    ShooterMotorLow.setSmartCurrentLimit(ShooterConstants.kShooterCurrentLimit);
+    ShooterMotorHigh.setSmartCurrentLimit(ShooterConstants.kShooterCurrentLimit);
 
     //Sensors & Encoders
     ShooterMotorLowEncoder = ShooterMotorLow.getEncoder();
@@ -62,17 +57,6 @@ public class ShooterSubsystem extends SubsystemBase {
     ShuffleboardTab MainTab = Shuffleboard.getTab("Main Tab");
     v_networkShooterSpeed1 = MainTab.add("Shooter Low Speed", 0).getEntry();
     v_networkShooterSpeed2 = MainTab.add("Shooter High Speed", 0).getEntry();
-
-    /*
-    //PIDS
-    ShooterLowPID = ShooterMotorLow.getPIDController();
-    ShooterHighPID = ShooterMotorHigh.getPIDController();
-    v_lowP = 0; 
-    v_lowI = 0;
-    v_lowD = 0;
-    v_lowFF = 0;
-    v_lowTargetRPM = 0;
-    */
   }
 
   //Motors
@@ -91,24 +75,6 @@ public class ShooterSubsystem extends SubsystemBase {
   public double getShooterMotorHighEncoderVelocity(){
     return ShooterMotorHighEncoder.getVelocity();
   }
-  //PIDS
-  /*
-  public void setShooterLowPID(double lowP, double lowI, double lowD, double lowFF, double lowtargetRPM){
-    v_lowP = lowP;
-    v_lowI = lowI;
-    v_lowD = lowD;
-    v_lowFF = lowFF;
-    v_lowTargetRPM = lowtargetRPM;
-    // set PID coefficients
-    ShooterLowPID.setP(v_lowP);
-    ShooterLowPID.setI(v_lowI);
-    ShooterLowPID.setD(v_lowD);
-    ShooterLowPID.setIZone(0);
-    ShooterLowPID.setFF(v_lowFF);
-    ShooterLowPID.setOutputRange(-1, 1);
-    ShooterLowPID.setReference(v_lowTargetRPM, CANSparkMax.ControlType.kVelocity);
-  }
-  */
   public double getShuffleboardLow(){
     return v_networkShooterSpeed1.getDouble(0.0);
   }
@@ -118,9 +84,9 @@ public class ShooterSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    // This method will be called once per scheduler run
     SmartDashboard.putNumber("Motor RPM LOW", getShooterMotorLowEncoderVelocity());
     SmartDashboard.putNumber("Motor RPM HIGH", getShooterMotorHighEncoderVelocity());
-    // This method will be called once per scheduler run
     ;//System.out.println(getShooterMotorHighEncoderVelocity());
   }
 }

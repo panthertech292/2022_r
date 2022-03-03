@@ -18,20 +18,23 @@ public final class Constants {
     static final int kOperController = 1; // USB
     static final double kControllerDeadZone = 0.19;
 
+
     public static final class DriveConstants {
         //Motor Mapping
         public static final int kFrontLeftMotor = 1;
         public static final int kFrontRightMotor = 2;
         public static final int kBackLeftMotor = 3;
         public static final int kBackRightMotor = 4;
+        public static final int kDriveCurrentLimit = 60;
     }
     public static final class PickupConstants{
         //Motors
         public static final int kPickupMotor = 12;
-        public static final int kPickupMotorArm = 10; // place holder value //3 for test bot
-        
+        public static final int kPickupMotorArm = 10; 
+        public static final int kPickupCurrentLimit = 60;
+        public static final int kPickup550CurrentLimit = 30;
         //Encoders & Switches
-        public static final int kPickupArmUpSwitch = 0; //DIO - place holder value
+        public static final int kPickupArmUpSwitch = 0; //DIO
         public static final int kPickupArmDownSwitch = 1; //DIO
         //Speeds
         public static final double kPickupArmSpeedUp = -0.5;
@@ -42,7 +45,7 @@ public final class Constants {
         //Motors
         public static final int kShooterMotorLow = 40; 
         public static final int kShooterMotorHigh = 41; 
-
+        public static final int kShooterCurrentLimit = 60;
         //Speeds
         public static final double kShooterLowSpeed = 0.15; // place holder value
         public static final double kShooterHighSpeed = 0.15; // place holder value
@@ -52,6 +55,7 @@ public final class Constants {
         public static final int kRotationArmMotor = 31; 
         public static final int kLeftArmMotor = 32; 
         public static final int kRightArmMotor = 30; 
+        public static final int kLiftCurrentLimit = 60;
         
         //Speeds
         public static final double kArmExtendSpeed = 0.4;
@@ -61,6 +65,7 @@ public final class Constants {
         //Motors
         public static final int kFrontBeltMotor = 20; 
         public static final int kBackBeltMotor = 21;
+        public static final int kBeltCurrentLimit = 60;
         //Sensors
         public static final int kFrontBeltSensor = 2; //DIO - Place holder
         public static final int kBackBeltSensor = 3; //DIO - Place holder 

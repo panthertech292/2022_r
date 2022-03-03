@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj.XboxController.Button;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants.BeltConstants;
 import frc.robot.Constants.PickupConstants;
@@ -64,9 +66,12 @@ public class RobotContainer {
   private final Command z_RunBelt = new RunBelt(s_BeltSubsystem);
   
   //Auto Commands
-  private final Command z_AutoTest = new AutoTest(s_DriveSubsystem);
   private final Command z_AutoMain = new AutoMain(s_DriveSubsystem, s_PickupSubsystem, s_ShooterSubsystem, s_BeltSubsystem);
+  private final Command z_AutoMainWall = new AutoMainWall(s_DriveSubsystem, s_PickupSubsystem, s_ShooterSubsystem, s_BeltSubsystem);
+  private final Command z_AutoOffLine = new AutoOffLine(s_DriveSubsystem);
+  private final Command z_AutoDead = new AutoDead();
 
+  SendableChooser<Command> o_AutoChooser = new SendableChooser<>();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -77,6 +82,13 @@ public class RobotContainer {
     s_PickupSubsystem.setDefaultCommand(z_PickupArmUp);
     s_LiftSubsystem.setDefaultCommand(z_LiftRotate);
     //s_BeltSubsystem.setDefaultCommand(z_ReloadBelts);
+    
+    //Auto Command Selector
+    o_AutoChooser.setDefaultOption("Main Auto", z_AutoMain);
+    o_AutoChooser.addOption("Main Auto to Wall", z_AutoMainWall);
+    o_AutoChooser.addOption("Drive off line Auto", z_AutoOffLine);
+    o_AutoChooser.addOption("Auto Dead", z_AutoDead);
+    SmartDashboard.putData(o_AutoChooser);
   }
 
   /**
@@ -147,6 +159,11 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return z_AutoMain; 
+    if (o_AutoChooser != null){
+      return o_AutoChooser.getSelected();
+    }
+    else{
+      return z_AutoMain;
+    }
   }
 }

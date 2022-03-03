@@ -5,7 +5,6 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.RobotContainer;
 import frc.robot.Constants.DriveConstants;
 
 //Motor&Drive
@@ -65,7 +64,14 @@ public class DriveSubsystem extends SubsystemBase {
     FrontRightMotor.setIdleMode(IdleMode.kBrake);
     BackLeftMotor.setIdleMode(IdleMode.kBrake);
     BackRightMotor.setIdleMode(IdleMode.kBrake);
+    //FrontLeftMotor.setInverted(true);
 
+
+
+    FrontLeftMotor.setSmartCurrentLimit(DriveConstants.kDriveCurrentLimit);
+    FrontRightMotor.setSmartCurrentLimit(DriveConstants.kDriveCurrentLimit);
+    BackLeftMotor.setSmartCurrentLimit(DriveConstants.kDriveCurrentLimit);
+    BackRightMotor.setSmartCurrentLimit(DriveConstants.kDriveCurrentLimit);
     LeftSide = new MotorControllerGroup(FrontLeftMotor, BackLeftMotor);
     RightSide = new MotorControllerGroup(FrontRightMotor, BackRightMotor);
     DifDrive = new DifferentialDrive(LeftSide,RightSide);
@@ -114,7 +120,7 @@ public class DriveSubsystem extends SubsystemBase {
   //Telop Drive
   public void differentialArcadeDrive(double leftXspeed, double rightYspeed){
     v_leftXSpeed = leftXspeed;
-    v_rightYSpeed = -rightYspeed;
+    v_rightYSpeed = rightYspeed;
     DifDrive.arcadeDrive(v_leftXSpeed, v_rightYSpeed);
   }
   public void driveTeleopArcade(double driverLeftX, double driverRightY){

@@ -2,19 +2,14 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.Auto;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants.BeltConstants;
-import frc.robot.subsystems.BeltSubsystem;
 
-public class RunBelt extends CommandBase {
-  private final BeltSubsystem BeltSubsystem;
-  /** Creates a new RunBelt. */
-  public RunBelt(BeltSubsystem s_BeltSubsystem) {
-    BeltSubsystem =  s_BeltSubsystem;
+public class AutoDead extends CommandBase {
+  /** Creates a new AutoDead. */
+  public AutoDead() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(s_BeltSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -23,17 +18,11 @@ public class RunBelt extends CommandBase {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    BeltSubsystem.setFrontBelts(BeltConstants.kFrontBeltSpeed);
-    BeltSubsystem.setBackBelts(BeltConstants.kBackBeltSpeed);
-  }
+  public void execute() {}
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    BeltSubsystem.setFrontBelts(0);
-    BeltSubsystem.setBackBelts(0);
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override

@@ -42,7 +42,10 @@ public class LiftSubsystem extends SubsystemBase {
     RightArmMotor.setIdleMode(IdleMode.kBrake);
 
     LeftArmMotor.setInverted(true);
-    
+
+    RotationArmMotor.setSmartCurrentLimit(LiftConstants.kLiftCurrentLimit);
+    LeftArmMotor.setSmartCurrentLimit(LiftConstants.kLiftCurrentLimit);
+    RightArmMotor.setSmartCurrentLimit(LiftConstants.kLiftCurrentLimit);
   }
   public void setRotationArmMotor(double rotationspeed){
     v_rotationSpeed = rotationspeed;

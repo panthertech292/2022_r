@@ -37,6 +37,10 @@ public class ReloadBelts extends CommandBase {
         BeltSubsystem.setBackBelts(v_backBeltSpeed);
       }
     }
+    if (BeltSubsystem.getBackBeltBallSensor() == true){
+      BeltSubsystem.setFrontBelts(0);
+      BeltSubsystem.setBackBelts(0);
+    }
   }
 
   // Called once the command ends or is interrupted.
@@ -49,12 +53,6 @@ public class ReloadBelts extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (BeltSubsystem.getBackBeltBallSensor() == true){
-      return true;
-    }
-    else{
-      return false;
-    }
-    
+    return false;
   }
 }

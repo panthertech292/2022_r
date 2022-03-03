@@ -36,7 +36,9 @@ public class BeltSubsystem extends SubsystemBase {
     BackBeltMotor.restoreFactoryDefaults();
     FrontBeltMotor.setIdleMode(IdleMode.kCoast);
     BackBeltMotor.setIdleMode(IdleMode.kCoast);
-    
+    FrontBeltMotor.setSmartCurrentLimit(BeltConstants.kBeltCurrentLimit);
+    BackBeltMotor.setSmartCurrentLimit(BeltConstants.kBeltCurrentLimit);
+    BackBeltMotor.setInverted(true);
 
     //Sensors
     frontBeltSensor = new DigitalInput(BeltConstants.kFrontBeltSensor);

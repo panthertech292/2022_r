@@ -38,12 +38,12 @@ public class PickupSubsystem extends SubsystemBase {
     PickupMotorArm.setIdleMode(IdleMode.kBrake);
     PickupMotor.setInverted(true);
     PickupMotorArm.setInverted(true);
-
+    PickupMotor.setSmartCurrentLimit(PickupConstants.kPickup550CurrentLimit);
+    PickupMotorArm.setSmartCurrentLimit(PickupConstants.kPickupCurrentLimit);
 
     //Encoders & Switches
     upArmSwitch = new DigitalInput(PickupConstants.kPickupArmUpSwitch);
     downArmSwitch = new DigitalInput(PickupConstants.kPickupArmDownSwitch);
-    //PickupMotorArmEncoder = PickupMotorArm.getEncoder();
   }
 
   //Motors
