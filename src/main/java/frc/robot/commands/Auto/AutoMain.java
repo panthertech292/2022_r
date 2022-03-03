@@ -5,8 +5,13 @@
 package frc.robot.commands.Auto;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.PickupArmDown;
-import frc.robot.commands.RunShooter;
+import frc.robot.Constants.BeltConstants;
+import frc.robot.Constants.PickupConstants;
+import frc.robot.commands.PickupArmDownBelts;
+import frc.robot.commands.PickupArmUp;
+import frc.robot.commands.RunBelt;
+import frc.robot.commands.RunShooterBelt;
+import frc.robot.subsystems.BeltSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.PickupSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -18,20 +23,26 @@ public class AutoMain extends SequentialCommandGroup {
   private final DriveSubsystem DriveSubsystem;
   private final PickupSubsystem PickupSubsystem;
   private final ShooterSubsystem ShooterSubsystem;
+  private final BeltSubsystem BeltSubsystem;
   /** Creates a new AutoMain. */
-  public AutoMain(DriveSubsystem s_DriveSubsystem, PickupSubsystem s_PickupSubsystem, ShooterSubsystem s_ShooterSubsystem) {
+  public AutoMain(DriveSubsystem s_DriveSubsystem, PickupSubsystem s_PickupSubsystem, ShooterSubsystem s_ShooterSubsystem, BeltSubsystem s_BeltSubsystem) {
     DriveSubsystem = s_DriveSubsystem;
     PickupSubsystem = s_PickupSubsystem;
     ShooterSubsystem = s_ShooterSubsystem;
+    BeltSubsystem = s_BeltSubsystem;
 
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-    new AutoEncoderDriveForBack(s_DriveSubsystem, 5, .4), //Place holder values, maybe should be constant? Not sure
-    //new PickupArmDown(s_PickupSubsystem).withTimeout(5), //Added with timeout, need to test this
-    //Pickup should go backup after this since up is the default command
-    new AutoEncoderDriveForBack(s_DriveSubsystem, 5, 4), //Place holder value
-    new RunShooter(s_ShooterSubsystem, .5, .5) //Could make this a constant, not sure if needed since this is in auto
+    new AutoEncoderDriveForBack(s_DriveSubsystem, 20, .4), //Place holder values, maybe should be constant? Not sure
+    new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, 0.29, 0.29, 1660, BeltConstants.kFrontBeltSpeed, -BeltConstants.kBackBeltSpeed).withTimeout(3),
+    //new AutoEncoderDriveForBack(s_DriveSubsystem, 10, .4),
+    new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, PickupConstants.kPickupArmSpeedDown, BeltConstants.kFrontBeltSpeed).withTimeout(0.5),
+    //new RunBelt(s_BeltSubsystem).withTimeout(0.5),
+    new DrivePickup(s_DriveSubsystem, s_PickupSubsystem, s_BeltSubsystem),
+    new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, 0.30, 0.30, 1700, BeltConstants.kFrontBeltSpeed, -BeltConstants.kBackBeltSpeed).withTimeout(3),
+    new PickupArmUp(s_PickupSubsystem, PickupConstants.kPickupArmSpeedUp).withTimeout(2),
+    new AutoEncoderDriveForBack(s_DriveSubsystem, 25, .4)
     );
   }
 }

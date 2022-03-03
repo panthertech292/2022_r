@@ -36,7 +36,7 @@ public final class Constants {
         //Speeds
         public static final double kPickupArmSpeedUp = -0.5;
         public static final double kPickupArmSpeedDown = 0.65; 
-        public static final double kPickupMotorSpeed = 0.62;
+        public static final double kPickupMotorSpeed = 0.72;
     }
     public static final class ShooterConstants{
         //Motors

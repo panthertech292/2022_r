@@ -34,6 +34,7 @@ public class PickupArmUp extends CommandBase {
     else{
       PickupSubsystem.setPickupArmMotorSpeed(0.0);
     }
+    System.out.println("I AM RUNNING!!!!!!!!!!!!!!!!!");
   }
 
   // Called once the command ends or is interrupted.

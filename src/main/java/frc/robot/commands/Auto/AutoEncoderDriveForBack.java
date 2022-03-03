@@ -31,7 +31,7 @@ public class AutoEncoderDriveForBack extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    DriveSubsystem.driveAuto(v_autoSpeed, v_autoSpeed);
+    DriveSubsystem.driveAuto(v_autoSpeed+0.03, v_autoSpeed);
   }
 
   // Called once the command ends or is interrupted.
@@ -39,6 +39,7 @@ public class AutoEncoderDriveForBack extends CommandBase {
   public void end(boolean interrupted) {
     DriveSubsystem.driveAuto(0, 0);
     DriveSubsystem.zeroLeftMotorEncoderPosition();
+    System.out.println("DRIVE DOVE!!!!!!!!!!!!!!!!!!");
   }
 
   // Returns true when the command should end.

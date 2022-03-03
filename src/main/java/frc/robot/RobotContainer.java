@@ -52,6 +52,7 @@ public class RobotContainer {
 
   // Shooter Commands
   private final Command z_RunShooter = new RunShooter(s_ShooterSubsystem, ShooterConstants.kShooterLowSpeed, ShooterConstants.kShooterHighSpeed);
+  private final Command z_RunShooterBelt = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, ShooterConstants.kShooterLowSpeed, ShooterConstants.kShooterHighSpeed, 0, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
 
   //Lift Commands
   private final Command z_LiftExtend = new LiftExtend(s_LiftSubsystem);
@@ -64,7 +65,7 @@ public class RobotContainer {
   
   //Auto Commands
   private final Command z_AutoTest = new AutoTest(s_DriveSubsystem);
-  private final Command z_AutoMain = new AutoMain(s_DriveSubsystem, s_PickupSubsystem, s_ShooterSubsystem);
+  private final Command z_AutoMain = new AutoMain(s_DriveSubsystem, s_PickupSubsystem, s_ShooterSubsystem, s_BeltSubsystem);
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -92,6 +93,7 @@ public class RobotContainer {
     final JoystickButton d_startButton = new JoystickButton(io_drivercontroller, Button.kStart.value);
     final JoystickButton d_backButton = new JoystickButton(io_drivercontroller, Button.kBack.value);
     final JoystickButton d_yButton = new JoystickButton(io_drivercontroller, Button.kY.value);
+    final JoystickButton d_rightBumper = new JoystickButton(io_drivercontroller, Button.kRightBumper.value);
 
     //Operator Controller
     final JoystickButton o_aButton = new JoystickButton(io_opercontroller, Button.kA.value);
@@ -104,7 +106,7 @@ public class RobotContainer {
     final JoystickButton o_rightBumper = new JoystickButton(io_opercontroller, Button.kRightBumper.value);
 
     //Driver Controller Binds
-    d_aButton.toggleWhenPressed(z_PickUpArmDownBelts);
+    d_rightBumper.toggleWhenPressed(z_PickUpArmDownBelts);
     
     //Operator Controller Binds
     o_leftBumper.whileHeld(z_LiftRetract);

@@ -30,6 +30,7 @@ public class PickupArmDownBelts extends CommandBase {
     PickupSubsystem.setPickupArmMotorSpeed(0);
     PickupSubsystem.setPickupMotorSpeed(PickupConstants.kPickupMotorSpeed);
     BeltSubsystem.setFrontBelts(0);
+    BeltSubsystem.setBackBelts(0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -39,6 +40,9 @@ public class PickupArmDownBelts extends CommandBase {
     if (PickupSubsystem.getArmDownLimitSwitch() == false){
       PickupSubsystem.setPickupArmMotorSpeed(v_pickupSpeedArmDown);
     } 
+    else{
+      PickupSubsystem.setPickupArmMotorSpeed(0);
+    }
     BeltSubsystem.setFrontBelts(v_frontBeltSpeed);
   }
 
@@ -48,6 +52,7 @@ public class PickupArmDownBelts extends CommandBase {
     PickupSubsystem.setPickupArmMotorSpeed(0);
     PickupSubsystem.setPickupMotorSpeed(0);
     BeltSubsystem.setFrontBelts(0);
+    BeltSubsystem.setBackBelts(0);
   }
 
   // Returns true when the command should end.

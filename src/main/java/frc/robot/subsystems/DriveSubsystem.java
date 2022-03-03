@@ -75,7 +75,7 @@ public class DriveSubsystem extends SubsystemBase {
 
     //Encoders & Sensors
     FrontLeftMotorEncoder = FrontLeftMotor.getEncoder();
-    //FrontLeftMotorEncoder.setPositionConversionFactor(2.4); //3.168 is math, not sure why so off
+    FrontLeftMotorEncoder.setPositionConversionFactor(2); //3.168 is math, not sure why so off
     FrontRightMotorEncoder = FrontRightMotor.getEncoder();
     //FrontRightMotorEncoder.setPositionConversionFactor(3);
     zeroLeftMotorEncoderPosition();
@@ -126,7 +126,7 @@ public class DriveSubsystem extends SubsystemBase {
   public void driveAuto(double autoLeftSpeed, double autoRightSpeed) {
     v_setPointLeft = autoLeftSpeed;
     v_setPointRight = autoRightSpeed;
-    differentialTankDrive(-v_setPointLeft, -v_setPointRight);
+    differentialTankDrive(v_setPointLeft, v_setPointRight);
   }
   //Shuffleboard Handler
   public boolean isDriveModeArcade(){
@@ -135,5 +135,6 @@ public class DriveSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    //System.out.println(getLeftMotorEncoderPosition());
   }
 }

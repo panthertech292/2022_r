@@ -10,18 +10,11 @@ import frc.robot.subsystems.ShooterSubsystem;
 
 
 
-public class RunShooter extends CommandBase {
+public class RunShooterPID extends CommandBase {
   private final ShooterSubsystem ShooterSubsystem;
-
-  private double v_shooterLowSpeed;
-  private double v_shooterHighSpeed;
   /** Creates a new RunShooter. */
-  public RunShooter(ShooterSubsystem s_ShooterSubsystem, double shooterlowspeed, double shooterhighspeed) {
+  public RunShooterPID(ShooterSubsystem s_ShooterSubsystem, double lowP, double lowI, double lowD, double lowFF, double lowtargetRPM) {
     ShooterSubsystem = s_ShooterSubsystem;
-    v_shooterLowSpeed = shooterlowspeed;
-    v_shooterHighSpeed = shooterhighspeed;
-
-    
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(s_ShooterSubsystem);
   }
@@ -29,16 +22,16 @@ public class RunShooter extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    ShooterSubsystem.setShooterMotorLowSpeed(v_shooterLowSpeed);
-    ShooterSubsystem.setShooterMotorHighSpeed(v_shooterHighSpeed);
+    ShooterSubsystem.setShooterMotorLowSpeed(0);
+    ShooterSubsystem.setShooterMotorHighSpeed(0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     //Need to do IRL testing here. Find the target RPM for the set speeds and make a method(or PID :( ) that makes the shooter run quicker to get to it's target RPM.
-    ShooterSubsystem.setShooterMotorLowSpeed(ShooterSubsystem.getShuffleboardLow());
-    ShooterSubsystem.setShooterMotorHighSpeed(ShooterSubsystem.getShuffleboardHigh());
+    //ShooterSubsystem.setShooterLowPID(lowP, lowI, lowD, lowFF, lowtargetRPM);
+
   }
 
   // Called once the command ends or is interrupted.
