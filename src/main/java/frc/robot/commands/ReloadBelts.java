@@ -11,6 +11,7 @@ public class ReloadBelts extends CommandBase {
   private final BeltSubsystem BeltSubsystem;
   private double v_frontBeltSpeed;
   private double v_backBeltSpeed;
+  private int v_mode;
   /** Creates a new ReloadBelts. */
   public ReloadBelts(BeltSubsystem s_BeltSubsystem, double frontbeltspeed, double backbeltspeed) {
     BeltSubsystem =  s_BeltSubsystem;
@@ -23,6 +24,7 @@ public class ReloadBelts extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    v_mode = 0;
     BeltSubsystem.setFrontBelts(0);
     BeltSubsystem.setBackBelts(0);
   }
@@ -30,9 +32,31 @@ public class ReloadBelts extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //This could maybe me running all the time? Not sure need to consult with team.
-    if (BeltSubsystem.getFrontBeltBallSensor() == true){
-      while (BeltSubsystem.getBackBeltBallSensor() == false){
+    if (v_mode == 0){
+      //Empty
+      BeltSubsystem.setFrontBelts(0);
+      BeltSubsystem.setBackBelts(0);
+      if (BeltSubsystem.getBackBeltBallSensor() == false && BeltSubsystem.getFrontBeltBallSensor() == true){
+        v_mode = 1;
+      }
+
+    }
+    if (v_mode == 1){
+      if (BeltSubsystem.getBackBeltBallSensor() == true){
+        v_mode = 2;
+      }
+      else{
+        BeltSubsystem.setFrontBelts(v_frontBeltSpeed);
+        BeltSubsystem.setBackBelts(v_backBeltSpeed);
+      }
+    }
+    if (v_mode == 2){
+      BeltSubsystem.setFrontBelts(0);
+      BeltSubsystem.setBackBelts(0);
+    }
+    
+    /*if (BeltSubsystem.getFrontBeltBallSensor() == true){
+      if (BeltSubsystem.getBackBeltBallSensor() == false){
         BeltSubsystem.setFrontBelts(v_frontBeltSpeed);
         BeltSubsystem.setBackBelts(v_backBeltSpeed);
       }
@@ -41,6 +65,7 @@ public class ReloadBelts extends CommandBase {
       BeltSubsystem.setFrontBelts(0);
       BeltSubsystem.setBackBelts(0);
     }
+    */
   }
 
   // Called once the command ends or is interrupted.

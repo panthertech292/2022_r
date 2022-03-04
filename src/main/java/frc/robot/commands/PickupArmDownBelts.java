@@ -14,12 +14,14 @@ public class PickupArmDownBelts extends CommandBase {
   private final BeltSubsystem BeltSubsystem;
   private double v_pickupSpeedArmDown;
   private double v_frontBeltSpeed;
+  private double v_backBeltSpeed;
   /** Creates a new PickupArmUp. */
-  public PickupArmDownBelts(PickupSubsystem s_PickupSubsystem, BeltSubsystem s_BeltSubsystem, double downSpeed, double frontbeltspeed) {
+  public PickupArmDownBelts(PickupSubsystem s_PickupSubsystem, BeltSubsystem s_BeltSubsystem, double downSpeed, double frontbeltspeed, double backbeltspeed) {
     PickupSubsystem = s_PickupSubsystem;
     BeltSubsystem = s_BeltSubsystem;
     v_pickupSpeedArmDown = downSpeed;
     v_frontBeltSpeed = frontbeltspeed;
+    v_backBeltSpeed = backbeltspeed;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(s_PickupSubsystem, s_BeltSubsystem);
   }
@@ -37,13 +39,33 @@ public class PickupArmDownBelts extends CommandBase {
   @Override
   public void execute() {
     PickupSubsystem.setPickupMotorSpeed(PickupConstants.kPickupMotorSpeed);
+    if (BeltSubsystem.getBackBeltBallSensor() == false){
+      BeltSubsystem.setBackBelts(v_backBeltSpeed);
+    }
+    if (BeltSubsystem.getBackBeltBallSensor() == true){
+      BeltSubsystem.setBackBelts(0);
+    }
+    if (BeltSubsystem.getBackBeltBallSensor() == false && BeltSubsystem.getFrontBeltBallSensor() == false){
+      BeltSubsystem.setFrontBelts(v_frontBeltSpeed);
+    }
+    if (BeltSubsystem.getBackBeltBallSensor() == false && BeltSubsystem.getFrontBeltBallSensor() == true){
+      BeltSubsystem.setFrontBelts(v_frontBeltSpeed);
+    }
+    if (BeltSubsystem.getBackBeltBallSensor() == true && BeltSubsystem.getFrontBeltBallSensor() == false){
+      BeltSubsystem.setFrontBelts(v_frontBeltSpeed);
+    }
+    if (BeltSubsystem.getFrontBeltBallSensor() == true && BeltSubsystem.getBackBeltBallSensor() == true){
+      BeltSubsystem.setFrontBelts(0);
+    }
+
+
     if (PickupSubsystem.getArmDownLimitSwitch() == false){
       PickupSubsystem.setPickupArmMotorSpeed(v_pickupSpeedArmDown);
     } 
     else{
       PickupSubsystem.setPickupArmMotorSpeed(0);
     }
-    BeltSubsystem.setFrontBelts(v_frontBeltSpeed);
+    
   }
 
   // Called once the command ends or is interrupted.

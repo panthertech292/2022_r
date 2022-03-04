@@ -36,7 +36,7 @@ public class AutoMainWall extends SequentialCommandGroup {
     addCommands(
     new AutoEncoderDriveForBack(s_DriveSubsystem, 20, .4), //Drive to shooting position
     new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, 0.29, 0.29, 1660, BeltConstants.kFrontBeltSpeed, -BeltConstants.kBackBeltSpeed).withTimeout(3), //Run the shooter
-    new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, PickupConstants.kPickupArmSpeedDown, BeltConstants.kFrontBeltSpeed).withTimeout(0.5), //Put the arm down
+    new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, PickupConstants.kPickupArmSpeedDown, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(0.5), //Put the arm down
     new DrivePickup(s_DriveSubsystem, s_PickupSubsystem, s_BeltSubsystem), //Drive with pickup down to get ball
     new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, 0.30, 0.30, 1700, BeltConstants.kFrontBeltSpeed, -BeltConstants.kBackBeltSpeed).withTimeout(3), //Run the shooter
     new PickupArmUp(s_PickupSubsystem, PickupConstants.kPickupArmSpeedUp).withTimeout(2) //Raise arm

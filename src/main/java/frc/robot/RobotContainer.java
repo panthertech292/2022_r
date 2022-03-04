@@ -49,12 +49,16 @@ public class RobotContainer {
 
   // Pickup Commands
   private final Command z_PickupArmUp = new PickupArmUp(s_PickupSubsystem, PickupConstants.kPickupArmSpeedUp);
-  private final Command z_PickupArmDown = new PickupArmDown(s_PickupSubsystem, PickupConstants.kPickupArmSpeedDown);
-  private final Command z_PickUpArmDownBelts = new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, PickupConstants.kPickupArmSpeedDown, BeltConstants.kFrontBeltSpeed);
+  //private final Command z_PickupArmDown = new PickupArmDown(s_PickupSubsystem, PickupConstants.kPickupArmSpeedDown);
+  private final Command z_PickUpArmDownBelts = new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, PickupConstants.kPickupArmSpeedDown, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
 
   // Shooter Commands
-  private final Command z_RunShooter = new RunShooter(s_ShooterSubsystem, ShooterConstants.kShooterLowSpeed, ShooterConstants.kShooterHighSpeed);
-  private final Command z_RunShooterBelt = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, ShooterConstants.kShooterLowSpeed, ShooterConstants.kShooterHighSpeed, 0, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
+  //private final Command z_RunShooter = new RunShooter(s_ShooterSubsystem, ShooterConstants.kShooterLowSpeed, ShooterConstants.kShooterHighSpeed);
+  //private final Command z_RunShooterBelt = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, ShooterConstants.kShooterLowSpeed, ShooterConstants.kShooterHighSpeed, 0, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
+  private final Command z_RunShooterBeltFenderLow = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, 0, 0, 0, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
+  private final Command z_RunShooterBeltTarmacHigh = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, .29, .29, 1660, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
+  private final Command z_RunShooterBeltPostHigh = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, 0, 0, 0, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
+  private final Command z_RunShooterBeltWallHigh = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, 0, 0, 0, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
 
   //Lift Commands
   private final Command z_LiftExtend = new LiftExtend(s_LiftSubsystem);
@@ -64,6 +68,7 @@ public class RobotContainer {
   //Belt Commands
   private final Command z_ReloadBelts = new ReloadBelts(s_BeltSubsystem, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
   private final Command z_RunBelt = new RunBelt(s_BeltSubsystem);
+  private final Command z_RunBeltBackwards = new RunBeltBackwards(s_BeltSubsystem);
   
   //Auto Commands
   private final Command z_AutoMain = new AutoMain(s_DriveSubsystem, s_PickupSubsystem, s_ShooterSubsystem, s_BeltSubsystem);
@@ -81,7 +86,7 @@ public class RobotContainer {
     s_DriveSubsystem.setDefaultCommand(z_DriveTeleop);
     s_PickupSubsystem.setDefaultCommand(z_PickupArmUp);
     s_LiftSubsystem.setDefaultCommand(z_LiftRotate);
-    //s_BeltSubsystem.setDefaultCommand(z_ReloadBelts);
+    s_BeltSubsystem.setDefaultCommand(z_ReloadBelts);
     
     //Auto Command Selector
     o_AutoChooser.setDefaultOption("Main Auto", z_AutoMain);
@@ -99,13 +104,14 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     //Driver Controller
-    final JoystickButton d_aButton = new JoystickButton(io_drivercontroller, Button.kA.value);
-    final JoystickButton d_bButton = new JoystickButton(io_drivercontroller, Button.kB.value);
-    final JoystickButton d_xButton = new JoystickButton(io_drivercontroller, Button.kX.value);
-    final JoystickButton d_startButton = new JoystickButton(io_drivercontroller, Button.kStart.value);
-    final JoystickButton d_backButton = new JoystickButton(io_drivercontroller, Button.kBack.value);
-    final JoystickButton d_yButton = new JoystickButton(io_drivercontroller, Button.kY.value);
+    //final JoystickButton d_aButton = new JoystickButton(io_drivercontroller, Button.kA.value);
+    //final JoystickButton d_bButton = new JoystickButton(io_drivercontroller, Button.kB.value);
+    //final JoystickButton d_xButton = new JoystickButton(io_drivercontroller, Button.kX.value);
+    //final JoystickButton d_startButton = new JoystickButton(io_drivercontroller, Button.kStart.value);
+    //final JoystickButton d_backButton = new JoystickButton(io_drivercontroller, Button.kBack.value);
+    //final JoystickButton d_yButton = new JoystickButton(io_drivercontroller, Button.kY.value);
     final JoystickButton d_rightBumper = new JoystickButton(io_drivercontroller, Button.kRightBumper.value);
+    final JoystickButton d_leftBumper = new JoystickButton(io_drivercontroller, Button.kLeftBumper.value);
 
     //Operator Controller
     final JoystickButton o_aButton = new JoystickButton(io_opercontroller, Button.kA.value);
@@ -119,12 +125,17 @@ public class RobotContainer {
 
     //Driver Controller Binds
     d_rightBumper.toggleWhenPressed(z_PickUpArmDownBelts);
+    d_leftBumper.whileHeld(z_RunBeltBackwards);
     
     //Operator Controller Binds
     o_leftBumper.whileHeld(z_LiftRetract);
     o_rightBumper.whileHeld(z_LiftExtend);
-    o_aButton.whileHeld(z_RunShooter);
     o_startButton.whileHeld(z_RunBelt);
+    o_backButton.whileHeld(z_RunBeltBackwards);
+    o_aButton.whileHeld(z_RunShooterBeltFenderLow);
+    o_xButton.whileHeld(z_RunShooterBeltPostHigh);
+    o_bButton.whileHeld(z_RunShooterBeltTarmacHigh);
+    o_yButton.whileHeld(z_RunShooterBeltWallHigh);
   }
 
   public static double deadZoneCheck(double rawControllerInput){
