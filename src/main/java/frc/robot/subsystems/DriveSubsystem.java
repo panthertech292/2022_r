@@ -64,10 +64,6 @@ public class DriveSubsystem extends SubsystemBase {
     FrontRightMotor.setIdleMode(IdleMode.kBrake);
     BackLeftMotor.setIdleMode(IdleMode.kBrake);
     BackRightMotor.setIdleMode(IdleMode.kBrake);
-    //FrontLeftMotor.setInverted(true);
-
-
-
     FrontLeftMotor.setSmartCurrentLimit(DriveConstants.kDriveCurrentLimit);
     FrontRightMotor.setSmartCurrentLimit(DriveConstants.kDriveCurrentLimit);
     BackLeftMotor.setSmartCurrentLimit(DriveConstants.kDriveCurrentLimit);
@@ -81,7 +77,7 @@ public class DriveSubsystem extends SubsystemBase {
 
     //Encoders & Sensors
     FrontLeftMotorEncoder = FrontLeftMotor.getEncoder();
-    FrontLeftMotorEncoder.setPositionConversionFactor(2); //3.168 is math, not sure why so off
+    FrontLeftMotorEncoder.setPositionConversionFactor(2);
     FrontRightMotorEncoder = FrontRightMotor.getEncoder();
     //FrontRightMotorEncoder.setPositionConversionFactor(3);
     zeroLeftMotorEncoderPosition();

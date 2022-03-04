@@ -11,7 +11,8 @@ public class ReloadBelts extends CommandBase {
   private final BeltSubsystem BeltSubsystem;
   private double v_frontBeltSpeed;
   private double v_backBeltSpeed;
-  private int v_mode;
+  private boolean v_transiting;
+  //private int v_mode;
   /** Creates a new ReloadBelts. */
   public ReloadBelts(BeltSubsystem s_BeltSubsystem, double frontbeltspeed, double backbeltspeed) {
     BeltSubsystem =  s_BeltSubsystem;
@@ -24,48 +25,29 @@ public class ReloadBelts extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    v_mode = 0;
+    //v_mode = 0;
     BeltSubsystem.setFrontBelts(0);
     BeltSubsystem.setBackBelts(0);
+    v_transiting = false;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (v_mode == 0){
-      //Empty
-      BeltSubsystem.setFrontBelts(0);
-      BeltSubsystem.setBackBelts(0);
-      if (BeltSubsystem.getBackBeltBallSensor() == false && BeltSubsystem.getFrontBeltBallSensor() == true){
-        v_mode = 1;
-      }
-
+    if (v_transiting == true){
+      BeltSubsystem.setFrontBelts(v_frontBeltSpeed);
+      BeltSubsystem.setBackBelts(v_backBeltSpeed);
     }
-    if (v_mode == 1){
-      if (BeltSubsystem.getBackBeltBallSensor() == true){
-        v_mode = 2;
-      }
-      else{
-        BeltSubsystem.setFrontBelts(v_frontBeltSpeed);
-        BeltSubsystem.setBackBelts(v_backBeltSpeed);
-      }
-    }
-    if (v_mode == 2){
+    else{
       BeltSubsystem.setFrontBelts(0);
       BeltSubsystem.setBackBelts(0);
     }
-    
-    /*if (BeltSubsystem.getFrontBeltBallSensor() == true){
-      if (BeltSubsystem.getBackBeltBallSensor() == false){
-        BeltSubsystem.setFrontBelts(v_frontBeltSpeed);
-        BeltSubsystem.setBackBelts(v_backBeltSpeed);
-      }
+    if (BeltSubsystem.getBackBeltBallSensor() == false && BeltSubsystem.getFrontBeltBallSensor() == true){
+      v_transiting = true;
     }
     if (BeltSubsystem.getBackBeltBallSensor() == true){
-      BeltSubsystem.setFrontBelts(0);
-      BeltSubsystem.setBackBelts(0);
+      v_transiting = false;
     }
-    */
   }
 
   // Called once the command ends or is interrupted.

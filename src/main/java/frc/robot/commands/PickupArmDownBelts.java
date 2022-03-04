@@ -39,26 +39,21 @@ public class PickupArmDownBelts extends CommandBase {
   @Override
   public void execute() {
     PickupSubsystem.setPickupMotorSpeed(PickupConstants.kPickupMotorSpeed);
-    if (BeltSubsystem.getBackBeltBallSensor() == false){
-      BeltSubsystem.setBackBelts(v_backBeltSpeed);
-    }
+    //Back Belts
     if (BeltSubsystem.getBackBeltBallSensor() == true){
       BeltSubsystem.setBackBelts(0);
     }
-    if (BeltSubsystem.getBackBeltBallSensor() == false && BeltSubsystem.getFrontBeltBallSensor() == false){
-      BeltSubsystem.setFrontBelts(v_frontBeltSpeed);
+    else{
+      BeltSubsystem.setBackBelts(v_backBeltSpeed);
     }
-    if (BeltSubsystem.getBackBeltBallSensor() == false && BeltSubsystem.getFrontBeltBallSensor() == true){
-      BeltSubsystem.setFrontBelts(v_frontBeltSpeed);
-    }
-    if (BeltSubsystem.getBackBeltBallSensor() == true && BeltSubsystem.getFrontBeltBallSensor() == false){
-      BeltSubsystem.setFrontBelts(v_frontBeltSpeed);
-    }
+    //Front Belts
     if (BeltSubsystem.getFrontBeltBallSensor() == true && BeltSubsystem.getBackBeltBallSensor() == true){
       BeltSubsystem.setFrontBelts(0);
     }
-
-
+    else{
+      BeltSubsystem.setFrontBelts(v_frontBeltSpeed);
+    }
+    //Arm Control
     if (PickupSubsystem.getArmDownLimitSwitch() == false){
       PickupSubsystem.setPickupArmMotorSpeed(v_pickupSpeedArmDown);
     } 
