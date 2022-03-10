@@ -25,7 +25,7 @@ public class DriveTeleop extends CommandBase {
   @Override
   public void execute() {
     if (DriveSubsystem.isDriveModeArcade() == true){
-      DriveSubsystem.driveTeleopArcade(RobotContainer.getDriverLeftSpeedX(), RobotContainer.getDriverRightSpeed());
+      DriveSubsystem.driveTeleopArcade(RobotContainer.getDriverLeftSpeedX()*0.9, RobotContainer.getDriverRightSpeed());
     }
     else{
       DriveSubsystem.driveTeleopTank(RobotContainer.getDriverLeftSpeed(), RobotContainer.getDriverRightSpeed());

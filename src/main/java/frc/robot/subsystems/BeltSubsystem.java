@@ -13,6 +13,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 //Sensors
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class BeltSubsystem extends SubsystemBase {
   //Motors
@@ -62,5 +63,7 @@ public class BeltSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putBoolean("Front Sensor", getFrontBeltBallSensor());
+    SmartDashboard.putBoolean("Back Sensor", getBackBeltBallSensor());
   }
 }

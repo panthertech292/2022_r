@@ -58,8 +58,8 @@ public final class Constants {
         public static final int kLiftCurrentLimit = 60;
         
         //Speeds
-        public static final double kArmExtendSpeed = 0.4;
-        public static final double kArmRetractSpeed = -0.4;
+        public static final double kArmExtendSpeed = 0.6;
+        public static final double kArmRetractSpeed = -0.6;
     }
     public static final class BeltConstants{
         //Motors
@@ -70,7 +70,7 @@ public final class Constants {
         public static final int kFrontBeltSensor = 3; //DIO - Place holder
         public static final int kBackBeltSensor = 2; //DIO - Place holder 
         //Speeds
-        public static final double kFrontBeltSpeed = 0.25;
-        public static final double kBackBeltSpeed = 0.25;
+        public static final double kFrontBeltSpeed = 0.35;
+        public static final double kBackBeltSpeed = 0.35;
     }
 }

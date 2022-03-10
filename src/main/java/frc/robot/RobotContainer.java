@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -53,12 +54,12 @@ public class RobotContainer {
   private final Command z_PickUpArmDownBelts = new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, PickupConstants.kPickupArmSpeedDown, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
 
   // Shooter Commands
-  //private final Command z_RunShooter = new RunShooter(s_ShooterSubsystem, ShooterConstants.kShooterLowSpeed, ShooterConstants.kShooterHighSpeed);
+  private final Command z_RunShooter = new RunShooter(s_ShooterSubsystem, ShooterConstants.kShooterLowSpeed, ShooterConstants.kShooterHighSpeed);
   //private final Command z_RunShooterBelt = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, ShooterConstants.kShooterLowSpeed, ShooterConstants.kShooterHighSpeed, 0, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
-  private final Command z_RunShooterBeltFenderLow = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, 0, 0, 0, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
-  private final Command z_RunShooterBeltTarmacHigh = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, .29, .29, 1660, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
-  private final Command z_RunShooterBeltPostHigh = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, 0, 0, 0, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
-  private final Command z_RunShooterBeltWallHigh = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, 0, 0, 0, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
+  private final Command z_RunShooterBeltFenderLow = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, .17, .17, 900, BeltConstants.kFrontBeltSpeed+0.05, BeltConstants.kBackBeltSpeed+0.05);
+  private final Command z_RunShooterBeltTarmacHigh = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, .29, .29, 1620, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
+  private final Command z_RunShooterBeltPostHigh = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, .35, .34, 2000, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
+  private final Command z_RunShooterBeltWallHigh = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, .55, .55, 3030, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
 
   //Lift Commands
   private final Command z_LiftExtend = new LiftExtend(s_LiftSubsystem);
@@ -82,6 +83,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+    CameraServer.startAutomaticCapture();
 
     s_DriveSubsystem.setDefaultCommand(z_DriveTeleop);
     s_PickupSubsystem.setDefaultCommand(z_PickupArmUp);
@@ -107,7 +109,7 @@ public class RobotContainer {
     //final JoystickButton d_aButton = new JoystickButton(io_drivercontroller, Button.kA.value);
     //final JoystickButton d_bButton = new JoystickButton(io_drivercontroller, Button.kB.value);
     //final JoystickButton d_xButton = new JoystickButton(io_drivercontroller, Button.kX.value);
-    //final JoystickButton d_startButton = new JoystickButton(io_drivercontroller, Button.kStart.value);
+    final JoystickButton d_startButton = new JoystickButton(io_drivercontroller, Button.kStart.value);
     //final JoystickButton d_backButton = new JoystickButton(io_drivercontroller, Button.kBack.value);
     //final JoystickButton d_yButton = new JoystickButton(io_drivercontroller, Button.kY.value);
     final JoystickButton d_rightBumper = new JoystickButton(io_drivercontroller, Button.kRightBumper.value);
@@ -122,10 +124,12 @@ public class RobotContainer {
     final JoystickButton o_backButton = new JoystickButton(io_opercontroller, Button.kBack.value);
     final JoystickButton o_leftBumper = new JoystickButton(io_opercontroller, Button.kLeftBumper.value);
     final JoystickButton o_rightBumper = new JoystickButton(io_opercontroller, Button.kRightBumper.value);
+    final JoystickButton o_leftStickClick = new JoystickButton(io_opercontroller, Button.kLeftStick.value);
 
     //Driver Controller Binds
     d_rightBumper.toggleWhenPressed(z_PickUpArmDownBelts);
     d_leftBumper.whileHeld(z_RunBeltBackwards);
+    d_startButton.whileHeld(z_RunShooter);
     
     //Operator Controller Binds
     o_leftBumper.whileHeld(z_LiftRetract);
@@ -136,6 +140,7 @@ public class RobotContainer {
     o_xButton.whileHeld(z_RunShooterBeltPostHigh);
     o_bButton.whileHeld(z_RunShooterBeltTarmacHigh);
     o_yButton.whileHeld(z_RunShooterBeltWallHigh);
+    o_leftStickClick.whileHeld(z_RunShooter);
   }
 
   public static double deadZoneCheck(double rawControllerInput){

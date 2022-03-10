@@ -10,6 +10,7 @@ import frc.robot.Constants.LiftConstants;
 
 //Motors
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANSparkMax.IdleMode;
 
@@ -26,10 +27,13 @@ public class LiftSubsystem extends SubsystemBase {
   private double v_rotationSpeed;
   private double v_armSpeed;
 
+  //Encoders
+  private RelativeEncoder RotationArmMotorEncoder;
+
   /** Creates a new LiftSubsystem. */
   public LiftSubsystem() {
     //Motors
-    RotationArmMotor = new CANSparkMax(LiftConstants.kRotationArmMotor, MotorType.kBrushed); //This is not a NEO
+    RotationArmMotor = new CANSparkMax(LiftConstants.kRotationArmMotor, MotorType.kBrushless); //This is a NEO
     LeftArmMotor = new CANSparkMax(LiftConstants.kLeftArmMotor, MotorType.kBrushless);
     RightArmMotor = new CANSparkMax(LiftConstants.kRightArmMotor, MotorType.kBrushless);
 
@@ -43,10 +47,13 @@ public class LiftSubsystem extends SubsystemBase {
 
     LeftArmMotor.setInverted(false);
     RightArmMotor.setInverted(true);
+    RotationArmMotor.setInverted(true);
 
     RotationArmMotor.setSmartCurrentLimit(LiftConstants.kLiftCurrentLimit);
     LeftArmMotor.setSmartCurrentLimit(LiftConstants.kLiftCurrentLimit);
     RightArmMotor.setSmartCurrentLimit(LiftConstants.kLiftCurrentLimit);
+
+    RotationArmMotorEncoder = RotationArmMotor.getEncoder();
   }
   public void setRotationArmMotor(double rotationspeed){
     v_rotationSpeed = rotationspeed;
@@ -56,6 +63,9 @@ public class LiftSubsystem extends SubsystemBase {
     v_armSpeed = armspeed;
     LeftArmMotor.set(v_armSpeed);
     RightArmMotor.set(v_armSpeed);
+  }
+  public double getRotationArmMotorVelocity(){
+    return RotationArmMotorEncoder.getVelocity();
   }
 
   @Override
