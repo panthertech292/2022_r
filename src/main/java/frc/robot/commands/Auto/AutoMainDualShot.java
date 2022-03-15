@@ -19,13 +19,13 @@ import frc.robot.subsystems.ShooterSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoMain extends SequentialCommandGroup {
+public class AutoMainDualShot extends SequentialCommandGroup {
   private final DriveSubsystem DriveSubsystem;
   private final PickupSubsystem PickupSubsystem;
   private final ShooterSubsystem ShooterSubsystem;
   private final BeltSubsystem BeltSubsystem;
   /** Creates a new AutoMain. */
-  public AutoMain(DriveSubsystem s_DriveSubsystem, PickupSubsystem s_PickupSubsystem, ShooterSubsystem s_ShooterSubsystem, BeltSubsystem s_BeltSubsystem) {
+  public AutoMainDualShot(DriveSubsystem s_DriveSubsystem, PickupSubsystem s_PickupSubsystem, ShooterSubsystem s_ShooterSubsystem, BeltSubsystem s_BeltSubsystem) {
     DriveSubsystem = s_DriveSubsystem;
     PickupSubsystem = s_PickupSubsystem;
     ShooterSubsystem = s_ShooterSubsystem;
@@ -35,12 +35,12 @@ public class AutoMain extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
     new AutoEncoderDriveForBack(s_DriveSubsystem, 20, .4), //Drive to shooting position
-    new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, 0.26, 0.26, 1450, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(3), //Run the shooter
+    //new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, 0.26, 0.26, 1420, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(3), //Run the shooter
     new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, PickupConstants.kPickupArmSpeedDown, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(0.5), //Put the arm down
     new DrivePickup(s_DriveSubsystem, s_PickupSubsystem, s_BeltSubsystem), //Drive with pickup down to get ball
-    new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, 0.28, 0.28, 1550, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(3), //Run the shooter
+    new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, 0.29, 0.29, 1595, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(4), //Run the shooter
     new PickupArmUp(s_PickupSubsystem, PickupConstants.kPickupArmSpeedUp).withTimeout(2), //Raise arm
-    new AutoEncoderDriveForBack(s_DriveSubsystem, 25, .4) //Drive back to get off line
+    new AutoEncoderDriveForBack(s_DriveSubsystem, 27, .4) //Drive back to get off line
     );
   }
 }

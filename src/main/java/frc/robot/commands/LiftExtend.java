@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 //import frc.robot.RobotContainer;
 import frc.robot.Constants.LiftConstants;
 import frc.robot.subsystems.LiftSubsystem;
@@ -30,6 +31,12 @@ public class LiftExtend extends CommandBase {
   public void execute() {
     LiftSubsystem.setBothArmMotors(LiftConstants.kArmExtendSpeed);
     //LiftSubsystem.setRotationArmMotor(RobotContainer.getOperRightSpeedY());
+    if (LiftSubsystem.getRotationArmMotorVelocity() < 160 && LiftSubsystem.getRotationArmMotorVelocity() > -160){
+      LiftSubsystem.setRotationArmMotor(RobotContainer.getOperRightSpeedY());
+    }
+    else{
+      LiftSubsystem.setRotationArmMotor(RobotContainer.getOperRightSpeedY()*0.3);
+    }
   }
 
   // Called once the command ends or is interrupted.

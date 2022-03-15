@@ -6,16 +6,19 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.BeltSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 
 public class ReloadBelts extends CommandBase {
   private final BeltSubsystem BeltSubsystem;
+  private final ShooterSubsystem ShooterSubsystem;
   private double v_frontBeltSpeed;
   private double v_backBeltSpeed;
   private boolean v_transiting;
   //private int v_mode;
   /** Creates a new ReloadBelts. */
-  public ReloadBelts(BeltSubsystem s_BeltSubsystem, double frontbeltspeed, double backbeltspeed) {
+  public ReloadBelts(BeltSubsystem s_BeltSubsystem, ShooterSubsystem s_ShooterSubsystem, double frontbeltspeed, double backbeltspeed) {
     BeltSubsystem =  s_BeltSubsystem;
+    ShooterSubsystem = s_ShooterSubsystem;
     v_frontBeltSpeed = frontbeltspeed;
     v_backBeltSpeed = backbeltspeed;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -48,8 +51,16 @@ public class ReloadBelts extends CommandBase {
     if (BeltSubsystem.getBackBeltBallSensor() == true){
       v_transiting = false;
     }
+    if (BeltSubsystem.getBackBeltBallSensor() == true){
+      ShooterSubsystem.setShooterMotorHighSpeed(.30);
+      ShooterSubsystem.setShooterMotorLowSpeed(.30);
+    }
+    else{
+      ShooterSubsystem.setShooterMotorHighSpeed(0);
+      ShooterSubsystem.setShooterMotorLowSpeed(0);
+    }
   }
-
+  
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {

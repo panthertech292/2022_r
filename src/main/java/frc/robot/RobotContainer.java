@@ -57,7 +57,7 @@ public class RobotContainer {
   private final Command z_RunShooter = new RunShooter(s_ShooterSubsystem, ShooterConstants.kShooterLowSpeed, ShooterConstants.kShooterHighSpeed);
   //private final Command z_RunShooterBelt = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, ShooterConstants.kShooterLowSpeed, ShooterConstants.kShooterHighSpeed, 0, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
   private final Command z_RunShooterBeltFenderLow = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, .17, .17, 900, BeltConstants.kFrontBeltSpeed+0.05, BeltConstants.kBackBeltSpeed+0.05);
-  private final Command z_RunShooterBeltTarmacHigh = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, .29, .29, 1620, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
+  private final Command z_RunShooterBeltTarmacHigh = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, .30, .30, 1645, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
   private final Command z_RunShooterBeltPostHigh = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, .35, .34, 2000, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
   private final Command z_RunShooterBeltWallHigh = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, .55, .55, 3030, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
 
@@ -67,15 +67,17 @@ public class RobotContainer {
   private final Command z_LiftRotate = new LiftRotate(s_LiftSubsystem);
 
   //Belt Commands
-  private final Command z_ReloadBelts = new ReloadBelts(s_BeltSubsystem, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
+  private final Command z_ReloadBelts = new ReloadBelts(s_BeltSubsystem, s_ShooterSubsystem, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
   private final Command z_RunBelt = new RunBelt(s_BeltSubsystem);
   private final Command z_RunBeltBackwards = new RunBeltBackwards(s_BeltSubsystem);
   
   //Auto Commands
   private final Command z_AutoMain = new AutoMain(s_DriveSubsystem, s_PickupSubsystem, s_ShooterSubsystem, s_BeltSubsystem);
+  private final Command z_AutoMainDualShot = new AutoMainDualShot(s_DriveSubsystem, s_PickupSubsystem, s_ShooterSubsystem, s_BeltSubsystem);
   private final Command z_AutoMainWall = new AutoMainWall(s_DriveSubsystem, s_PickupSubsystem, s_ShooterSubsystem, s_BeltSubsystem);
   private final Command z_AutoOffLine = new AutoOffLine(s_DriveSubsystem);
   private final Command z_AutoDead = new AutoDead();
+
 
   SendableChooser<Command> o_AutoChooser = new SendableChooser<>();
 
@@ -92,6 +94,7 @@ public class RobotContainer {
     
     //Auto Command Selector
     o_AutoChooser.setDefaultOption("Main Auto", z_AutoMain);
+    o_AutoChooser.setDefaultOption("Main Auto Dual Shot", z_AutoMainDualShot);
     o_AutoChooser.addOption("Main Auto to Wall", z_AutoMainWall);
     o_AutoChooser.addOption("Drive off line Auto", z_AutoOffLine);
     o_AutoChooser.addOption("Auto Dead", z_AutoDead);
