@@ -12,18 +12,20 @@ import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+//Constants
 import frc.robot.Constants.BeltConstants;
 import frc.robot.Constants.PickupConstants;
 import frc.robot.Constants.ShooterConstants;
+//Commands
 import frc.robot.commands.*;
-import frc.robot.commands.Auto.*;
-import frc.robot.subsystems.BeltSubsystem;
+import frc.robot.commands.Auto.Modes.*;
+
 //Subsystems
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.PickupSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.LiftSubsystem;
-
+import frc.robot.subsystems.BeltSubsystem;
 
 
 
@@ -58,8 +60,6 @@ public class RobotContainer {
   //private final Command z_RunShooterBelt = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, ShooterConstants.kShooterLowSpeed, ShooterConstants.kShooterHighSpeed, 0, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
   private final Command z_RunShooterBeltFenderLow = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, .17, .17, 900, BeltConstants.kFrontBeltSpeed+0.05, BeltConstants.kBackBeltSpeed+0.05);
   private final Command z_RunShooterBeltTarmacHigh = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, .30, .30, 1645, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
-  private final Command z_RunShooterBeltPostHigh = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, .35, .34, 2000, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
-  private final Command z_RunShooterBeltWallHigh = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, .55, .55, 3030, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
 
   //Lift Commands
   private final Command z_LiftExtend = new LiftExtend(s_LiftSubsystem);
@@ -140,9 +140,7 @@ public class RobotContainer {
     o_startButton.whileHeld(z_RunBelt);
     o_backButton.whileHeld(z_RunBeltBackwards);
     o_aButton.whileHeld(z_RunShooterBeltFenderLow);
-    o_xButton.whileHeld(z_RunShooterBeltPostHigh);
     o_bButton.whileHeld(z_RunShooterBeltTarmacHigh);
-    o_yButton.whileHeld(z_RunShooterBeltWallHigh);
     o_leftStickClick.whileHeld(z_RunShooter);
   }
 

@@ -22,13 +22,12 @@ public class ReloadBelts extends CommandBase {
     v_frontBeltSpeed = frontbeltspeed;
     v_backBeltSpeed = backbeltspeed;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(s_BeltSubsystem);
+    addRequirements(s_BeltSubsystem, s_ShooterSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    //v_mode = 0;
     BeltSubsystem.setFrontBelts(0);
     BeltSubsystem.setBackBelts(0);
     v_transiting = false;

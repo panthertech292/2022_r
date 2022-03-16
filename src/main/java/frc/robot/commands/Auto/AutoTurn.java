@@ -5,48 +5,53 @@
 package frc.robot.commands.Auto;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants.AutoConstants;
 import frc.robot.subsystems.DriveSubsystem;
 import java.lang.Math;
 
-public class AutoEncoderDriveForBack extends CommandBase {
+public class AutoTurn extends CommandBase {
   private final DriveSubsystem DriveSubsystem;
-  private double v_encoderDistance;
-  private double v_autoSpeed;
-  
-  /** Creates a new AutoEncoderDriveForBack. */
-  public AutoEncoderDriveForBack(DriveSubsystem s_DriveSubsystem, double distance, double speed) {
+  private double v_turnSpeed;
+  private double v_turnDegrees;
+  private double v_driveDistance;
+  /** Creates a new AutoTurn. */
+  public AutoTurn(DriveSubsystem s_DriveSubsystem, double speed, double degrees) {
     DriveSubsystem = s_DriveSubsystem;
-    v_encoderDistance = distance;
-    v_autoSpeed = speed;
-    addRequirements(s_DriveSubsystem);
+    v_turnSpeed = speed;
+    v_turnDegrees = degrees;
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(s_DriveSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     DriveSubsystem.zeroLeftMotorEncoderPosition();
+    DriveSubsystem.zeroRightMotorEncoderPosition();
     DriveSubsystem.driveAuto(0, 0);
-
+    v_driveDistance = (2*3.14159265359*AutoConstants.kRobotRadius*(v_turnDegrees/360)); //2 x PI x Robot Radius x Degrees/360
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    DriveSubsystem.driveAuto(v_autoSpeed+0.03, v_autoSpeed);
+    DriveSubsystem.driveAuto(v_turnSpeed, -v_turnSpeed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     DriveSubsystem.driveAuto(0, 0);
-    DriveSubsystem.zeroLeftMotorEncoderPosition();
-    System.out.println("Auto Encoder Drive: Done!");
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (Math.abs(DriveSubsystem.getLeftMotorEncoderPosition()) > Math.abs(v_encoderDistance));
+    if (Math.abs(DriveSubsystem.getLeftMotorEncoderPosition()) > v_driveDistance){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 }

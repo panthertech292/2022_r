@@ -20,12 +20,12 @@ public class RunShooterBelt extends CommandBase {
   private double v_frontBeltSpeed;
   private double v_backBeltSpeed;
   /** Creates a new RunShooter. */
-  public RunShooterBelt(ShooterSubsystem s_ShooterSubsystem, BeltSubsystem s_BeltSubsystem, double shooterlowspeed, double shooterhighspeed, double targetRPM, double frontbeltspeed, double backbeltspeed) {
+  public RunShooterBelt(ShooterSubsystem s_ShooterSubsystem, BeltSubsystem s_BeltSubsystem, double shooterlowspeed, double shooterhighspeed, double targetHighRPM, double frontbeltspeed, double backbeltspeed) {
     ShooterSubsystem = s_ShooterSubsystem;
     BeltSubsystem = s_BeltSubsystem;
     v_shooterLowSpeed = shooterlowspeed;
     v_shooterHighSpeed = shooterhighspeed;
-    v_targetRPM = targetRPM;
+    v_targetRPM = targetHighRPM;
     v_frontBeltSpeed = frontbeltspeed;
     v_backBeltSpeed = backbeltspeed;
     
@@ -45,7 +45,6 @@ public class RunShooterBelt extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    //Need to do IRL testing here. Find the target RPM for the set speeds and make a method(or PID :( ) that makes the shooter run quicker to get to it's target RPM.
     ShooterSubsystem.setShooterMotorLowSpeed(v_shooterLowSpeed);
     ShooterSubsystem.setShooterMotorHighSpeed(v_shooterHighSpeed);
     if (ShooterSubsystem.getShooterMotorHighEncoderVelocity() > v_targetRPM){

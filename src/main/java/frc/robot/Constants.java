@@ -37,7 +37,7 @@ public final class Constants {
         public static final int kPickupArmUpSwitch = 0; //DIO
         public static final int kPickupArmDownSwitch = 1; //DIO
         //Speeds
-        public static final double kPickupArmSpeedUp = -0.5;
+        public static final double kPickupArmSpeedUp = -0.65;
         public static final double kPickupArmSpeedDown = 0.65; 
         public static final double kPickupMotorSpeed = 0.72;
     }
@@ -63,14 +63,17 @@ public final class Constants {
     }
     public static final class BeltConstants{
         //Motors
-        public static final int kFrontBeltMotor = 21; 
-        public static final int kBackBeltMotor = 20;
+        public static final int kFrontBeltMotor = 21; //CAN
+        public static final int kBackBeltMotor = 20; //CAN
         public static final int kBeltCurrentLimit = 60;
         //Sensors
-        public static final int kFrontBeltSensor = 3; //DIO - Place holder
-        public static final int kBackBeltSensor = 2; //DIO - Place holder 
+        public static final int kFrontBeltSensor = 3; //DIO
+        public static final int kBackBeltSensor = 2; //DIO
         //Speeds
         public static final double kFrontBeltSpeed = 0.35;
         public static final double kBackBeltSpeed = 0.35;
+    }
+    public static final class AutoConstants{
+        public static final double kRobotRadius = 14; //place holder
     }
 }

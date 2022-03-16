@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.Auto;
+package frc.robot.commands.Auto.Modes;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.BeltConstants;
@@ -11,6 +11,8 @@ import frc.robot.commands.PickupArmDownBelts;
 import frc.robot.commands.PickupArmUp;
 import frc.robot.commands.RunBelt;
 import frc.robot.commands.RunShooterBelt;
+import frc.robot.commands.Auto.AutoEncoderDriveForBack;
+import frc.robot.commands.Auto.DrivePickup;
 import frc.robot.subsystems.BeltSubsystem;
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.PickupSubsystem;
