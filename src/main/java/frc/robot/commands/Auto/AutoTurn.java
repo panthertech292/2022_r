@@ -36,22 +36,28 @@ public class AutoTurn extends CommandBase {
   @Override
   public void execute() {
     DriveSubsystem.driveAuto(v_turnSpeed, -v_turnSpeed);
+    System.out.println("Target distanve: " + v_driveDistance);
+    System.out.println("Left Encoder" + (Math.abs(DriveSubsystem.getLeftMotorEncoderPosition()) + "Right Encoder: " + Math.abs(DriveSubsystem.getRightMotorEncoderPosition())));
+    System.out.println("Left Speed" + (Math.abs(DriveSubsystem.getLeftMotorEncoderVelocity()) + "Right Speed: " + Math.abs(DriveSubsystem.getRightMotorEncoderVelocity())));
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     DriveSubsystem.driveAuto(0, 0);
+    DriveSubsystem.zeroLeftMotorEncoderPosition();
+    DriveSubsystem.zeroRightMotorEncoderPosition();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (Math.abs(DriveSubsystem.getLeftMotorEncoderPosition()) > v_driveDistance){
+    if (Math.abs(DriveSubsystem.getLeftMotorEncoderPosition()) > v_driveDistance || Math.abs(DriveSubsystem.getRightMotorEncoderPosition()) > v_driveDistance){
       return true;
     }
     else{
       return false;
     }
+
   }
 }

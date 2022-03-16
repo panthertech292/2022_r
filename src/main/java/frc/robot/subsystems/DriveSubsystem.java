@@ -36,6 +36,8 @@ public class DriveSubsystem extends SubsystemBase {
   //Encoders
   private RelativeEncoder FrontLeftMotorEncoder;
   private RelativeEncoder FrontRightMotorEncoder;
+  private RelativeEncoder BackLeftMotorEncoder;
+  private RelativeEncoder BackRightMotorEncoder;
 
   private final DifferentialDrive DifDrive;
   private double v_leftSpeed;
@@ -52,7 +54,9 @@ public class DriveSubsystem extends SubsystemBase {
   private NetworkTableEntry v_networkTableDriveMode;
 
   public DriveSubsystem() {
+    //FROM THE FRONT LOOKING BACK
     FrontLeftMotor = new CANSparkMax(DriveConstants.kFrontLeftMotor, MotorType.kBrushless);
+    //FROM THE FRONT LOOKING BACK
     FrontRightMotor = new CANSparkMax(DriveConstants.kFrontRightMotor, MotorType.kBrushless);
     BackLeftMotor = new CANSparkMax(DriveConstants.kBackLeftMotor, MotorType.kBrushless);
     BackRightMotor = new CANSparkMax(DriveConstants.kBackRightMotor, MotorType.kBrushless);
@@ -77,9 +81,13 @@ public class DriveSubsystem extends SubsystemBase {
 
     //Encoders & Sensors
     FrontLeftMotorEncoder = FrontLeftMotor.getEncoder();
-    FrontLeftMotorEncoder.setPositionConversionFactor(2);
     FrontRightMotorEncoder = FrontRightMotor.getEncoder();
-    //FrontRightMotorEncoder.setPositionConversionFactor(3);
+    BackLeftMotorEncoder = BackLeftMotor.getEncoder();
+    BackRightMotorEncoder = BackRightMotor.getEncoder();
+    FrontLeftMotorEncoder.setPositionConversionFactor(2.3);
+    FrontRightMotorEncoder.setPositionConversionFactor(2.3);
+    BackLeftMotorEncoder.setPositionConversionFactor(2.3);
+    BackRightMotorEncoder.setPositionConversionFactor(2.3);
     zeroLeftMotorEncoderPosition();
     zeroRightMotorEncoderPosition();
     
@@ -95,16 +103,18 @@ public class DriveSubsystem extends SubsystemBase {
     return -FrontRightMotorEncoder.getVelocity();
   }
   public double getLeftMotorEncoderPosition(){
-    return -FrontLeftMotorEncoder.getPosition();
+    return -((FrontLeftMotorEncoder.getPosition()+BackLeftMotorEncoder.getPosition())/2);
   }
   public double getRightMotorEncoderPosition(){
-    return -FrontRightMotorEncoder.getPosition();
+    return -((FrontRightMotorEncoder.getPosition()+BackRightMotorEncoder.getPosition())/2);
   }
   public void zeroLeftMotorEncoderPosition(){
     FrontLeftMotorEncoder.setPosition(0);
+    BackLeftMotorEncoder.setPosition(0);
   }
   public void zeroRightMotorEncoderPosition(){
     FrontRightMotorEncoder.setPosition(0);
+    BackRightMotorEncoder.setPosition(0);
   }
 
   //Teleop

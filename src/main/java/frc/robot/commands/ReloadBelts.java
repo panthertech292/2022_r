@@ -13,6 +13,7 @@ public class ReloadBelts extends CommandBase {
   private final ShooterSubsystem ShooterSubsystem;
   private double v_frontBeltSpeed;
   private double v_backBeltSpeed;
+  private double v_timer;
   private boolean v_transiting;
   //private int v_mode;
   /** Creates a new ReloadBelts. */
@@ -31,6 +32,7 @@ public class ReloadBelts extends CommandBase {
     BeltSubsystem.setFrontBelts(0);
     BeltSubsystem.setBackBelts(0);
     v_transiting = false;
+    v_timer = 0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -39,6 +41,7 @@ public class ReloadBelts extends CommandBase {
     if (v_transiting == true){
       BeltSubsystem.setFrontBelts(v_frontBeltSpeed);
       BeltSubsystem.setBackBelts(v_backBeltSpeed);
+      v_timer = v_timer + 1;
     }
     else{
       BeltSubsystem.setFrontBelts(0);
@@ -50,6 +53,11 @@ public class ReloadBelts extends CommandBase {
     if (BeltSubsystem.getBackBeltBallSensor() == true){
       v_transiting = false;
     }
+    if (v_timer > 300){
+      v_transiting = false;
+      v_timer = 0;
+    }
+      
     if (BeltSubsystem.getBackBeltBallSensor() == true){
       ShooterSubsystem.setShooterMotorHighSpeed(.30);
       ShooterSubsystem.setShooterMotorLowSpeed(.30);

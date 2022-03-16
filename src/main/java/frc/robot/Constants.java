@@ -58,8 +58,8 @@ public final class Constants {
         public static final int kLiftCurrentLimit = 60;
         
         //Speeds
-        public static final double kArmExtendSpeed = 0.7;
-        public static final double kArmRetractSpeed = -0.7;
+        public static final double kArmExtendSpeed = 1;
+        public static final double kArmRetractSpeed = -1;
     }
     public static final class BeltConstants{
         //Motors
@@ -74,6 +74,6 @@ public final class Constants {
         public static final double kBackBeltSpeed = 0.35;
     }
     public static final class AutoConstants{
-        public static final double kRobotRadius = 14; //place holder
+        public static final double kRobotRadius = 11.5; //place holder
     }
 }

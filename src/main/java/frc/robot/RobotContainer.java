@@ -18,6 +18,7 @@ import frc.robot.Constants.PickupConstants;
 import frc.robot.Constants.ShooterConstants;
 //Commands
 import frc.robot.commands.*;
+import frc.robot.commands.Auto.AutoTurn;
 import frc.robot.commands.Auto.Modes.*;
 
 //Subsystems
@@ -77,7 +78,7 @@ public class RobotContainer {
   private final Command z_AutoMainWall = new AutoMainWall(s_DriveSubsystem, s_PickupSubsystem, s_ShooterSubsystem, s_BeltSubsystem);
   private final Command z_AutoOffLine = new AutoOffLine(s_DriveSubsystem);
   private final Command z_AutoDead = new AutoDead();
-
+  private final Command z_AutoTurn = new AutoTurn(s_DriveSubsystem, 0.6, 360);
 
   SendableChooser<Command> o_AutoChooser = new SendableChooser<>();
 
@@ -109,7 +110,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     //Driver Controller
-    //final JoystickButton d_aButton = new JoystickButton(io_drivercontroller, Button.kA.value);
+    final JoystickButton d_aButton = new JoystickButton(io_drivercontroller, Button.kA.value);
     //final JoystickButton d_bButton = new JoystickButton(io_drivercontroller, Button.kB.value);
     //final JoystickButton d_xButton = new JoystickButton(io_drivercontroller, Button.kX.value);
     final JoystickButton d_startButton = new JoystickButton(io_drivercontroller, Button.kStart.value);
@@ -133,7 +134,8 @@ public class RobotContainer {
     d_rightBumper.toggleWhenPressed(z_PickUpArmDownBelts);
     d_leftBumper.whileHeld(z_RunBeltBackwards);
     d_startButton.whileHeld(z_RunShooter);
-    
+    d_aButton.whenPressed(z_AutoTurn);
+
     //Operator Controller Binds
     o_leftBumper.whileHeld(z_LiftRetract);
     o_rightBumper.whileHeld(z_LiftExtend);
