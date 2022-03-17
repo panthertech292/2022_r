@@ -25,17 +25,17 @@ public class DriveTeleop extends CommandBase {
   @Override
   public void execute() {
     if (DriveSubsystem.isDriveModeArcade() == true){
-      DriveSubsystem.driveTeleopArcade(RobotContainer.getDriverLeftSpeedX()*0.9, RobotContainer.getDriverRightSpeed());
+      DriveSubsystem.differentialArcadeDrive(RobotContainer.getDriverLeftSpeedX()*0.9, RobotContainer.getDriverRightSpeed());
     }
     else{
-      DriveSubsystem.driveTeleopTank(RobotContainer.getDriverLeftSpeed(), RobotContainer.getDriverRightSpeed());
+      DriveSubsystem.differentialTankDrive(RobotContainer.getDriverLeftSpeed(), RobotContainer.getDriverRightSpeed());
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    DriveSubsystem.driveTeleopTank(0, 0);
+    DriveSubsystem.differentialTankDrive(0, 0);
   }
 
   // Returns true when the command should end.

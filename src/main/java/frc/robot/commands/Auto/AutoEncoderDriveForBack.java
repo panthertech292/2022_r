@@ -26,20 +26,20 @@ public class AutoEncoderDriveForBack extends CommandBase {
   @Override
   public void initialize() {
     DriveSubsystem.zeroLeftMotorEncoderPosition();
-    DriveSubsystem.driveAuto(0, 0);
+    DriveSubsystem.differentialTankDrive(0, 0);
 
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    DriveSubsystem.driveAuto(v_autoSpeed+0.2, v_autoSpeed);
+    DriveSubsystem.differentialTankDrive(v_autoSpeed+0.2, v_autoSpeed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    DriveSubsystem.driveAuto(0, 0);
+    DriveSubsystem.differentialTankDrive(0, 0);
     DriveSubsystem.zeroLeftMotorEncoderPosition();
     System.out.println("Auto Encoder Drive: Done!");
   }

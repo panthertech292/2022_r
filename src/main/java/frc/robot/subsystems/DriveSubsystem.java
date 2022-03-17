@@ -45,8 +45,8 @@ public class DriveSubsystem extends SubsystemBase {
   private double v_leftXSpeed;
   private double v_rightYSpeed;
 
-  private double v_setPointLeft;
-  private double v_setPointRight;
+  //private double v_setPointLeft;
+  //private double v_setPointRight;
 
   private boolean v_arcadeDrive;
 
@@ -124,11 +124,12 @@ public class DriveSubsystem extends SubsystemBase {
     DifDrive.tankDrive(v_leftSpeed,v_rightSpeed);
   }
   //Telop Drive
-  public void differentialArcadeDrive(double leftXspeed, double rightYspeed){
-    v_leftXSpeed = leftXspeed;
+  public void differentialArcadeDrive(double leftXspeedTurn, double rightYspeed){
+    v_leftXSpeed = leftXspeedTurn;
     v_rightYSpeed = rightYspeed;
     DifDrive.arcadeDrive(v_leftXSpeed, v_rightYSpeed);
   }
+  /*
   public void driveTeleopArcade(double driverLeftX, double driverRightY){
     differentialArcadeDrive(driverLeftX, driverRightY);
   }
@@ -140,6 +141,7 @@ public class DriveSubsystem extends SubsystemBase {
     v_setPointRight = autoRightSpeed;
     differentialTankDrive(v_setPointLeft, v_setPointRight);
   }
+  */
   //Shuffleboard Handler
   public boolean isDriveModeArcade(){
     return v_networkTableDriveMode.getBoolean(true);
