@@ -27,7 +27,7 @@ public class DrivePickup extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-    new AutoEncoderDriveForBack(s_DriveSubsystem, 13, .4),
+    new AutoEncoderDriveForBack(s_DriveSubsystem, 40, .45),
     new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, PickupConstants.kPickupArmSpeedDown, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(3)
     );
   }

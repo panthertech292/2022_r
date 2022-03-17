@@ -19,7 +19,7 @@ public class AutoTurn2 extends CommandBase {
   public AutoTurn2(DriveSubsystem s_DriveSubsystem, double speed, double degrees) {
     DriveSubsystem = s_DriveSubsystem;
     v_turnSpeed = speed;
-    v_turnDegrees = degrees;
+    v_turnDegrees = degrees * 1.15;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(s_DriveSubsystem);
   }
@@ -38,17 +38,47 @@ public class AutoTurn2 extends CommandBase {
   public void execute() {
     if (Math.abs(DriveSubsystem.getLeftMotorEncoderPosition()) < v_driveDistance){
       v_leftTurnSpeed = v_turnSpeed;
+      //if (Math.abs(DriveSubsystem.getRightMotorEncoderVelocity()) > (Math.abs(DriveSubsystem.getLeftMotorEncoderVelocity() + 200.0))){
+      //  v_leftTurnSpeed = v_turnSpeed + 0.1;
+      //  System.out.println("BOOSTING LEFT SPEED");
+      //}
+      //else{
+      //  v_leftTurnSpeed = v_turnSpeed;
+      //}
     }
     else{
       v_leftTurnSpeed = 0;
     }
+
     if (Math.abs(DriveSubsystem.getRightMotorEncoderPosition()) < v_driveDistance){
-      v_rightTurnSpeed = v_turnSpeed;
+      v_rightTurnSpeed = v_turnSpeed + 0.1;
+      //if (Math.abs(DriveSubsystem.getLeftMotorEncoderVelocity()) > (Math.abs(DriveSubsystem.getRightMotorEncoderVelocity() + 200.0))){
+      //  v_rightTurnSpeed = v_turnSpeed + 0.1;
+      //  System.out.println("BOOSTING RIGHT SPEED");
+      //}
+      //else{
+      //  v_rightTurnSpeed = v_turnSpeed;
+      //}
     }
     else{
       v_rightTurnSpeed = 0;
     }
-    DriveSubsystem.differentialTankDrive(v_leftTurnSpeed, -v_rightTurnSpeed);
+    
+    //IF OVERSHOT
+    /*
+    if (Math.abs(DriveSubsystem.getLeftMotorEncoderPosition()) > v_driveDistance + 3){
+      v_leftTurnSpeed = -v_turnSpeed/2;
+      System.out.println("WE OVERSHOT, UPPING LEFT");
+    }
+    if (Math.abs(DriveSubsystem.getRightMotorEncoderPosition()) > v_driveDistance + 3){
+      v_rightTurnSpeed = -v_turnSpeed/2;
+      System.out.println("WE OVERSHOT, UPPING RIGHT");
+    }
+    */
+    DriveSubsystem.differentialTankDrive(0, -v_rightTurnSpeed);
+    System.out.println("Target distanve: " + v_driveDistance);
+    System.out.println("Left Encoder" + (Math.abs(DriveSubsystem.getLeftMotorEncoderPosition()) + "Right Encoder: " + Math.abs(DriveSubsystem.getRightMotorEncoderPosition())));
+    System.out.println("Left Speed" + (Math.abs(DriveSubsystem.getLeftMotorEncoderVelocity()) + "Right Speed: " + Math.abs(DriveSubsystem.getRightMotorEncoderVelocity())));
   }
 
   // Called once the command ends or is interrupted.
@@ -62,7 +92,7 @@ public class AutoTurn2 extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (Math.abs(DriveSubsystem.getLeftMotorEncoderPosition()) > v_driveDistance && Math.abs(DriveSubsystem.getRightMotorEncoderPosition()) > v_driveDistance){
+    if (Math.abs(DriveSubsystem.getLeftMotorEncoderPosition()) > v_driveDistance || Math.abs(DriveSubsystem.getRightMotorEncoderPosition()) > v_driveDistance){
       return true;
     }
     else{

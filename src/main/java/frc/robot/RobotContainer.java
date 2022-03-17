@@ -76,11 +76,11 @@ public class RobotContainer {
   //Auto Commands
   private final Command z_AutoMain = new AutoMain(s_DriveSubsystem, s_PickupSubsystem, s_ShooterSubsystem, s_BeltSubsystem);
   private final Command z_AutoMainDualShot = new AutoMainDualShot(s_DriveSubsystem, s_PickupSubsystem, s_ShooterSubsystem, s_BeltSubsystem);
-  private final Command z_AutoMainWall = new AutoMainWall(s_DriveSubsystem, s_PickupSubsystem, s_ShooterSubsystem, s_BeltSubsystem);
+  private final Command z_Auto3Ball = new Auto3Ball(s_DriveSubsystem, s_PickupSubsystem, s_ShooterSubsystem, s_BeltSubsystem);
   private final Command z_AutoOffLine = new AutoOffLine(s_DriveSubsystem);
   private final Command z_AutoDead = new AutoDead();
-  private final Command z_AutoTurn = new AutoTurn(s_DriveSubsystem, 0.6, 360);
-  private final Command z_AutoTurn2 = new AutoTurn2(s_DriveSubsystem, 0.6, 360);
+  private final Command z_AutoTurn = new AutoTurn(s_DriveSubsystem, 0.9, 360);
+  private final Command z_AutoTurn2 = new AutoTurn2(s_DriveSubsystem, 0.9, 360);
 
   SendableChooser<Command> o_AutoChooser = new SendableChooser<>();
 
@@ -88,6 +88,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
+    CameraServer.startAutomaticCapture();
     CameraServer.startAutomaticCapture();
 
     s_DriveSubsystem.setDefaultCommand(z_DriveTeleop);
@@ -98,7 +99,7 @@ public class RobotContainer {
     //Auto Command Selector
     o_AutoChooser.setDefaultOption("Main Auto", z_AutoMain);
     o_AutoChooser.setDefaultOption("Main Auto Dual Shot", z_AutoMainDualShot);
-    o_AutoChooser.addOption("Main Auto to Wall", z_AutoMainWall);
+    o_AutoChooser.addOption("3 Ball Auto", z_Auto3Ball);
     o_AutoChooser.addOption("Drive off line Auto", z_AutoOffLine);
     o_AutoChooser.addOption("Auto Dead", z_AutoDead);
     SmartDashboard.putData(o_AutoChooser);

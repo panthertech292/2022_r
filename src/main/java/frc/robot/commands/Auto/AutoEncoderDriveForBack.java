@@ -26,6 +26,7 @@ public class AutoEncoderDriveForBack extends CommandBase {
   @Override
   public void initialize() {
     DriveSubsystem.zeroLeftMotorEncoderPosition();
+    DriveSubsystem.zeroRightMotorEncoderPosition();
     DriveSubsystem.differentialTankDrive(0, 0);
 
   }
@@ -33,7 +34,8 @@ public class AutoEncoderDriveForBack extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    DriveSubsystem.differentialTankDrive(v_autoSpeed+0.2, v_autoSpeed);
+    DriveSubsystem.differentialTankDrive(v_autoSpeed, v_autoSpeed);
+    System.out.println("Right Position" + DriveSubsystem.getRightMotorEncoderPosition() + "Left Position" + DriveSubsystem.getLeftMotorEncoderPosition());
   }
 
   // Called once the command ends or is interrupted.

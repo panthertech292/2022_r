@@ -39,6 +39,7 @@ public class RunShooter extends CommandBase {
     //Need to do IRL testing here. Find the target RPM for the set speeds and make a method(or PID :( ) that makes the shooter run quicker to get to it's target RPM.
     ShooterSubsystem.setShooterMotorLowSpeed(ShooterSubsystem.getShuffleboardLow());
     ShooterSubsystem.setShooterMotorHighSpeed(ShooterSubsystem.getShuffleboardHigh());
+    //System.out.println("Trying to run shooter @" + ShooterSubsystem.getShuffleboardHigh()) ;
   }
 
   // Called once the command ends or is interrupted.

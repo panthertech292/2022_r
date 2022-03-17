@@ -64,6 +64,10 @@ public class DriveSubsystem extends SubsystemBase {
     FrontRightMotor.restoreFactoryDefaults();
     BackLeftMotor.restoreFactoryDefaults();
     BackRightMotor.restoreFactoryDefaults();
+    BackLeftMotor.setInverted(true);
+    FrontLeftMotor.setInverted(true);
+    FrontRightMotor.setInverted(true);
+    BackRightMotor.setInverted(true);
     FrontLeftMotor.setIdleMode(IdleMode.kBrake);
     FrontRightMotor.setIdleMode(IdleMode.kBrake);
     BackLeftMotor.setIdleMode(IdleMode.kBrake);
@@ -103,10 +107,10 @@ public class DriveSubsystem extends SubsystemBase {
     return -FrontRightMotorEncoder.getVelocity();
   }
   public double getLeftMotorEncoderPosition(){
-    return -((FrontLeftMotorEncoder.getPosition()+BackLeftMotorEncoder.getPosition())/2);
+    return -(FrontLeftMotorEncoder.getPosition());
   }
   public double getRightMotorEncoderPosition(){
-    return -((FrontRightMotorEncoder.getPosition()+BackRightMotorEncoder.getPosition())/2);
+    return (FrontRightMotorEncoder.getPosition());
   }
   public void zeroLeftMotorEncoderPosition(){
     FrontLeftMotorEncoder.setPosition(0);
@@ -125,7 +129,7 @@ public class DriveSubsystem extends SubsystemBase {
   }
   //Telop Drive
   public void differentialArcadeDrive(double leftXspeedTurn, double rightYspeed){
-    v_leftXSpeed = leftXspeedTurn;
+    v_leftXSpeed = -leftXspeedTurn;
     v_rightYSpeed = rightYspeed;
     DifDrive.arcadeDrive(v_leftXSpeed, v_rightYSpeed);
   }
@@ -149,6 +153,7 @@ public class DriveSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    //System.out.println(getLeftMotorEncoderPosition());
+    System.out.println("LEFT" + getLeftMotorEncoderPosition());
+    System.out.println("RIGHT" + getRightMotorEncoderPosition());
   }
 }
