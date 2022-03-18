@@ -45,18 +45,14 @@ public class DriveSubsystem extends SubsystemBase {
   private double v_leftXSpeed;
   private double v_rightYSpeed;
 
-  //private double v_setPointLeft;
-  //private double v_setPointRight;
-
   private boolean v_arcadeDrive;
 
   //Network Tables
   private NetworkTableEntry v_networkTableDriveMode;
 
   public DriveSubsystem() {
-    //FROM THE FRONT LOOKING BACK
+    //FROM THE BACK LOOKING FRONT
     FrontLeftMotor = new CANSparkMax(DriveConstants.kFrontLeftMotor, MotorType.kBrushless);
-    //FROM THE FRONT LOOKING BACK
     FrontRightMotor = new CANSparkMax(DriveConstants.kFrontRightMotor, MotorType.kBrushless);
     BackLeftMotor = new CANSparkMax(DriveConstants.kBackLeftMotor, MotorType.kBrushless);
     BackRightMotor = new CANSparkMax(DriveConstants.kBackRightMotor, MotorType.kBrushless);
@@ -133,19 +129,6 @@ public class DriveSubsystem extends SubsystemBase {
     v_rightYSpeed = rightYspeed;
     DifDrive.arcadeDrive(v_leftXSpeed, v_rightYSpeed);
   }
-  /*
-  public void driveTeleopArcade(double driverLeftX, double driverRightY){
-    differentialArcadeDrive(driverLeftX, driverRightY);
-  }
-  public void driveTeleopTank(double driverLeftY, double driverRightY){
-    differentialTankDrive(driverLeftY, driverRightY);
-  }
-  public void driveAuto(double autoLeftSpeed, double autoRightSpeed) {
-    v_setPointLeft = autoLeftSpeed;
-    v_setPointRight = autoRightSpeed;
-    differentialTankDrive(v_setPointLeft, v_setPointRight);
-  }
-  */
   //Shuffleboard Handler
   public boolean isDriveModeArcade(){
     return v_networkTableDriveMode.getBoolean(true);

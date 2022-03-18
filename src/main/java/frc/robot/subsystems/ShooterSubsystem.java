@@ -58,7 +58,6 @@ public class ShooterSubsystem extends SubsystemBase {
     v_networkShooterSpeed1 = MainTab.add("Shooter Low Speed", 0).getEntry();
     v_networkShooterSpeed2 = MainTab.add("Shooter High Speed", 0).getEntry();
   }
-
   //Motors
   public void setShooterMotorLowSpeed(double lowshooterspeed){
     v_lowShooterSpeed = lowshooterspeed;
@@ -68,7 +67,7 @@ public class ShooterSubsystem extends SubsystemBase {
     v_highShooterSpeed = highshooterspeed;
     ShooterMotorHigh.set(v_highShooterSpeed);
   }
-  //Senors & Encoders - Might need to create functions for position? Don't think I wil need them though.
+  //Senors & Encoders
   public double getShooterMotorLowEncoderVelocity(){
     return ShooterMotorLowEncoder.getVelocity();
   }
@@ -87,6 +86,5 @@ public class ShooterSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Motor RPM LOW", getShooterMotorLowEncoderVelocity());
     SmartDashboard.putNumber("Motor RPM HIGH", getShooterMotorHighEncoderVelocity());
-    ;//System.out.println(getShooterMotorHighEncoderVelocity());
   }
 }
