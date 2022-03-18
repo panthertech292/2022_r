@@ -14,6 +14,7 @@ import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.commands.*;
 import frc.robot.commands.Auto.AutoEncoderDriveForBack;
 import frc.robot.commands.Auto.AutoTurn2;
+import frc.robot.commands.Auto.AutoTurn3;
 import frc.robot.commands.Auto.DrivePickup;
 import frc.robot.commands.Auto.Modes.*;
 //Constants
@@ -37,15 +38,18 @@ public class Auto3Ball extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
+      
       //new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, 0.26, 0.26, 1460, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(3), //Run the shooter
       //new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, PickupConstants.kPickupArmSpeedDown, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(0.5), //Put the arm down
-      //new DrivePickup(s_DriveSubsystem, s_PickupSubsystem, s_BeltSubsystem), //Drive with pickup down to get ball
-      //new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, 0.28, 0.28, 1550, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(3), //Run the shooter
-      //new PickupArmUp(s_PickupSubsystem, PickupConstants.kPickupArmSpeedUp).withTimeout(2), //Raise arm
-      new AutoTurn2(s_DriveSubsystem, -.90, 360)
-      //new AutoEncoderDriveForBack(s_DriveSubsystem, 40, 0.4)
-
-      //drive pickup 80
+      new DrivePickup(s_DriveSubsystem, s_PickupSubsystem, s_BeltSubsystem, 40, .45), //Drive with pickup down to get ball
+      new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, PickupConstants.kPickupArmSpeedDown, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(1.5),
+      new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, 0.28, 0.28, 1580, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(3), //Run the shooter
+      new PickupArmUp(s_PickupSubsystem, PickupConstants.kPickupArmSpeedUp).withTimeout(2), //Raise arm
+      new AutoTurn3(s_DriveSubsystem, -.6, 72),
+      new DrivePickup(s_DriveSubsystem, s_PickupSubsystem, s_BeltSubsystem, 130, .45),
+      new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, PickupConstants.kPickupArmSpeedDown, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(1),
+      new AutoTurn3(s_DriveSubsystem, .6, 45),
+      new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, 0.32, 0.32, 1790, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(3) //Run the shooter
     );
   }
 }

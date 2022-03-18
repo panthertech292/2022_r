@@ -30,13 +30,16 @@ public class AutoTurn3 extends CommandBase {
     DriveSubsystem.differentialTankDrive(0, 0);
     DriveSubsystem.zeroLeftMotorEncoderPosition();
     DriveSubsystem.zeroRightMotorEncoderPosition();
-    v_driveDistance = (2*3.14159265359*AutoConstants.kRobotRadius*2*(v_turnDegrees/360)); //2 x PI x Robot Radius * 2 x Degrees/360
+    v_driveDistance = (2*3.14159265359*AutoConstants.kRobotRadius*2*(v_turnDegrees/360)*1.50); //2 x PI x Robot Radius * 2 x Degrees/360
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     DriveSubsystem.differentialTankDrive(0, v_turnSpeed);
+    System.out.println("Target distanve: " + v_driveDistance);
+    System.out.println("Left Encoder" + (Math.abs(DriveSubsystem.getLeftMotorEncoderPosition()) + "Right Encoder: " + Math.abs(DriveSubsystem.getRightMotorEncoderPosition())));
+    System.out.println("Left Speed" + (Math.abs(DriveSubsystem.getLeftMotorEncoderVelocity()) + "Right Speed: " + Math.abs(DriveSubsystem.getRightMotorEncoderVelocity())));
   }
 
   // Called once the command ends or is interrupted.

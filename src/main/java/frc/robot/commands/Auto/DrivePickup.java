@@ -4,18 +4,18 @@
 
 package frc.robot.commands.Auto;
 
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import frc.robot.subsystems.DriveSubsystem;
-import frc.robot.subsystems.PickupSubsystem;
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import frc.robot.Constants.BeltConstants;
 import frc.robot.Constants.PickupConstants;
 import frc.robot.commands.PickupArmDownBelts;
 import frc.robot.subsystems.BeltSubsystem;
+import frc.robot.subsystems.DriveSubsystem;
+import frc.robot.subsystems.PickupSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class DrivePickup extends ParallelCommandGroup {
+public class DrivePickup extends ParallelRaceGroup {
   private final DriveSubsystem DriveSubsystem;
   private final PickupSubsystem PickupSubsystem;
   private final BeltSubsystem BeltSubsystem;
@@ -31,8 +31,8 @@ public class DrivePickup extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-    new AutoEncoderDriveForBack(s_DriveSubsystem, v_distance, v_speed),
-    new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, PickupConstants.kPickupArmSpeedDown, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(3)
+      new AutoEncoderDriveForBack(s_DriveSubsystem, v_distance, v_speed),
+      new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, PickupConstants.kPickupArmSpeedDown, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed)
     );
   }
 }

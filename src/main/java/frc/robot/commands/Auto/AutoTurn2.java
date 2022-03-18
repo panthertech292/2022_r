@@ -19,7 +19,7 @@ public class AutoTurn2 extends CommandBase {
   public AutoTurn2(DriveSubsystem s_DriveSubsystem, double speed, double degrees) {
     DriveSubsystem = s_DriveSubsystem;
     v_turnSpeed = speed;
-    v_turnDegrees = degrees * 1.15;
+    v_turnDegrees = degrees;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(s_DriveSubsystem);
   }
@@ -92,7 +92,7 @@ public class AutoTurn2 extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (Math.abs(DriveSubsystem.getLeftMotorEncoderPosition()) > v_driveDistance || Math.abs(DriveSubsystem.getRightMotorEncoderPosition()) > v_driveDistance){
+    if (Math.abs(DriveSubsystem.getLeftMotorEncoderPosition()) > v_driveDistance && Math.abs(DriveSubsystem.getRightMotorEncoderPosition()) > v_driveDistance){
       return true;
     }
     else{
