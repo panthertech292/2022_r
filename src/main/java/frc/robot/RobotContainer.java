@@ -60,7 +60,7 @@ public class RobotContainer {
   // Shooter Commands
   private final Command z_RunShooter = new RunShooter(s_ShooterSubsystem, ShooterConstants.kShooterLowSpeed, ShooterConstants.kShooterHighSpeed);
   //private final Command z_RunShooterBelt = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, ShooterConstants.kShooterLowSpeed, ShooterConstants.kShooterHighSpeed, 0, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
-  private final Command z_RunShooterBeltFenderLow = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, .17, .17, 900, BeltConstants.kFrontBeltSpeed+0.05, BeltConstants.kBackBeltSpeed+0.05);
+  private final Command z_RunShooterBeltFenderLow = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, .15, .15, 800, BeltConstants.kFrontBeltSpeed+0.05, BeltConstants.kBackBeltSpeed+0.05);
   private final Command z_RunShooterBeltTarmacHigh = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, .30, .30, 1645, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
 
   //Lift Commands
@@ -137,8 +137,8 @@ public class RobotContainer {
     d_rightBumper.toggleWhenPressed(z_PickUpArmDownBelts);
     d_leftBumper.whileHeld(z_RunBeltBackwards);
     d_startButton.whileHeld(z_RunShooter);
-    d_aButton.whenPressed(z_AutoTurn);
-    d_bButton.whenPressed(z_AutoTurn2);
+    //d_aButton.whenPressed(z_AutoTurn);
+    //d_bButton.whenPressed(z_AutoTurn2);
 
     //Operator Controller Binds
     o_leftBumper.whileHeld(z_LiftRetract);

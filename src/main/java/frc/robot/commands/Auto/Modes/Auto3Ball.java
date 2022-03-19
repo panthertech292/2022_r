@@ -42,9 +42,9 @@ public class Auto3Ball extends SequentialCommandGroup {
       //new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, 0.26, 0.26, 1460, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(3), //Run the shooter
       //new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, PickupConstants.kPickupArmSpeedDown, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(0.5), //Put the arm down
       new DrivePickup(s_DriveSubsystem, s_PickupSubsystem, s_BeltSubsystem, 40, .45), //Drive with pickup down to get ball
-      new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, PickupConstants.kPickupArmSpeedDown, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(1.5),
+      new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, PickupConstants.kPickupArmSpeedDown, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(1),
       new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, 0.28, 0.28, 1580, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(3), //Run the shooter
-      new PickupArmUp(s_PickupSubsystem, PickupConstants.kPickupArmSpeedUp).withTimeout(2), //Raise arm
+      //new PickupArmUp(s_PickupSubsystem, PickupConstants.kPickupArmSpeedUp).withTimeout(2), //Raise arm
       new AutoTurn3(s_DriveSubsystem, -.6, 72),
       new DrivePickup(s_DriveSubsystem, s_PickupSubsystem, s_BeltSubsystem, 130, .45),
       new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, PickupConstants.kPickupArmSpeedDown, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(1),
