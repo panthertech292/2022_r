@@ -137,9 +137,6 @@ public class RobotContainer {
     d_rightBumper.toggleWhenPressed(z_PickUpArmDownBelts);
     d_leftBumper.whileHeld(z_RunBeltBackwards);
     d_startButton.whileHeld(z_RunShooter);
-    //d_aButton.whenPressed(z_AutoTurn);
-    //d_bButton.whenPressed(z_AutoTurn2);
-
     //Operator Controller Binds
     o_leftBumper.whileHeld(z_LiftRetract);
     o_rightBumper.whileHeld(z_LiftExtend);

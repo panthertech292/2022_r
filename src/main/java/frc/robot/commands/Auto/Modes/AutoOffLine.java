@@ -19,7 +19,7 @@ public class AutoOffLine extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new AutoEncoderDriveForBack(s_DriveSubsystem, 45, .4)
+      new AutoEncoderDriveForBack(s_DriveSubsystem, 55, .4)
     );
   }
 }

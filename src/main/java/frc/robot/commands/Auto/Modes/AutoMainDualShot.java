@@ -36,12 +36,11 @@ public class AutoMainDualShot extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-    new AutoEncoderDriveForBack(s_DriveSubsystem, 20, .4), //Drive to shooting position
-    new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, PickupConstants.kPickupArmSpeedDown, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(0.5), //Put the arm down
-    new DrivePickup(s_DriveSubsystem, s_PickupSubsystem, s_BeltSubsystem, 0, 0), //Drive with pickup down to get ball
-    new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, 0.29, 0.29, 1595, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(4), //Run the shooter
+    new DrivePickup(s_DriveSubsystem, s_PickupSubsystem, s_BeltSubsystem, 40, .45), //Drive with pickup down to get ball
+    new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, PickupConstants.kPickupArmSpeedDown, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(1),
+    new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, 0.28, 0.28, 1580, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(3), //Run the shooter
     new PickupArmUp(s_PickupSubsystem, PickupConstants.kPickupArmSpeedUp).withTimeout(2), //Raise arm
-    new AutoEncoderDriveForBack(s_DriveSubsystem, 27, .4) //Drive back to get off line
+    new AutoEncoderDriveForBack(s_DriveSubsystem, 15, .4) //Drive back to get off line
     );
   }
 }
