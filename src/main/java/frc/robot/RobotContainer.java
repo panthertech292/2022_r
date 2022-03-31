@@ -62,6 +62,7 @@ public class RobotContainer {
   //private final Command z_RunShooterBelt = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, ShooterConstants.kShooterLowSpeed, ShooterConstants.kShooterHighSpeed, 0, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
   private final Command z_RunShooterBeltFenderLow = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, .15, .15, 800, BeltConstants.kFrontBeltSpeed+0.05, BeltConstants.kBackBeltSpeed+0.05);
   private final Command z_RunShooterBeltTarmacHigh = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, .30, .30, 1645, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
+  private final Command z_RunShooterBeltProtected = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, .39, .39, 2210, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
 
   //Lift Commands
   private final Command z_LiftExtend = new LiftExtend(s_LiftSubsystem);
@@ -89,7 +90,7 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
     CameraServer.startAutomaticCapture();
-    CameraServer.startAutomaticCapture();
+    //CameraServer.startAutomaticCapture();
 
     s_DriveSubsystem.setDefaultCommand(z_DriveTeleop);
     s_PickupSubsystem.setDefaultCommand(z_PickupArmUp);
@@ -97,9 +98,9 @@ public class RobotContainer {
     s_BeltSubsystem.setDefaultCommand(z_ReloadBelts);
     
     //Auto Command Selector
-    o_AutoChooser.setDefaultOption("Main Auto", z_AutoMain);
-    o_AutoChooser.setDefaultOption("Main Auto Dual Shot", z_AutoMainDualShot);
-    o_AutoChooser.addOption("3 Ball Auto", z_Auto3Ball);
+    o_AutoChooser.setDefaultOption("3 Main Auto", z_Auto3Ball);
+    o_AutoChooser.addOption("Main Auto Dual Shot", z_AutoMainDualShot);
+    o_AutoChooser.addOption("MAIN Ball Auto", z_AutoMain);
     o_AutoChooser.addOption("Drive off line Auto", z_AutoOffLine);
     o_AutoChooser.addOption("Auto Dead", z_AutoDead);
     SmartDashboard.putData(o_AutoChooser);
@@ -144,6 +145,7 @@ public class RobotContainer {
     o_backButton.whileHeld(z_RunBeltBackwards);
     o_aButton.whileHeld(z_RunShooterBeltFenderLow);
     o_bButton.whileHeld(z_RunShooterBeltTarmacHigh);
+    o_yButton.whileHeld(z_RunShooterBeltProtected);
     o_leftStickClick.whileHeld(z_RunShooter);
   }
 
@@ -183,7 +185,7 @@ public class RobotContainer {
       return o_AutoChooser.getSelected();
     }
     else{
-      return z_AutoMain;
+      return z_Auto3Ball;
     }
   }
 }

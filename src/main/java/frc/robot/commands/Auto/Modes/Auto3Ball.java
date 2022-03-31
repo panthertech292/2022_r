@@ -39,12 +39,12 @@ public class Auto3Ball extends SequentialCommandGroup {
       //NEW CODE TO TEST SOMETIME
       //new PickupRev(s_PickupSubsystem, s_BeltSubsystem, s_ShooterSubsystem, 0.28, 0.28).withTimeout(1),
       new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, 0.28, 0.28, 1580, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(3), //Run the shooter
-      new AutoTurn3(s_DriveSubsystem, -.6, 72),
+      new AutoTurn3(s_DriveSubsystem, -.6, 75),
       new DrivePickup(s_DriveSubsystem, s_PickupSubsystem, s_BeltSubsystem, 130, .45),
       new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, PickupConstants.kPickupArmSpeedDown, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(1),
       //NEW CODE TO TEST SOMETIME
       //new PickupRev(s_PickupSubsystem, s_BeltSubsystem, s_ShooterSubsystem, 0.32, 0.32).withTimeout(1),
-      new AutoTurn3(s_DriveSubsystem, .6, 45),
+      new AutoTurn3(s_DriveSubsystem, .6, 42),
       new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, 0.32, 0.32, 1790, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(3) //Run the shooter
     );
   }
