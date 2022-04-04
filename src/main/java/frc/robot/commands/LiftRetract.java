@@ -41,7 +41,6 @@ public class LiftRetract extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     LiftSubsystem.setBothArmMotors(0);
-    LiftSubsystem.setRotationArmMotor(0);
   }
 
   // Returns true when the command should end.

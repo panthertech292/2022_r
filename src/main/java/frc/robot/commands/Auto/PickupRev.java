@@ -32,7 +32,7 @@ public class PickupRev extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, PickupConstants.kPickupArmSpeedDown, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed),
+      new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed),
       new RunShooter(s_ShooterSubsystem, v_lowSpeed, v_highSpeed)
     );
   }
