@@ -9,11 +9,9 @@ import frc.robot.subsystems.PickupSubsystem;
 
 public class PickupArmUp extends CommandBase {
   private final PickupSubsystem PickupSubsystem;
-  private double v_pickupSpeedArmUp;
   /** Creates a new PickupArmUp. */
-  public PickupArmUp(PickupSubsystem s_PickupSubsystem, double upSpeed) {
+  public PickupArmUp(PickupSubsystem s_PickupSubsystem) {
     PickupSubsystem = s_PickupSubsystem;
-    v_pickupSpeedArmUp = upSpeed;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(s_PickupSubsystem);
   }
@@ -21,25 +19,18 @@ public class PickupArmUp extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    PickupSubsystem.setPickupArmMotorSpeed(0);
+    PickupSubsystem.setPickupArmUp();
     PickupSubsystem.setPickupMotorSpeed(0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (PickupSubsystem.getArmUpLimitSwitch() == false){
-      PickupSubsystem.setPickupArmMotorSpeed(v_pickupSpeedArmUp);
-    }
-    else{
-      PickupSubsystem.setPickupArmMotorSpeed(0.0);
-    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    PickupSubsystem.setPickupArmMotorSpeed(0);
     PickupSubsystem.setPickupMotorSpeed(0);
   }
 

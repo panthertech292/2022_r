@@ -12,14 +12,12 @@ import frc.robot.subsystems.PickupSubsystem;
 public class PickupArmDownBelts extends CommandBase {
   private final PickupSubsystem PickupSubsystem;
   private final BeltSubsystem BeltSubsystem;
-  private double v_pickupSpeedArmDown;
   private double v_frontBeltSpeed;
   private double v_backBeltSpeed;
   /** Creates a new PickupArmUp. */
-  public PickupArmDownBelts(PickupSubsystem s_PickupSubsystem, BeltSubsystem s_BeltSubsystem, double downSpeed, double frontbeltspeed, double backbeltspeed) {
+  public PickupArmDownBelts(PickupSubsystem s_PickupSubsystem, BeltSubsystem s_BeltSubsystem, double frontbeltspeed, double backbeltspeed) {
     PickupSubsystem = s_PickupSubsystem;
     BeltSubsystem = s_BeltSubsystem;
-    v_pickupSpeedArmDown = downSpeed;
     v_frontBeltSpeed = frontbeltspeed;
     v_backBeltSpeed = backbeltspeed;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -29,7 +27,7 @@ public class PickupArmDownBelts extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    PickupSubsystem.setPickupArmMotorSpeed(0);
+    PickupSubsystem.setPickupArmDown();
     PickupSubsystem.setPickupMotorSpeed(PickupConstants.kPickupMotorSpeed);
     BeltSubsystem.setFrontBelts(0);
     BeltSubsystem.setBackBelts(0);
@@ -53,20 +51,11 @@ public class PickupArmDownBelts extends CommandBase {
     else{
       BeltSubsystem.setFrontBelts(v_frontBeltSpeed);
     }
-    //Arm Control
-    if (PickupSubsystem.getArmDownLimitSwitch() == false){
-      PickupSubsystem.setPickupArmMotorSpeed(v_pickupSpeedArmDown);
-    } 
-    else{
-      PickupSubsystem.setPickupArmMotorSpeed(0);
-    }
-    
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    PickupSubsystem.setPickupArmMotorSpeed(0);
     PickupSubsystem.setPickupMotorSpeed(0);
     BeltSubsystem.setFrontBelts(0);
     BeltSubsystem.setBackBelts(0);

@@ -30,15 +30,14 @@ public final class Constants {
     public static final class PickupConstants{
         //Motors
         public static final int kPickupMotor = 12;
-        public static final int kPickupMotorArm = 10; 
-        public static final int kPickupCurrentLimit = 60;
         public static final int kPickup550CurrentLimit = 30;
-        //Encoders & Switches
-        public static final int kPickupArmUpSwitch = 0; //DIO
-        public static final int kPickupArmDownSwitch = 1; //DIO
+        //Pneumatics
+        public static final int kPickupSolenoidUpVent = 1; // PLACEHOLDER - SUS ඞ
+        public static final int kPickupSolenoidUpRun = 2;
+        public static final int kPickupSolenoidDownVent = 3; // PLACEHOLDER - SUS ඞ
+        public static final int kPickupSolenoidDownRun = 4;
+
         //Speeds
-        public static final double kPickupArmSpeedUp = -0.65;
-        public static final double kPickupArmSpeedDown = 0.65; 
         public static final double kPickupMotorSpeed = 0.72;
     }
     public static final class ShooterConstants{
@@ -52,10 +51,13 @@ public final class Constants {
     }
     public static final class LiftConstants{
         //Motors
-        public static final int kRotationArmMotor = 31; 
         public static final int kLeftArmMotor = 32; 
         public static final int kRightArmMotor = 30; 
         public static final int kLiftCurrentLimit = 60;
+
+        //Pneumatics
+        public static final int kLiftSolenoidExtend = 5;
+        public static final int kLiftSolenoidRetract = 6; 
         
         //Speeds
         public static final double kArmExtendSpeed = 1;

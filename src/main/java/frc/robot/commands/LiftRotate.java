@@ -20,23 +20,21 @@ public class LiftRotate extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    LiftSubsystem.setRotationArmMotor(0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (LiftSubsystem.getRotationArmMotorVelocity() < 160 && LiftSubsystem.getRotationArmMotorVelocity() > -160){
-      LiftSubsystem.setRotationArmMotor(RobotContainer.getOperRightSpeedY());
+    if (RobotContainer.getOperRightSpeedY() > 0.7){
+      LiftSubsystem.setRotationCylinderExtended();
     }
-    else{
-      LiftSubsystem.setRotationArmMotor(RobotContainer.getOperRightSpeedY()*0.3);
+    if (RobotContainer.getOperRightSpeedY() < 0.3){
+      LiftSubsystem.setRotationCylinderRetracted();
     }
   }
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    LiftSubsystem.setRotationArmMotor(0);
   }
 
   // Returns true when the command should end.

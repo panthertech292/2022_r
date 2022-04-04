@@ -11,39 +11,31 @@ import frc.robot.Constants.PickupConstants;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.CANSparkMax.IdleMode;
-
-//Senors & Encoders
-import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.PneumaticsModuleType;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 public class PickupSubsystem extends SubsystemBase {
   /** Creates a new PickupSubsystem. */
   private final CANSparkMax PickupMotor;
-  private final CANSparkMax PickupMotorArm;
-
-  //Encoders & Switches
-  private DigitalInput upArmSwitch;
-  private DigitalInput downArmSwitch;
+  private final DoubleSolenoid PickupSolenoidUp;
+  private final DoubleSolenoid PickupSolenoidDown;
 
   //Variable
   private double v_pickupSpeed;
-  private double v_pickupSpeedArm;
 
   public PickupSubsystem() {
     //Motors
     PickupMotor = new CANSparkMax(PickupConstants.kPickupMotor, MotorType.kBrushless);
-    PickupMotorArm = new CANSparkMax(PickupConstants.kPickupMotorArm, MotorType.kBrushed);
     PickupMotor.restoreFactoryDefaults();
-    PickupMotorArm.restoreFactoryDefaults();
     PickupMotor.setIdleMode(IdleMode.kCoast);
-    PickupMotorArm.setIdleMode(IdleMode.kBrake);
     PickupMotor.setInverted(true);
-    PickupMotorArm.setInverted(true);
     PickupMotor.setSmartCurrentLimit(PickupConstants.kPickup550CurrentLimit);
-    PickupMotorArm.setSmartCurrentLimit(PickupConstants.kPickupCurrentLimit);
 
-    //Encoders & Switches
-    upArmSwitch = new DigitalInput(PickupConstants.kPickupArmUpSwitch);
-    downArmSwitch = new DigitalInput(PickupConstants.kPickupArmDownSwitch);
+    //Pneumatics
+
+    PickupSolenoidUp = new DoubleSolenoid(PneumaticsModuleType.REVPH, PickupConstants.kPickupSolenoidUpRun, PickupConstants.kPickupSolenoidUpVent);
+    PickupSolenoidDown = new DoubleSolenoid(PneumaticsModuleType.REVPH, PickupConstants.kPickupSolenoidDownRun, PickupConstants.kPickupSolenoidDownVent);
   }
 
   //Motors
@@ -51,22 +43,20 @@ public class PickupSubsystem extends SubsystemBase {
     v_pickupSpeed = pickupspeed;
     PickupMotor.set(v_pickupSpeed);
   }
-  public void setPickupArmMotorSpeed(double armpickupspeed){
-    v_pickupSpeedArm = armpickupspeed;
-    PickupMotorArm.set(v_pickupSpeedArm);
+  public void setPickupArmDown(){
+    PickupSolenoidDown.set(Value.kForward);
+    PickupSolenoidUp.set(Value.kReverse);
+  }
+  public void setPickupArmIdle(){
+    PickupSolenoidDown.set(Value.kReverse);
+    PickupSolenoidUp.set(Value.kReverse);
+  }
+  public void setPickupArmUp(){
+    PickupSolenoidDown.set(Value.kReverse);
+    PickupSolenoidUp.set(Value.kForward);
   }
   //Encoder & Limit Switches
-  public boolean getArmUpLimitSwitch(){
-    return upArmSwitch.get();
-  }
-  public boolean getArmDownLimitSwitch(){
-    return downArmSwitch.get();
-  }
-
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-    //System.out.println("Up switch reads: " + getArmUpLimitSwitch());
-    //System.out.println("Down switch reads: " + getArmDownLimitSwitch());
   }
 }

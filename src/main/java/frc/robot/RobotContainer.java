@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 //Constants
 import frc.robot.Constants.BeltConstants;
-import frc.robot.Constants.PickupConstants;
 import frc.robot.Constants.ShooterConstants;
 //Commands
 import frc.robot.commands.*;
@@ -53,9 +52,9 @@ public class RobotContainer {
   private final Command z_DriveTeleop = new DriveTeleop(s_DriveSubsystem);
 
   // Pickup Commands
-  private final Command z_PickupArmUp = new PickupArmUp(s_PickupSubsystem, PickupConstants.kPickupArmSpeedUp);
+  private final Command z_PickupArmUp = new PickupArmUp(s_PickupSubsystem);
   //private final Command z_PickupArmDown = new PickupArmDown(s_PickupSubsystem, PickupConstants.kPickupArmSpeedDown);
-  private final Command z_PickUpArmDownBelts = new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, PickupConstants.kPickupArmSpeedDown, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
+  private final Command z_PickUpArmDownBelts = new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
 
   // Shooter Commands
   private final Command z_RunShooter = new RunShooter(s_ShooterSubsystem, ShooterConstants.kShooterLowSpeed, ShooterConstants.kShooterHighSpeed);

@@ -30,11 +30,11 @@ public class LiftExtend extends CommandBase {
   @Override
   public void execute() {
     LiftSubsystem.setBothArmMotors(LiftConstants.kArmExtendSpeed);
-    if (LiftSubsystem.getRotationArmMotorVelocity() < 160 && LiftSubsystem.getRotationArmMotorVelocity() > -160){
-      LiftSubsystem.setRotationArmMotor(RobotContainer.getOperRightSpeedY());
+    if (RobotContainer.getOperRightSpeedY() > 0.5){
+      LiftSubsystem.setRotationCylinderExtended();
     }
-    else{
-      LiftSubsystem.setRotationArmMotor(RobotContainer.getOperRightSpeedY()*0.3);
+    if (RobotContainer.getOperRightSpeedY() < -0.5){
+      LiftSubsystem.setRotationCylinderRetracted();
     }
   }
 
@@ -42,7 +42,6 @@ public class LiftExtend extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     LiftSubsystem.setBothArmMotors(0);
-    LiftSubsystem.setRotationArmMotor(0);
   }
 
   // Returns true when the command should end.

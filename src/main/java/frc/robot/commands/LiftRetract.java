@@ -29,11 +29,11 @@ public class LiftRetract extends CommandBase {
   @Override
   public void execute() {
     LiftSubsystem.setBothArmMotors(LiftConstants.kArmRetractSpeed);
-    if (LiftSubsystem.getRotationArmMotorVelocity() < 160 && LiftSubsystem.getRotationArmMotorVelocity() > -160){
-      LiftSubsystem.setRotationArmMotor(RobotContainer.getOperRightSpeedY());
+    if (RobotContainer.getOperRightSpeedY() > 0.7){
+      LiftSubsystem.setRotationCylinderExtended();
     }
-    else{
-      LiftSubsystem.setRotationArmMotor(RobotContainer.getOperRightSpeedY()*0.3);
+    if (RobotContainer.getOperRightSpeedY() < 0.3){
+      LiftSubsystem.setRotationCylinderRetracted();
     }
   }
 
