@@ -57,6 +57,9 @@ public class LiftSubsystem extends SubsystemBase {
   public void setRotationCylinderRetracted(){
     RotationCylinder.set(Value.kReverse);
   }
+  public void setRotationCylinderOff(){
+    RotationCylinder.set(Value.kOff);
+  }
 
   @Override
   public void periodic() {

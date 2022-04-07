@@ -36,6 +36,9 @@ public class LiftExtend extends CommandBase {
     if (RobotContainer.getOperRightSpeedY() < -0.5){
       LiftSubsystem.setRotationCylinderRetracted();
     }
+    if ((RobotContainer.getOperRightSpeedY() < 0.5) && (RobotContainer.getOperRightSpeedY() > -0.5)){
+      LiftSubsystem.setRotationCylinderOff();
+    }
   }
 
   // Called once the command ends or is interrupted.

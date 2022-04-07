@@ -32,13 +32,13 @@ public final class Constants {
         public static final int kPickupMotor = 12;
         public static final int kPickup550CurrentLimit = 30;
         //Pneumatics
-        public static final int kPickupSolenoidUpVent = 1; // PLACEHOLDER - SUS ඞ
+        public static final int kPickupSolenoidUpVent = 3; // PLACEHOLDER - SUS ඞ
         public static final int kPickupSolenoidUpRun = 2;
-        public static final int kPickupSolenoidDownVent = 3; // PLACEHOLDER - SUS ඞ
+        public static final int kPickupSolenoidDownVent = 5; // PLACEHOLDER - SUS ඞ
         public static final int kPickupSolenoidDownRun = 4;
 
         //Speeds
-        public static final double kPickupMotorSpeed = 0.72;
+        public static final double kPickupMotorSpeed = -0.72;
     }
     public static final class ShooterConstants{
         //Motors
@@ -56,8 +56,8 @@ public final class Constants {
         public static final int kLiftCurrentLimit = 60;
 
         //Pneumatics
-        public static final int kLiftSolenoidExtend = 5;
-        public static final int kLiftSolenoidRetract = 6; 
+        public static final int kLiftSolenoidExtend = 1;
+        public static final int kLiftSolenoidRetract = 0; 
         
         //Speeds
         public static final double kArmExtendSpeed = 1;

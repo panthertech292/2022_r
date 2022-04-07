@@ -14,12 +14,14 @@ public class PickupArmDownBelts extends CommandBase {
   private final BeltSubsystem BeltSubsystem;
   private double v_frontBeltSpeed;
   private double v_backBeltSpeed;
+  private double v_counter;
   /** Creates a new PickupArmUp. */
   public PickupArmDownBelts(PickupSubsystem s_PickupSubsystem, BeltSubsystem s_BeltSubsystem, double frontbeltspeed, double backbeltspeed) {
     PickupSubsystem = s_PickupSubsystem;
     BeltSubsystem = s_BeltSubsystem;
     v_frontBeltSpeed = frontbeltspeed;
     v_backBeltSpeed = backbeltspeed;
+    v_counter = 0;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(s_PickupSubsystem, s_BeltSubsystem);
   }
@@ -31,11 +33,20 @@ public class PickupArmDownBelts extends CommandBase {
     PickupSubsystem.setPickupMotorSpeed(PickupConstants.kPickupMotorSpeed);
     BeltSubsystem.setFrontBelts(0);
     BeltSubsystem.setBackBelts(0);
+    v_counter = 0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    if (v_counter > 50){
+      PickupSubsystem.setPickupArmIdle();
+      v_counter = 0;
+    }
+    else{
+      v_counter = v_counter + 1;
+    }
+   
     PickupSubsystem.setPickupMotorSpeed(PickupConstants.kPickupMotorSpeed);
     //Back Belts
     if (BeltSubsystem.getBackBeltBallSensor() == true){
