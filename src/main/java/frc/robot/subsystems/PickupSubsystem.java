@@ -31,6 +31,7 @@ public class PickupSubsystem extends SubsystemBase {
     PickupMotor.setIdleMode(IdleMode.kCoast);
     PickupMotor.setInverted(true);
     PickupMotor.setSmartCurrentLimit(PickupConstants.kPickup550CurrentLimit);
+    PickupMotor.burnFlash();
 
     //Pneumatics
 

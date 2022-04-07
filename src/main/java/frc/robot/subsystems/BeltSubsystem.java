@@ -41,6 +41,8 @@ public class BeltSubsystem extends SubsystemBase {
     BackBeltMotor.setSmartCurrentLimit(BeltConstants.kBeltCurrentLimit);
     BackBeltMotor.setInverted(false);
     FrontBeltMotor.setInverted(true);
+    BackBeltMotor.burnFlash();
+    FrontBeltMotor.burnFlash();
 
     //Sensors
     frontBeltSensor = new DigitalInput(BeltConstants.kFrontBeltSensor);

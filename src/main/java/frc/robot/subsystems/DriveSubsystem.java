@@ -72,6 +72,11 @@ public class DriveSubsystem extends SubsystemBase {
     FrontRightMotor.setSmartCurrentLimit(DriveConstants.kDriveCurrentLimit);
     BackLeftMotor.setSmartCurrentLimit(DriveConstants.kDriveCurrentLimit);
     BackRightMotor.setSmartCurrentLimit(DriveConstants.kDriveCurrentLimit);
+    FrontLeftMotor.burnFlash();
+    FrontRightMotor.burnFlash();
+    BackLeftMotor.burnFlash();
+    BackRightMotor.burnFlash();
+
     LeftSide = new MotorControllerGroup(FrontLeftMotor, BackLeftMotor);
     RightSide = new MotorControllerGroup(FrontRightMotor, BackRightMotor);
     DifDrive = new DifferentialDrive(LeftSide,RightSide);

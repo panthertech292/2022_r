@@ -44,6 +44,9 @@ public class LiftSubsystem extends SubsystemBase {
     LeftArmMotor.setSmartCurrentLimit(LiftConstants.kLiftCurrentLimit);
     RightArmMotor.setSmartCurrentLimit(LiftConstants.kLiftCurrentLimit);
 
+    LeftArmMotor.burnFlash();
+    RightArmMotor.burnFlash();
+
     RotationCylinder = new DoubleSolenoid(PneumaticsModuleType.REVPH, LiftConstants.kLiftSolenoidExtend, LiftConstants.kLiftSolenoidRetract);
   }
   public void setBothArmMotors(double armspeed){
