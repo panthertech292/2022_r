@@ -55,12 +55,10 @@ public class BeltSubsystem extends SubsystemBase {
     BackBeltMotor.set(v_backBeltSpeed);
   }
   public boolean getFrontBeltBallSensor(){
-    return false;
-    //return frontBeltSensor.get();
+    return frontBeltSensor.get();
   }
   public boolean getBackBeltBallSensor(){
-    return false;
-    //return backBeltSensor.get();
+    return backBeltSensor.get();
   }
 
   @Override

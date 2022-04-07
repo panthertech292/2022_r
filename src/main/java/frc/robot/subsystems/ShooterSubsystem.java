@@ -49,6 +49,8 @@ public class ShooterSubsystem extends SubsystemBase {
     ShooterMotorHigh.setInverted(true);
     ShooterMotorLow.setSmartCurrentLimit(ShooterConstants.kShooterCurrentLimit);
     ShooterMotorHigh.setSmartCurrentLimit(ShooterConstants.kShooterCurrentLimit);
+    ShooterMotorHigh.enableVoltageCompensation(12);
+    ShooterMotorLow.enableVoltageCompensation(12);
 
     //Sensors & Encoders
     ShooterMotorLowEncoder = ShooterMotorLow.getEncoder();

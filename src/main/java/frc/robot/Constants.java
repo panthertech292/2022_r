@@ -32,9 +32,9 @@ public final class Constants {
         public static final int kPickupMotor = 12;
         public static final int kPickup550CurrentLimit = 30;
         //Pneumatics
-        public static final int kPickupSolenoidUpVent = 3; // PLACEHOLDER - SUS ඞ
+        public static final int kPickupSolenoidUpVent = 3; //SUS ඞ
         public static final int kPickupSolenoidUpRun = 2;
-        public static final int kPickupSolenoidDownVent = 5; // PLACEHOLDER - SUS ඞ
+        public static final int kPickupSolenoidDownVent = 5; //SUS ඞ
         public static final int kPickupSolenoidDownRun = 4;
 
         //Speeds
@@ -69,8 +69,8 @@ public final class Constants {
         public static final int kBackBeltMotor = 20; //CAN
         public static final int kBeltCurrentLimit = 60;
         //Sensors
-        public static final int kFrontBeltSensor = 3; //DIO
-        public static final int kBackBeltSensor = 2; //DIO
+        public static final int kFrontBeltSensor = 9; //DIO
+        public static final int kBackBeltSensor = 8; //DIO
         //Speeds
         public static final double kFrontBeltSpeed = 0.35;
         public static final double kBackBeltSpeed = 0.35;

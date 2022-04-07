@@ -88,7 +88,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-    CameraServer.startAutomaticCapture();
+    //CameraServer.startAutomaticCapture();
     //CameraServer.startAutomaticCapture();
 
     s_DriveSubsystem.setDefaultCommand(z_DriveTeleop);

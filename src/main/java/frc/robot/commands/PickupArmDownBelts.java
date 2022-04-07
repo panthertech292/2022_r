@@ -39,13 +39,14 @@ public class PickupArmDownBelts extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (v_counter > 50){
+    /*if (v_counter > 50){
       PickupSubsystem.setPickupArmIdle();
       v_counter = 0;
     }
     else{
       v_counter = v_counter + 1;
     }
+    */
    
     PickupSubsystem.setPickupMotorSpeed(PickupConstants.kPickupMotorSpeed);
     //Back Belts
