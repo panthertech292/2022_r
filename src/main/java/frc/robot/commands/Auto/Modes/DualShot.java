@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants.BeltConstants;
 import frc.robot.commands.PickupArmDownBelts;
 import frc.robot.commands.PickupArmUp;
-import frc.robot.commands.RunBelt;
 import frc.robot.commands.RunShooterBelt;
 import frc.robot.commands.Auto.AutoEncoderDriveForBack;
 import frc.robot.commands.Auto.DrivePickup;
@@ -20,13 +19,13 @@ import frc.robot.subsystems.ShooterSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class AutoMainDualShot extends SequentialCommandGroup {
+public class DualShot extends SequentialCommandGroup {
   private final DriveSubsystem DriveSubsystem;
   private final PickupSubsystem PickupSubsystem;
   private final ShooterSubsystem ShooterSubsystem;
   private final BeltSubsystem BeltSubsystem;
-  /** Creates a new AutoMain. */
-  public AutoMainDualShot(DriveSubsystem s_DriveSubsystem, PickupSubsystem s_PickupSubsystem, ShooterSubsystem s_ShooterSubsystem, BeltSubsystem s_BeltSubsystem) {
+  /** Creates a new DualShot. */
+  public DualShot(DriveSubsystem s_DriveSubsystem, PickupSubsystem s_PickupSubsystem, ShooterSubsystem s_ShooterSubsystem, BeltSubsystem s_BeltSubsystem) {
     DriveSubsystem = s_DriveSubsystem;
     PickupSubsystem = s_PickupSubsystem;
     ShooterSubsystem = s_ShooterSubsystem;
@@ -98,42 +97,6 @@ public class AutoMainDualShot extends SequentialCommandGroup {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* ASCII Art to help improve success of auto
 ⠄⠄⠄⠄⢠⣿⣿⣿⣿⣿⢻⣿⣿⣿⣿⣿⣿⣿⣿⣯⢻⣿⣿⣿⣿⣆⠄⠄⠄
 ⠄⠄⣼⢀⣿⣿⣿⣿⣏⡏⠄⠹⣿⣿⣿⣿⣿⣿⣿⣿⣧⢻⣿⣿⣿⣿⡆⠄⠄
@@ -147,12 +110,3 @@ public class AutoMainDualShot extends SequentialCommandGroup {
 ⠄⠄⠄⠄⠻⣦⡙⠿⣧⠙⢷⠙⠻⠿⢿⡿⠿⠿⠛⠋⠉⠄⠂⠘⠁⠞⠄⠄⠄
 ⠄⠄⠄⠄⠄⠈⠙⠑⣠⣤⣴⡖⠄⠿⣋⣉⣉⡁⠄⢾⣦⠄⠄⠄⠄⠄⠄⠄⠄
 */ 
-
-
-
-
-
-
-
-
-

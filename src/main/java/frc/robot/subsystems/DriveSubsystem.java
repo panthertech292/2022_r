@@ -130,6 +130,7 @@ public class DriveSubsystem extends SubsystemBase {
   }
   public void resetGyro(){
     Pigeon2.reset();
+    
   }
   
   //Teleop

@@ -17,8 +17,6 @@ import frc.robot.Constants.BeltConstants;
 import frc.robot.Constants.ShooterConstants;
 //Commands
 import frc.robot.commands.*;
-import frc.robot.commands.Auto.AutoTurn;
-import frc.robot.commands.Auto.AutoTurn2;
 import frc.robot.commands.Auto.IMUTurn;
 import frc.robot.commands.Auto.Modes.*;
 
@@ -54,7 +52,6 @@ public class RobotContainer {
 
   // Pickup Commands
   private final Command z_PickupArmUp = new PickupArmUp(s_PickupSubsystem);
-  //private final Command z_PickupArmDown = new PickupArmDown(s_PickupSubsystem, PickupConstants.kPickupArmSpeedDown);
   private final Command z_PickUpArmDownBelts = new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
 
   // Shooter Commands
@@ -75,8 +72,7 @@ public class RobotContainer {
   private final Command z_RunBeltBackwards = new RunBeltBackwards(s_BeltSubsystem);
   
   //Auto Commands
-  private final Command z_AutoMain = new AutoMain(s_DriveSubsystem, s_PickupSubsystem, s_ShooterSubsystem, s_BeltSubsystem);
-  private final Command z_AutoMainDualShot = new AutoMainDualShot(s_DriveSubsystem, s_PickupSubsystem, s_ShooterSubsystem, s_BeltSubsystem);
+  private final Command z_DualShot = new DualShot(s_DriveSubsystem, s_PickupSubsystem, s_ShooterSubsystem, s_BeltSubsystem);
   private final Command z_Auto3Ball = new Auto3Ball(s_DriveSubsystem, s_PickupSubsystem, s_ShooterSubsystem, s_BeltSubsystem);
   private final Command z_Auto4Ball = new Auto4Ball(s_DriveSubsystem, s_PickupSubsystem, s_ShooterSubsystem, s_BeltSubsystem);
   private final Command z_AutoOffLine = new AutoOffLine(s_DriveSubsystem);
@@ -101,8 +97,7 @@ public class RobotContainer {
     //Auto Command Selector
     o_AutoChooser.setDefaultOption("3 Main Auto", z_Auto3Ball);
     o_AutoChooser.addOption("4 Ball Auto", z_Auto4Ball);
-    o_AutoChooser.addOption("Main Auto Dual Shot", z_AutoMainDualShot);
-    o_AutoChooser.addOption("MAIN Ball Auto", z_AutoMain);
+    o_AutoChooser.addOption("Auto Dual Shot", z_DualShot);
     o_AutoChooser.addOption("Drive off line Auto", z_AutoOffLine);
     o_AutoChooser.addOption("Auto Dead", z_AutoDead);
     SmartDashboard.putData(o_AutoChooser);
