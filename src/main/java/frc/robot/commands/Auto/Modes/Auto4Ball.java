@@ -35,12 +35,16 @@ public class Auto4Ball extends SequentialCommandGroup {
     addCommands(
       new DrivePickup(s_DriveSubsystem, s_PickupSubsystem, s_BeltSubsystem, 50, 0.4),
       new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(1),
-      new IMUTurn(s_DriveSubsystem, (-15), .004, 0.15),
-      new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, 0.28, 0.28, 1580, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(3),
-      new IMUTurn(s_DriveSubsystem, 19, .004, 0.15),
-      new DrivePickupStraight(s_DriveSubsystem, s_PickupSubsystem, s_BeltSubsystem, 130, 0.45, 0.065),
-      new DrivePickupStraight(s_DriveSubsystem, s_PickupSubsystem, s_BeltSubsystem, 15, 0.20, 0.035),
-      new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(1)
+      //new IMUTurn(s_DriveSubsystem, (-10), .004, 0.15),
+      new IMUTurnRev(s_DriveSubsystem, s_ShooterSubsystem, 0.28, 0.28, (-10), .004, 0.15),
+      new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, 0.28, 0.28, 1580, .7, .7).withTimeout(2.5),
+      new IMUTurn(s_DriveSubsystem, 29, .004, 0.15),
+      new AutoEncoderDriveForBack(s_DriveSubsystem, 162, 0.40),
+      new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(1.5),
+      new AutoEncoderDriveForBack(s_DriveSubsystem, 157, -0.40),
+      //new IMUTurn(s_DriveSubsystem, -29, .004, 0.15),
+      new IMUTurnRev(s_DriveSubsystem, s_ShooterSubsystem, 0.28, 0.28, (-29), .004, 0.15),
+      new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, 0.28, 0.28, 1580, .7, .7).withTimeout(2.5)
       //drive 
     );
   }

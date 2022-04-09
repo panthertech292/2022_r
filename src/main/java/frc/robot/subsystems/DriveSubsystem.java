@@ -50,6 +50,11 @@ public class DriveSubsystem extends SubsystemBase {
 
   private boolean v_arcadeDrive;
 
+  private double v_leftCount;
+  private double v_avgAmpLeft;
+  private double v_rightCount;
+  private double v_avgAmpRight;
+
   //Network Tables
   private NetworkTableEntry v_networkTableDriveMode;
 
@@ -150,13 +155,28 @@ public class DriveSubsystem extends SubsystemBase {
   public boolean isDriveModeArcade(){
     return v_networkTableDriveMode.getBoolean(true);
   }
+  public void getSparkAverageAmp(){
+    if (FrontLeftMotor.getOutputCurrent() != 0){
+      v_leftCount = v_leftCount + 1;
+      v_avgAmpLeft = (FrontLeftMotor.getOutputCurrent()+v_avgAmpLeft)/v_leftCount;
+      System.out.println("AVERAGE LEFT AMP: "+ v_avgAmpLeft);
+      v_rightCount = v_rightCount + 1;
+      v_avgAmpRight = (FrontRightMotor.getOutputCurrent()+v_avgAmpRight)/v_rightCount;
+      System.out.println("AVERAGE RIGHT AMP: "+ v_avgAmpRight);
+    }
+  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     //System.out.println("LEFT" + getLeftMotorEncoderPosition());
     //System.out.println("RIGHT" + getRightMotorEncoderPosition());
     //System.out.println("ROBOT ANGLE: " + getRobotAngle());
-    System.out.println("LEFT SPEED: " + getLeftMotorEncoderVelocity());
-    System.out.println("RIGHT SPEED: " + getRightMotorEncoderVelocity());
+    //System.out.println("LEFT SPEED: " + getLeftMotorEncoderVelocity());
+    //System.out.println("RIGHT SPEED: " + getRightMotorEncoderVelocity());
+    //System.out.println("FRONT LEFT MOTOR AMP: "+FrontLeftMotor.getOutputCurrent() + " OUTPUT: " + FrontLeftMotor.getAppliedOutput());
+    //System.out.println("FRONT RIGHT MOTOR AMP: "+FrontRightMotor.getOutputCurrent() + " OUTPUT: " + FrontRightMotor.getAppliedOutput());
+    //System.out.println("ERROR: "+FrontRightMotor.getLastError());
+    //System.out.println("FAULT: "+FrontRightMotor.getFaults());
+    //getSparkAverageAmp();
   }
 }

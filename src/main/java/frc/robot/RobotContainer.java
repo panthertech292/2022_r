@@ -58,7 +58,7 @@ public class RobotContainer {
   private final Command z_RunShooter = new RunShooter(s_ShooterSubsystem, ShooterConstants.kShooterLowSpeed, ShooterConstants.kShooterHighSpeed);
   //private final Command z_RunShooterBelt = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, ShooterConstants.kShooterLowSpeed, ShooterConstants.kShooterHighSpeed, 0, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
   private final Command z_RunShooterBeltFenderLow = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, .15, .15, 800, BeltConstants.kFrontBeltSpeed+0.05, BeltConstants.kBackBeltSpeed+0.05);
-  private final Command z_RunShooterBeltTarmacHigh = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, .30, .30, 1645, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
+  private final Command z_RunShooterBeltTarmacHigh = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, .30, .30, 1645, BeltConstants.kFrontBeltSpeed+.35, BeltConstants.kBackBeltSpeed+.35);
   private final Command z_RunShooterBeltProtected = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, .39, .39, 2210, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
 
   //Lift Commands
@@ -77,8 +77,6 @@ public class RobotContainer {
   private final Command z_Auto4Ball = new Auto4Ball(s_DriveSubsystem, s_PickupSubsystem, s_ShooterSubsystem, s_BeltSubsystem);
   private final Command z_AutoOffLine = new AutoOffLine(s_DriveSubsystem);
   private final Command z_AutoDead = new AutoDead();
-  private final Command z_IMUTurn = new IMUTurn(s_DriveSubsystem, 90, .004, 0.20);
-
 
   SendableChooser<Command> o_AutoChooser = new SendableChooser<>();
 
@@ -86,7 +84,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-    //CameraServer.startAutomaticCapture();
+    CameraServer.startAutomaticCapture();
     //CameraServer.startAutomaticCapture();
 
     s_DriveSubsystem.setDefaultCommand(z_DriveTeleop);
