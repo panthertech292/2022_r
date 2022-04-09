@@ -22,6 +22,7 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 
 //Encoders & Sensors
 import com.revrobotics.RelativeEncoder;
+import com.ctre.phoenix.sensors.WPI_Pigeon2;
 
 public class DriveSubsystem extends SubsystemBase {
   /** Creates a new DriveSubsystem. */
@@ -39,6 +40,8 @@ public class DriveSubsystem extends SubsystemBase {
   private RelativeEncoder BackLeftMotorEncoder;
   private RelativeEncoder BackRightMotorEncoder;
 
+  private WPI_Pigeon2 Pigeon2;
+
   private final DifferentialDrive DifDrive;
   private double v_leftSpeed;
   private double v_rightSpeed;
@@ -52,6 +55,7 @@ public class DriveSubsystem extends SubsystemBase {
 
   public DriveSubsystem() {
     //FROM THE BACK LOOKING FRONT
+    Pigeon2 = new WPI_Pigeon2(DriveConstants.kPigeonIMU);
     FrontLeftMotor = new CANSparkMax(DriveConstants.kFrontLeftMotor, MotorType.kBrushless);
     FrontRightMotor = new CANSparkMax(DriveConstants.kFrontRightMotor, MotorType.kBrushless);
     BackLeftMotor = new CANSparkMax(DriveConstants.kBackLeftMotor, MotorType.kBrushless);
@@ -105,7 +109,7 @@ public class DriveSubsystem extends SubsystemBase {
     return -FrontLeftMotorEncoder.getVelocity();
   }
   public double getRightMotorEncoderVelocity(){
-    return -FrontRightMotorEncoder.getVelocity();
+    return FrontRightMotorEncoder.getVelocity();
   }
   public double getLeftMotorEncoderPosition(){
     return -(FrontLeftMotorEncoder.getPosition());
@@ -121,12 +125,18 @@ public class DriveSubsystem extends SubsystemBase {
     FrontRightMotorEncoder.setPosition(0);
     BackRightMotorEncoder.setPosition(0);
   }
-
+  public double getRobotAngle(){
+    return Pigeon2.getAngle();
+  }
+  public void resetGyro(){
+    Pigeon2.reset();
+  }
+  
   //Teleop
   public void differentialTankDrive(double leftspeed, double rightspeed){
     v_leftSpeed = -leftspeed;
     v_rightSpeed = rightspeed;
-    DifDrive.tankDrive(v_leftSpeed,v_rightSpeed);
+    DifDrive.tankDrive(v_leftSpeed,v_rightSpeed, false);
   }
   //Telop Drive
   public void differentialArcadeDrive(double leftXspeedTurn, double rightYspeed){
@@ -134,6 +144,7 @@ public class DriveSubsystem extends SubsystemBase {
     v_rightYSpeed = rightYspeed;
     DifDrive.arcadeDrive(v_leftXSpeed, v_rightYSpeed);
   }
+
   //Shuffleboard Handler
   public boolean isDriveModeArcade(){
     return v_networkTableDriveMode.getBoolean(true);
@@ -143,5 +154,8 @@ public class DriveSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
     //System.out.println("LEFT" + getLeftMotorEncoderPosition());
     //System.out.println("RIGHT" + getRightMotorEncoderPosition());
+    //System.out.println("ROBOT ANGLE: " + getRobotAngle());
+    System.out.println("LEFT SPEED: " + getLeftMotorEncoderVelocity());
+    System.out.println("RIGHT SPEED: " + getRightMotorEncoderVelocity());
   }
 }

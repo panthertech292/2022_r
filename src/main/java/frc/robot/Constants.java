@@ -25,6 +25,7 @@ public final class Constants {
         public static final int kFrontRightMotor = 1;
         public static final int kBackLeftMotor = 2;
         public static final int kBackRightMotor = 3;
+        public static final int kPigeonIMU = 6;
         public static final int kDriveCurrentLimit = 60;
     }
     public static final class PickupConstants{

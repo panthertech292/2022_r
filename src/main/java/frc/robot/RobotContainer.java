@@ -19,6 +19,7 @@ import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.*;
 import frc.robot.commands.Auto.AutoTurn;
 import frc.robot.commands.Auto.AutoTurn2;
+import frc.robot.commands.Auto.IMUTurn;
 import frc.robot.commands.Auto.Modes.*;
 
 //Subsystems
@@ -77,10 +78,11 @@ public class RobotContainer {
   private final Command z_AutoMain = new AutoMain(s_DriveSubsystem, s_PickupSubsystem, s_ShooterSubsystem, s_BeltSubsystem);
   private final Command z_AutoMainDualShot = new AutoMainDualShot(s_DriveSubsystem, s_PickupSubsystem, s_ShooterSubsystem, s_BeltSubsystem);
   private final Command z_Auto3Ball = new Auto3Ball(s_DriveSubsystem, s_PickupSubsystem, s_ShooterSubsystem, s_BeltSubsystem);
+  private final Command z_Auto4Ball = new Auto4Ball(s_DriveSubsystem, s_PickupSubsystem, s_ShooterSubsystem, s_BeltSubsystem);
   private final Command z_AutoOffLine = new AutoOffLine(s_DriveSubsystem);
   private final Command z_AutoDead = new AutoDead();
-  private final Command z_AutoTurn = new AutoTurn(s_DriveSubsystem, 0.9, 360);
-  private final Command z_AutoTurn2 = new AutoTurn2(s_DriveSubsystem, 0.9, 360);
+  private final Command z_IMUTurn = new IMUTurn(s_DriveSubsystem, 90, .004, 0.20);
+
 
   SendableChooser<Command> o_AutoChooser = new SendableChooser<>();
 
@@ -98,6 +100,7 @@ public class RobotContainer {
     
     //Auto Command Selector
     o_AutoChooser.setDefaultOption("3 Main Auto", z_Auto3Ball);
+    o_AutoChooser.addOption("4 Ball Auto", z_Auto4Ball);
     o_AutoChooser.addOption("Main Auto Dual Shot", z_AutoMainDualShot);
     o_AutoChooser.addOption("MAIN Ball Auto", z_AutoMain);
     o_AutoChooser.addOption("Drive off line Auto", z_AutoOffLine);
