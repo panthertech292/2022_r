@@ -19,6 +19,8 @@ import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 
 //Encoders & Sensors
 import com.revrobotics.RelativeEncoder;
@@ -50,13 +52,11 @@ public class DriveSubsystem extends SubsystemBase {
 
   private boolean v_arcadeDrive;
 
-  private double v_leftCount;
-  private double v_avgAmpLeft;
-  private double v_rightCount;
-  private double v_avgAmpRight;
-
   //Network Tables
   private NetworkTableEntry v_networkTableDriveMode;
+  NetworkTableEntry v_limeLightX;
+  NetworkTableEntry v_limeLightY;
+  NetworkTableEntry v_limeLightValidTarget;
 
   public DriveSubsystem() {
     //FROM THE BACK LOOKING FRONT
@@ -108,6 +108,10 @@ public class DriveSubsystem extends SubsystemBase {
     //Netowrk Tables
     ShuffleboardTab MainTab = Shuffleboard.getTab("Main Tab");
     v_networkTableDriveMode = MainTab.add("Arcade Drive Enabled", v_arcadeDrive).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+    NetworkTable limeLightTable = NetworkTableInstance.getDefault().getTable("limelight");
+    v_limeLightX = limeLightTable.getEntry("tx");
+    v_limeLightY = limeLightTable.getEntry("ty");
+    v_limeLightValidTarget = limeLightTable.getEntry("tv");
   }
   //Encoders!
   public double getLeftMotorEncoderVelocity(){
@@ -130,14 +134,34 @@ public class DriveSubsystem extends SubsystemBase {
     FrontRightMotorEncoder.setPosition(0);
     BackRightMotorEncoder.setPosition(0);
   }
+  //IMU
   public double getRobotAngle(){
     return Pigeon2.getAngle();
   }
   public void resetGyro(){
     Pigeon2.reset();
-    
   }
-  
+  //Limelight
+  public double getVisionAngle(){
+    return v_limeLightX.getDouble(0.0);
+  }
+  public double getVisionYDistance(){
+    return v_limeLightY.getDouble(0.0);
+  }
+  public boolean getVisionValidTarget(){
+    if (v_limeLightValidTarget.getDouble(0.0) == 0){
+      return false;
+    }
+    else{
+      return true;
+    }
+  }
+  public void setLimeLightDriverCam(){
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(1);
+  }
+  public void setLimeLightVisionCam(){
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(0);
+  }
   //Teleop
   public void differentialTankDrive(double leftspeed, double rightspeed){
     v_leftSpeed = -leftspeed;
@@ -155,28 +179,8 @@ public class DriveSubsystem extends SubsystemBase {
   public boolean isDriveModeArcade(){
     return v_networkTableDriveMode.getBoolean(true);
   }
-  public void getSparkAverageAmp(){
-    if (FrontLeftMotor.getOutputCurrent() != 0){
-      v_leftCount = v_leftCount + 1;
-      v_avgAmpLeft = (FrontLeftMotor.getOutputCurrent()+v_avgAmpLeft)/v_leftCount;
-      System.out.println("AVERAGE LEFT AMP: "+ v_avgAmpLeft);
-      v_rightCount = v_rightCount + 1;
-      v_avgAmpRight = (FrontRightMotor.getOutputCurrent()+v_avgAmpRight)/v_rightCount;
-      System.out.println("AVERAGE RIGHT AMP: "+ v_avgAmpRight);
-    }
-  }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    //System.out.println("LEFT" + getLeftMotorEncoderPosition());
-    //System.out.println("RIGHT" + getRightMotorEncoderPosition());
-    //System.out.println("ROBOT ANGLE: " + getRobotAngle());
-    //System.out.println("LEFT SPEED: " + getLeftMotorEncoderVelocity());
-    //System.out.println("RIGHT SPEED: " + getRightMotorEncoderVelocity());
-    //System.out.println("FRONT LEFT MOTOR AMP: "+FrontLeftMotor.getOutputCurrent() + " OUTPUT: " + FrontLeftMotor.getAppliedOutput());
-    //System.out.println("FRONT RIGHT MOTOR AMP: "+FrontRightMotor.getOutputCurrent() + " OUTPUT: " + FrontRightMotor.getAppliedOutput());
-    //System.out.println("ERROR: "+FrontRightMotor.getLastError());
-    //System.out.println("FAULT: "+FrontRightMotor.getFaults());
-    //getSparkAverageAmp();
   }
 }
