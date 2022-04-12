@@ -34,16 +34,16 @@ public class VisionDistanceAlign extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    v_error = -((v_distance - DriveSubsystem.getVisionYDistance())*v_p);
+    v_error = (v_distance - DriveSubsystem.getVisionYDistance())*v_p;
     if (Math.abs(v_minSpeed) > Math.abs(v_error)){
       if (v_error > 0){
-        v_error = -v_minSpeed;
-      }
-      else{
         v_error = v_minSpeed;
       }
+      else{
+        v_error = -v_minSpeed;
+      }
     }
-    DriveSubsystem.differentialTankDrive(v_error, v_error);
+    DriveSubsystem.differentialTankDrive(-v_error, -v_error);
     System.out.println(v_error);
   }
 
@@ -57,6 +57,6 @@ public class VisionDistanceAlign extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return ((Math.abs(RobotContainer.getDriverLeftSpeedX()) > 0.20) || (Math.abs(RobotContainer.getDriverRightSpeedX()) > 0.20) || ((DriveSubsystem.getVisionYDistance() < v_distance + 1) && DriveSubsystem.getVisionValidTarget() && DriveSubsystem.getVisionYDistance() > v_distance - 1));
+    return ((Math.abs(RobotContainer.getDriverLeftSpeedX()) > 0.20) || (Math.abs(RobotContainer.getDriverRightSpeedX()) > 0.20) || (DriveSubsystem.getVisionValidTarget() && (DriveSubsystem.getVisionYDistance() > v_distance - 1)));
   }
 }
