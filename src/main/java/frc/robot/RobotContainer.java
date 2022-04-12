@@ -19,7 +19,9 @@ import frc.robot.Constants.ShooterConstants;
 import frc.robot.commands.*;
 import frc.robot.commands.Auto.IMUTurn;
 import frc.robot.commands.Auto.Modes.*;
-
+import frc.robot.commands.Vision.VisionAngleAlign;
+import frc.robot.commands.Vision.VisionDistanceAlign;
+import frc.robot.commands.Vision.VisionShoot;
 //Subsystems
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.PickupSubsystem;
@@ -77,6 +79,9 @@ public class RobotContainer {
   private final Command z_Auto4Ball = new Auto4Ball(s_DriveSubsystem, s_PickupSubsystem, s_ShooterSubsystem, s_BeltSubsystem);
   private final Command z_AutoOffLine = new AutoOffLine(s_DriveSubsystem);
   private final Command z_AutoDead = new AutoDead();
+  private final Command z_VisionAngleAlign = new VisionAngleAlign(s_DriveSubsystem, 0.15, .020);
+  private final Command z_VisionDistanceAlign = new VisionDistanceAlign(s_DriveSubsystem, 0.15, .040, 3);
+  private final Command z_VisionShoot = new VisionShoot(s_DriveSubsystem, s_ShooterSubsystem, s_BeltSubsystem, 0.15, .020, .040, .30, .30, 1645, BeltConstants.kFrontBeltSpeed+.35, BeltConstants.kBackBeltSpeed+.35, -3);
 
   SendableChooser<Command> o_AutoChooser = new SendableChooser<>();
 
@@ -114,7 +119,7 @@ public class RobotContainer {
     //final JoystickButton d_xButton = new JoystickButton(io_drivercontroller, Button.kX.value);
     final JoystickButton d_startButton = new JoystickButton(io_drivercontroller, Button.kStart.value);
     //final JoystickButton d_backButton = new JoystickButton(io_drivercontroller, Button.kBack.value);
-    //final JoystickButton d_yButton = new JoystickButton(io_drivercontroller, Button.kY.value);
+    final JoystickButton d_yButton = new JoystickButton(io_drivercontroller, Button.kY.value);
     final JoystickButton d_rightBumper = new JoystickButton(io_drivercontroller, Button.kRightBumper.value);
     final JoystickButton d_leftBumper = new JoystickButton(io_drivercontroller, Button.kLeftBumper.value);
 
@@ -133,6 +138,9 @@ public class RobotContainer {
     d_rightBumper.toggleWhenPressed(z_PickUpArmDownBelts);
     d_leftBumper.whileHeld(z_RunBeltBackwards);
     d_startButton.whileHeld(z_RunShooter);
+    d_aButton.whenPressed(z_VisionAngleAlign);
+    d_bButton.whenPressed(z_VisionDistanceAlign);
+    d_yButton.whileHeld(z_VisionShoot);
     //Operator Controller Binds
     o_leftBumper.whileHeld(z_LiftRetract);
     o_rightBumper.whileHeld(z_LiftExtend);

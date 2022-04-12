@@ -5,32 +5,58 @@
 package frc.robot.commands.Vision;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.DriveSubsystem;
 
 public class VisionDistanceAlign extends CommandBase {
   private final DriveSubsystem DriveSubsystem;
+  private double v_error;
+  private double v_minSpeed;
+  private double v_p;
+  private double v_distance;
   /** Creates a new VisionDistanceAlign. */
-  public VisionDistanceAlign(DriveSubsystem s_DriveSubsystem) {
+  public VisionDistanceAlign(DriveSubsystem s_DriveSubsystem, double minSpeed, double p, double distance) {
     DriveSubsystem = s_DriveSubsystem;
+    v_minSpeed = minSpeed;
+    v_p = p;
+    v_distance = distance;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(s_DriveSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    DriveSubsystem.differentialTankDrive(0, 0);
+    DriveSubsystem.setLimeLightVisionCam();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    v_error = -((v_distance - DriveSubsystem.getVisionYDistance())*v_p);
+    if (Math.abs(v_minSpeed) > Math.abs(v_error)){
+      if (v_error > 0){
+        v_error = -v_minSpeed;
+      }
+      else{
+        v_error = v_minSpeed;
+      }
+    }
+    DriveSubsystem.differentialTankDrive(v_error, v_error);
+    System.out.println(v_error);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    DriveSubsystem.differentialTankDrive(0, 0);
+    DriveSubsystem.setLimeLightDriverCam();
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return ((Math.abs(RobotContainer.getDriverLeftSpeedX()) > 0.20) || (Math.abs(RobotContainer.getDriverRightSpeedX()) > 0.20) || ((DriveSubsystem.getVisionYDistance() < v_distance + 1) && DriveSubsystem.getVisionValidTarget() && DriveSubsystem.getVisionYDistance() > v_distance - 1));
   }
 }

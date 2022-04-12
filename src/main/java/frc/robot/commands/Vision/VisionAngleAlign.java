@@ -42,6 +42,7 @@ public class VisionAngleAlign extends CommandBase {
       }
     }
     DriveSubsystem.differentialTankDrive(v_error, -v_error);
+    System.out.println(v_error);
   }
 
   // Called once the command ends or is interrupted.
@@ -49,11 +50,12 @@ public class VisionAngleAlign extends CommandBase {
   public void end(boolean interrupted) {
     DriveSubsystem.differentialTankDrive(0, 0);
     DriveSubsystem.setLimeLightDriverCam();
+    System.out.println("STATUS: " + ((Math.abs(DriveSubsystem.getVisionAngle()) < 1) && DriveSubsystem.getVisionValidTarget()));
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return ((Math.abs(RobotContainer.getDriverRightSpeed()) > 0.30) || (Math.abs(RobotContainer.getDriverRightSpeedX()) > 0.30));
+    return ((Math.abs(RobotContainer.getDriverLeftSpeedX()) > 0.20) || (Math.abs(RobotContainer.getDriverRightSpeedX()) > 0.20) || ((Math.abs(DriveSubsystem.getVisionAngle()) < 1) && DriveSubsystem.getVisionValidTarget()));
   }
 }
