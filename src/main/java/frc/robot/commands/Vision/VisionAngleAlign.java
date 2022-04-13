@@ -34,6 +34,7 @@ public class VisionAngleAlign extends CommandBase {
   public void execute() {
     v_error = (DriveSubsystem.getVisionAngle()*v_p);
     if (Math.abs(v_minSpeed) > Math.abs(v_error)){
+      System.out.println("MIN SPEED: " + v_error);
       if (v_error > 0){
         v_error = v_minSpeed;
       }
@@ -50,7 +51,7 @@ public class VisionAngleAlign extends CommandBase {
   public void end(boolean interrupted) {
     DriveSubsystem.differentialTankDrive(0, 0);
     DriveSubsystem.setLimeLightDriverCam();
-    System.out.println("STATUS: " + ((Math.abs(DriveSubsystem.getVisionAngle()) < 1) && DriveSubsystem.getVisionValidTarget()));
+    //System.out.println("STATUS: " + ((Math.abs(DriveSubsystem.getVisionAngle()) < 1) && DriveSubsystem.getVisionValidTarget()));
   }
 
   // Returns true when the command should end.

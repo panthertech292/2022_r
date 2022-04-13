@@ -70,8 +70,8 @@ public final class Constants {
         public static final int kBackBeltMotor = 20; //CAN
         public static final int kBeltCurrentLimit = 60;
         //Sensors
-        public static final int kFrontBeltSensor = 9; //DIO
-        public static final int kBackBeltSensor = 8; //DIO
+        public static final int kFrontBeltSensor = 1; //DIO
+        public static final int kBackBeltSensor = 0; //DIO
         //Speeds
         public static final double kFrontBeltSpeed = 0.35;
         public static final double kBackBeltSpeed = 0.35;

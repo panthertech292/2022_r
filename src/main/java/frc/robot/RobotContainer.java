@@ -22,6 +22,7 @@ import frc.robot.commands.Auto.Modes.*;
 import frc.robot.commands.Vision.VisionAngleAlign;
 import frc.robot.commands.Vision.VisionDistanceAlign;
 import frc.robot.commands.Vision.VisionShoot;
+import frc.robot.commands.PickupArmDownBeltsRev;
 //Subsystems
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.PickupSubsystem;
@@ -55,6 +56,7 @@ public class RobotContainer {
   // Pickup Commands
   private final Command z_PickupArmUp = new PickupArmUp(s_PickupSubsystem);
   private final Command z_PickUpArmDownBelts = new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
+  private final Command z_PickUpArmDownBeltsRev = new PickupArmDownBeltsRev(s_PickupSubsystem, s_BeltSubsystem, s_ShooterSubsystem, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed, .30, .30);
 
   // Shooter Commands
   private final Command z_RunShooter = new RunShooter(s_ShooterSubsystem, ShooterConstants.kShooterLowSpeed, ShooterConstants.kShooterHighSpeed);
@@ -80,8 +82,8 @@ public class RobotContainer {
   private final Command z_AutoOffLine = new AutoOffLine(s_DriveSubsystem);
   private final Command z_AutoDead = new AutoDead();
   private final Command z_VisionAngleAlign = new VisionAngleAlign(s_DriveSubsystem, 0.15, .020);
-  private final Command z_VisionDistanceAlign = new VisionDistanceAlign(s_DriveSubsystem, 0.15, .040, 3);
-  private final Command z_VisionShoot = new VisionShoot(s_DriveSubsystem, s_ShooterSubsystem, s_BeltSubsystem, 0.15, .020, .040, .30, .30, 1645, BeltConstants.kFrontBeltSpeed+.35, BeltConstants.kBackBeltSpeed+.35, -3);
+  private final Command z_VisionDistanceAlign = new VisionDistanceAlign(s_DriveSubsystem, 0.15, .040, -3);
+  private final Command z_VisionShoot = new VisionShoot(s_DriveSubsystem, s_ShooterSubsystem, s_BeltSubsystem, 0.15, .020, .070, .30, .30, 1645, BeltConstants.kFrontBeltSpeed+.35, BeltConstants.kBackBeltSpeed+.35, -3);
 
   SendableChooser<Command> o_AutoChooser = new SendableChooser<>();
 
@@ -135,7 +137,7 @@ public class RobotContainer {
     final JoystickButton o_leftStickClick = new JoystickButton(io_opercontroller, Button.kLeftStick.value);
 
     //Driver Controller Binds
-    d_rightBumper.toggleWhenPressed(z_PickUpArmDownBelts);
+    d_rightBumper.toggleWhenPressed(z_PickUpArmDownBeltsRev);
     d_leftBumper.whileHeld(z_RunBeltBackwards);
     d_startButton.whileHeld(z_RunShooter);
     d_aButton.whenPressed(z_VisionAngleAlign);

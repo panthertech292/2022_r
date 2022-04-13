@@ -46,7 +46,7 @@ public class VisionShoot extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new VisionAngleAlign(s_DriveSubsystem, v_minSpeed, v_angleP),
-      new VisionDistanceAlign(s_DriveSubsystem, v_minSpeed, v_distanceP, v_distance),
+      new VisionDistanceAlign(s_DriveSubsystem, v_minSpeed+0.05, v_distanceP, v_distance),
       new VisionAngleAlign(s_DriveSubsystem, v_minSpeed, v_angleP),
       new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, v_shooterLowSpeed, v_shooterHighSpeed, v_targetHighRPM, v_frontBeltSpeed, v_backBeltSpeed)
     );
