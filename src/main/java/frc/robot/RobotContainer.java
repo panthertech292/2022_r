@@ -17,12 +17,10 @@ import frc.robot.Constants.BeltConstants;
 import frc.robot.Constants.ShooterConstants;
 //Commands
 import frc.robot.commands.*;
-import frc.robot.commands.Auto.IMUTurn;
 import frc.robot.commands.Auto.Modes.*;
 import frc.robot.commands.Vision.VisionAngleAlign;
 import frc.robot.commands.Vision.VisionDistanceAlign;
 import frc.robot.commands.Vision.VisionShoot;
-import frc.robot.commands.PickupArmDownBeltsRev;
 //Subsystems
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.PickupSubsystem;
@@ -55,7 +53,7 @@ public class RobotContainer {
 
   // Pickup Commands
   private final Command z_PickupArmUp = new PickupArmUp(s_PickupSubsystem);
-  private final Command z_PickUpArmDownBelts = new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
+  //private final Command z_PickUpArmDownBelts = new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
   private final Command z_PickUpArmDownBeltsRev = new PickupArmDownBeltsRev(s_PickupSubsystem, s_BeltSubsystem, s_ShooterSubsystem, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed, .30, .30);
 
   // Shooter Commands
@@ -74,13 +72,17 @@ public class RobotContainer {
   private final Command z_ReloadBelts = new ReloadBelts(s_BeltSubsystem, s_ShooterSubsystem, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
   private final Command z_RunBelt = new RunBelt(s_BeltSubsystem);
   private final Command z_RunBeltBackwards = new RunBeltBackwards(s_BeltSubsystem);
+  private final Command z_RunBeltStop = new RunBeltStop(s_BeltSubsystem);
   
   //Auto Commands
   private final Command z_DualShot = new DualShot(s_DriveSubsystem, s_PickupSubsystem, s_ShooterSubsystem, s_BeltSubsystem);
+  private final Command z_DualShotMid = new DualShotMid(s_DriveSubsystem, s_PickupSubsystem, s_ShooterSubsystem, s_BeltSubsystem);
   private final Command z_Auto3Ball = new Auto3Ball(s_DriveSubsystem, s_PickupSubsystem, s_ShooterSubsystem, s_BeltSubsystem);
   private final Command z_Auto4Ball = new Auto4Ball(s_DriveSubsystem, s_PickupSubsystem, s_ShooterSubsystem, s_BeltSubsystem);
   private final Command z_AutoOffLine = new AutoOffLine(s_DriveSubsystem);
   private final Command z_AutoDead = new AutoDead();
+
+  //Vision Commands
   private final Command z_VisionAngleAlign = new VisionAngleAlign(s_DriveSubsystem, 0.15, .020);
   private final Command z_VisionDistanceAlign = new VisionDistanceAlign(s_DriveSubsystem, 0.15, .040, -3);
   private final Command z_VisionShoot = new VisionShoot(s_DriveSubsystem, s_ShooterSubsystem, s_BeltSubsystem, 0.15, .020, .070, .30, .30, 1645, BeltConstants.kFrontBeltSpeed+.35, BeltConstants.kBackBeltSpeed+.35, -3);
@@ -92,7 +94,6 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
     CameraServer.startAutomaticCapture();
-    //CameraServer.startAutomaticCapture();
 
     s_DriveSubsystem.setDefaultCommand(z_DriveTeleop);
     s_PickupSubsystem.setDefaultCommand(z_PickupArmUp);
@@ -100,9 +101,10 @@ public class RobotContainer {
     s_BeltSubsystem.setDefaultCommand(z_ReloadBelts);
     
     //Auto Command Selector
-    o_AutoChooser.setDefaultOption("3 Main Auto", z_Auto3Ball);
-    o_AutoChooser.addOption("4 Ball Auto", z_Auto4Ball);
-    o_AutoChooser.addOption("Auto Dual Shot", z_DualShot);
+    o_AutoChooser.setDefaultOption("4 Ball Auto", z_Auto4Ball);
+    o_AutoChooser.addOption("3 Ball Auto", z_Auto3Ball);
+    o_AutoChooser.addOption("Dual Shot", z_DualShot);
+    o_AutoChooser.addOption("Dual Shot Mid", z_DualShotMid);
     o_AutoChooser.addOption("Drive off line Auto", z_AutoOffLine);
     o_AutoChooser.addOption("Auto Dead", z_AutoDead);
     SmartDashboard.putData(o_AutoChooser);
@@ -151,6 +153,7 @@ public class RobotContainer {
     o_aButton.whileHeld(z_RunShooterBeltFenderLow);
     o_bButton.whileHeld(z_RunShooterBeltTarmacHigh);
     o_yButton.whileHeld(z_RunShooterBeltProtected);
+    o_xButton.whileHeld(z_RunBeltStop);
     o_leftStickClick.whileHeld(z_RunShooter);
   }
 

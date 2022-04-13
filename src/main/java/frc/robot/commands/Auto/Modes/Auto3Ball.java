@@ -34,8 +34,9 @@ public class Auto3Ball extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
+      new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(0.2),
       new DrivePickup(s_DriveSubsystem, s_PickupSubsystem, s_BeltSubsystem, 38, .35), //Drive with pickup down to get ball
-      new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(1),
+      new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(0.8),
       //NEW CODE TO TEST SOMETIME
       //new PickupRev(s_PickupSubsystem, s_BeltSubsystem, s_ShooterSubsystem, 0.28, 0.28).withTimeout(1),
       new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, 0.28, 0.28, 1580, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(3), //Run the shooter

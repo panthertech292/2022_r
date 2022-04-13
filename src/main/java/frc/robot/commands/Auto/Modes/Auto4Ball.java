@@ -42,11 +42,11 @@ public class Auto4Ball extends SequentialCommandGroup {
       new IMUTurn(s_DriveSubsystem, 29, .004, 0.15),
       //new AutoEncoderDriveForBack(s_DriveSubsystem, 162, 0.40),
       new DrivePickup(s_DriveSubsystem, s_PickupSubsystem, s_BeltSubsystem, 162, 0.40),
-      new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(1.3),
+      new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(1.2),
       new AutoEncoderDriveForBack(s_DriveSubsystem, 157, -0.40),
       //new IMUTurn(s_DriveSubsystem, -29, .004, 0.15),
       new IMUTurnRev(s_DriveSubsystem, s_ShooterSubsystem, 0.28, 0.28, (-29), .004, 0.15),
-      new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, 0.28, 0.28, 1580, .7, .7).withTimeout(2.5)
+      new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, 0.28, 0.28, 1580, .7, .7).withTimeout(4)
       //drive 
     );
   }

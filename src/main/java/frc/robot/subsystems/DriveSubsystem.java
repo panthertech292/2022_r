@@ -18,7 +18,6 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -183,7 +182,7 @@ public class DriveSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("RIGHT AMP", FrontRightMotor.getOutputCurrent());
-    SmartDashboard.putNumber("LEFT AMP", FrontLeftMotor.getOutputCurrent());
+    //SmartDashboard.putNumber("RIGHT AMP", FrontRightMotor.getOutputCurrent());
+    //SmartDashboard.putNumber("LEFT AMP", FrontLeftMotor.getOutputCurrent());
   }
 }
