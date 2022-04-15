@@ -38,7 +38,7 @@ public class DualShotMid extends SequentialCommandGroup {
       new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(.5),
       //new IMUTurn(s_DriveSubsystem, (-10), .004, 0.15),
       new IMUTurnRev(s_DriveSubsystem, s_ShooterSubsystem, 0.28, 0.28, (-10), .004, 0.15),
-      new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, 0.28, 0.28, 1580, .7, .7).withTimeout(5)
+      new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, 0.28, 0.28, 1570, .7, .7).withTimeout(5)
     );
   }
 }

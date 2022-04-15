@@ -50,10 +50,10 @@ public class DriveSubsystem extends SubsystemBase {
   private double v_leftXSpeed;
   private double v_rightYSpeed;
 
-  private boolean v_arcadeDrive;
+  //private boolean v_arcadeDrive;
 
   //Network Tables
-  private NetworkTableEntry v_networkTableDriveMode;
+  //private NetworkTableEntry v_networkTableDriveMode;
   NetworkTableEntry v_limeLightX;
   NetworkTableEntry v_limeLightY;
   NetworkTableEntry v_limeLightValidTarget;
@@ -91,7 +91,7 @@ public class DriveSubsystem extends SubsystemBase {
     DifDrive = new DifferentialDrive(LeftSide,RightSide);
 
     //Drive Modes
-    v_arcadeDrive = true;
+    //v_arcadeDrive = true;
 
     //Encoders & Sensors
     FrontLeftMotorEncoder = FrontLeftMotor.getEncoder();
@@ -107,7 +107,7 @@ public class DriveSubsystem extends SubsystemBase {
     
     //Netowrk Tables
     ShuffleboardTab MainTab = Shuffleboard.getTab("Main Tab");
-    v_networkTableDriveMode = MainTab.add("Arcade Drive Enabled", v_arcadeDrive).withWidget(BuiltInWidgets.kToggleButton).getEntry();
+    //v_networkTableDriveMode = MainTab.add("Arcade Drive Enabled", v_arcadeDrive).withWidget(BuiltInWidgets.kToggleButton).getEntry();
     NetworkTable limeLightTable = NetworkTableInstance.getDefault().getTable("limelight");
     v_limeLightX = limeLightTable.getEntry("tx");
     v_limeLightY = limeLightTable.getEntry("ty");
@@ -176,13 +176,16 @@ public class DriveSubsystem extends SubsystemBase {
   }
 
   //Shuffleboard Handler
-  public boolean isDriveModeArcade(){
-    return v_networkTableDriveMode.getBoolean(true);
-  }
+  //public boolean isDriveModeArcade(){
+  //  return v_networkTableDriveMode.getBoolean(true);
+  //}
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     //SmartDashboard.putNumber("RIGHT AMP", FrontRightMotor.getOutputCurrent());
     //SmartDashboard.putNumber("LEFT AMP", FrontLeftMotor.getOutputCurrent());
+    //System.out.println(getVisionYDistance());
+    //tarmac = 7 foot 1 
+    //post = -12? 133 inch
   }
 }

@@ -20,18 +20,18 @@ public class DriveTeleop extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    DriveSubsystem.setLimeLightDriverCam();
+    //DriveSubsystem.setLimeLightDriverCam();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (DriveSubsystem.isDriveModeArcade() == true){
-      DriveSubsystem.differentialArcadeDrive(RobotContainer.getDriverLeftSpeedX(), RobotContainer.getDriverRightSpeed());
-    }
-    else{
-      DriveSubsystem.differentialTankDrive(RobotContainer.getDriverLeftSpeed(), RobotContainer.getDriverRightSpeed());
-    }
+    //if (DriveSubsystem.isDriveModeArcade() == true){
+    DriveSubsystem.differentialArcadeDrive(RobotContainer.getDriverLeftSpeedX(), RobotContainer.getDriverRightSpeed());
+    //}
+    //else{
+    //  DriveSubsystem.differentialTankDrive(RobotContainer.getDriverLeftSpeed(), RobotContainer.getDriverRightSpeed());
+    //}
   }
 
   // Called once the command ends or is interrupted.

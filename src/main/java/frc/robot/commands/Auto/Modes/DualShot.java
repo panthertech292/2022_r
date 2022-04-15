@@ -37,7 +37,7 @@ public class DualShot extends SequentialCommandGroup {
     new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(0.5),
     new DrivePickup(s_DriveSubsystem, s_PickupSubsystem, s_BeltSubsystem, 38, .35), //Drive with pickup down to get ball
     new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(1),
-    new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, 0.28, 0.28, 1580, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(3), //Run the shooter
+    new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, 0.28, 0.28, 1570, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(4), //Run the shooter
     new PickupArmUp(s_PickupSubsystem).withTimeout(2), //Raise arm
     new AutoEncoderDriveForBack(s_DriveSubsystem, 10, .30) //Drive back to get off line
     );

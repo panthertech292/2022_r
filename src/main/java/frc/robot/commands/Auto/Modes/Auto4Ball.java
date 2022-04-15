@@ -33,20 +33,19 @@ public class Auto4Ball extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(.3),
-      new DrivePickup(s_DriveSubsystem, s_PickupSubsystem, s_BeltSubsystem, 50, 0.4),
       new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(.5),
-      //new IMUTurn(s_DriveSubsystem, (-10), .004, 0.15),
+      new DrivePickup(s_DriveSubsystem, s_PickupSubsystem, s_BeltSubsystem, 50, 0.4),
+      //new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(.3),
+      new PickupArmDownBeltsRev(s_PickupSubsystem, s_BeltSubsystem, s_ShooterSubsystem, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed, 0.28, 0.28).withTimeout(.3),
       new IMUTurnRev(s_DriveSubsystem, s_ShooterSubsystem, 0.28, 0.28, (-10), .004, 0.15),
-      new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, 0.28, 0.28, 1580, .7, .7).withTimeout(2.5),
-      new IMUTurn(s_DriveSubsystem, 29, .004, 0.15),
-      //new AutoEncoderDriveForBack(s_DriveSubsystem, 162, 0.40),
-      new DrivePickup(s_DriveSubsystem, s_PickupSubsystem, s_BeltSubsystem, 162, 0.40),
-      new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(1.2),
-      new AutoEncoderDriveForBack(s_DriveSubsystem, 157, -0.40),
-      //new IMUTurn(s_DriveSubsystem, -29, .004, 0.15),
-      new IMUTurnRev(s_DriveSubsystem, s_ShooterSubsystem, 0.28, 0.28, (-29), .004, 0.15),
-      new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, 0.28, 0.28, 1580, .7, .7).withTimeout(4)
+      new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, 0.28, 0.28, 1570, .7, .7).withTimeout(2.9),
+      new IMUTurn(s_DriveSubsystem, 27, .004, 0.15),
+      new DrivePickup(s_DriveSubsystem, s_PickupSubsystem, s_BeltSubsystem, 162, 0.4),
+      new PickupArmDownBelts(s_PickupSubsystem, s_BeltSubsystem, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed).withTimeout(1),
+      //new AutoEncoderDriveForBack(s_DriveSubsystem, 157, -0.4),
+      new DrivePickup(s_DriveSubsystem, s_PickupSubsystem, s_BeltSubsystem, 157, -0.4),
+      new IMUTurnRev(s_DriveSubsystem, s_ShooterSubsystem, 0.28, 0.28, (-31), .004, 0.15),
+      new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, 0.28, 0.28, 1570, .7, .7).withTimeout(4)
       //drive 
     );
   }

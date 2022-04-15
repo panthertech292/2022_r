@@ -50,6 +50,9 @@ public class RunShooterBelt extends CommandBase {
     if (ShooterSubsystem.getShooterMotorHighEncoderVelocity() > v_targetRPM){
       BeltSubsystem.setFrontBelts(v_frontBeltSpeed);
       BeltSubsystem.setBackBelts(v_backBeltSpeed);
+    }else{
+      BeltSubsystem.setFrontBelts(0);
+      BeltSubsystem.setBackBelts(0);
     }
   }
 

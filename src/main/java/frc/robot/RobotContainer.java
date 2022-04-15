@@ -84,8 +84,10 @@ public class RobotContainer {
 
   //Vision Commands
   private final Command z_VisionAngleAlign = new VisionAngleAlign(s_DriveSubsystem, 0.15, .020);
-  private final Command z_VisionDistanceAlign = new VisionDistanceAlign(s_DriveSubsystem, 0.15, .040, -3);
-  private final Command z_VisionShoot = new VisionShoot(s_DriveSubsystem, s_ShooterSubsystem, s_BeltSubsystem, 0.15, .020, .070, .30, .30, 1645, BeltConstants.kFrontBeltSpeed+.35, BeltConstants.kBackBeltSpeed+.35, -3);
+  //private final Command z_VisionDistanceAlign = new VisionDistanceAlign(s_DriveSubsystem, 0.15, .040, -3);
+  private final Command z_VisionShootClose = new VisionShoot(s_DriveSubsystem, s_ShooterSubsystem, s_BeltSubsystem, 0.15, .020, .070, .27, .27, 1520, BeltConstants.kFrontBeltSpeed+.35, BeltConstants.kBackBeltSpeed+.35, 0.5);
+  private final Command z_VisionShoot = new VisionShoot(s_DriveSubsystem, s_ShooterSubsystem, s_BeltSubsystem, 0.15, .020, .070, .30, .30, 1685, BeltConstants.kFrontBeltSpeed+.35, BeltConstants.kBackBeltSpeed+.35, -3);
+  private final Command z_VisionShootPost = new VisionShoot(s_DriveSubsystem, s_ShooterSubsystem, s_BeltSubsystem, 0.15, .020, .070, .33, .33, 1855, BeltConstants.kFrontBeltSpeed+.35, BeltConstants.kBackBeltSpeed+.35, -7);
 
   SendableChooser<Command> o_AutoChooser = new SendableChooser<>();
 
@@ -93,7 +95,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
-    CameraServer.startAutomaticCapture();
+    CameraServer.startAutomaticCapture().setFPS(20);
 
     s_DriveSubsystem.setDefaultCommand(z_DriveTeleop);
     s_PickupSubsystem.setDefaultCommand(z_PickupArmUp);
@@ -120,7 +122,7 @@ public class RobotContainer {
     //Driver Controller
     final JoystickButton d_aButton = new JoystickButton(io_drivercontroller, Button.kA.value);
     final JoystickButton d_bButton = new JoystickButton(io_drivercontroller, Button.kB.value);
-    //final JoystickButton d_xButton = new JoystickButton(io_drivercontroller, Button.kX.value);
+    final JoystickButton d_xButton = new JoystickButton(io_drivercontroller, Button.kX.value);
     final JoystickButton d_startButton = new JoystickButton(io_drivercontroller, Button.kStart.value);
     //final JoystickButton d_backButton = new JoystickButton(io_drivercontroller, Button.kBack.value);
     final JoystickButton d_yButton = new JoystickButton(io_drivercontroller, Button.kY.value);
@@ -143,8 +145,9 @@ public class RobotContainer {
     d_leftBumper.whileHeld(z_RunBeltBackwards);
     d_startButton.whileHeld(z_RunShooter);
     d_aButton.whenPressed(z_VisionAngleAlign);
-    d_bButton.whenPressed(z_VisionDistanceAlign);
+    d_bButton.whileHeld(z_VisionShootPost);
     d_yButton.whileHeld(z_VisionShoot);
+    d_xButton.whileHeld(z_VisionShootClose);
     //Operator Controller Binds
     o_leftBumper.whileHeld(z_LiftRetract);
     o_rightBumper.whileHeld(z_LiftExtend);

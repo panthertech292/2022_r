@@ -33,7 +33,7 @@ public class IMUTurnRev extends ParallelRaceGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new IMUTurn(s_DriveSubsystem, v_angle, v_P, v_minSpeed),
-      new RunShooter(s_ShooterSubsystem, v_lowSpeed, v_highSpeed)
+      new RunShooter(s_ShooterSubsystem, v_lowSpeed, v_highSpeed).withTimeout(5)
     );
   }
 }
