@@ -32,8 +32,8 @@ public class IMUTurnRev extends ParallelRaceGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new IMUTurn(s_DriveSubsystem, v_angle, v_P, v_minSpeed),
-      new RunShooter(s_ShooterSubsystem, v_lowSpeed, v_highSpeed).withTimeout(5)
+      new IMUTurn(s_DriveSubsystem, v_angle, v_P, v_minSpeed).deadlineWith(new RunShooter(s_ShooterSubsystem, v_lowSpeed, v_highSpeed))
+      //new RunShooter(s_ShooterSubsystem, v_lowSpeed, v_highSpeed).deadlineWith(new IMUTurn(s_DriveSubsystem, v_angle, v_P, v_minSpeed))
     );
   }
 }
