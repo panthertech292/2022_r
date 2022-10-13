@@ -26,10 +26,12 @@ public class LiftRotate extends CommandBase {
   @Override
   public void execute() {
     if (RobotContainer.getOperRightSpeedY() > 0.5){
-      LiftSubsystem.setRotationCylinderExtended();
+      //LiftSubsystem.setRotationCylinderExtended();
+      LiftSubsystem.setRotationCylinderRetracted();
     }
     if (RobotContainer.getOperRightSpeedY() < -0.5){
-      LiftSubsystem.setRotationCylinderRetracted();
+      //LiftSubsystem.setRotationCylinderRetracted();
+      LiftSubsystem.setRotationCylinderExtended();
     }
     if ((RobotContainer.getOperRightSpeedY() < 0.5) && (RobotContainer.getOperRightSpeedY() > -0.5)){
       LiftSubsystem.setRotationCylinderOff();
