@@ -18,6 +18,7 @@ import frc.robot.Constants.ShooterConstants;
 //Commands
 import frc.robot.commands.*;
 import frc.robot.commands.Auto.Modes.*;
+import frc.robot.commands.Vision.VisionAll;
 import frc.robot.commands.Vision.VisionAngleAlign;
 import frc.robot.commands.Vision.VisionDistanceAlign;
 import frc.robot.commands.Vision.VisionShoot;
@@ -59,7 +60,7 @@ public class RobotContainer {
   // Shooter Commands
   private final Command z_RunShooter = new RunShooter(s_ShooterSubsystem, ShooterConstants.kShooterLowSpeed, ShooterConstants.kShooterHighSpeed);
   //private final Command z_RunShooterBelt = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, ShooterConstants.kShooterLowSpeed, ShooterConstants.kShooterHighSpeed, 0, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
-  private final Command z_RunShooterBeltFenderLow = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, .15, .15, 800, BeltConstants.kFrontBeltSpeed+0.05, BeltConstants.kBackBeltSpeed+0.05);
+  private final Command z_RunShooterBeltFenderLow = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, .20, .20, 850, BeltConstants.kFrontBeltSpeed+0.05, BeltConstants.kBackBeltSpeed+0.05);
   private final Command z_RunShooterBeltTarmacHigh = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, .30, .30, 1645, BeltConstants.kFrontBeltSpeed+.35, BeltConstants.kBackBeltSpeed+.35);
   private final Command z_RunShooterBeltProtected = new RunShooterBelt(s_ShooterSubsystem, s_BeltSubsystem, .39, .39, 2210, BeltConstants.kFrontBeltSpeed, BeltConstants.kBackBeltSpeed);
 
@@ -85,9 +86,10 @@ public class RobotContainer {
   //Vision Commands
   private final Command z_VisionAngleAlign = new VisionAngleAlign(s_DriveSubsystem, 0.15, .020);
   //private final Command z_VisionDistanceAlign = new VisionDistanceAlign(s_DriveSubsystem, 0.15, .040, -3);
-  private final Command z_VisionShootClose = new VisionShoot(s_DriveSubsystem, s_ShooterSubsystem, s_BeltSubsystem, 0.15, .020, .070, .27, .27, 1520, BeltConstants.kFrontBeltSpeed+.35, BeltConstants.kBackBeltSpeed+.35, 0.5);
-  private final Command z_VisionShoot = new VisionShoot(s_DriveSubsystem, s_ShooterSubsystem, s_BeltSubsystem, 0.15, .020, .070, .30, .30, 1685, BeltConstants.kFrontBeltSpeed+.35, BeltConstants.kBackBeltSpeed+.35, -3);
-  private final Command z_VisionShootPost = new VisionShoot(s_DriveSubsystem, s_ShooterSubsystem, s_BeltSubsystem, 0.15, .020, .070, .33, .33, 1855, BeltConstants.kFrontBeltSpeed+.35, BeltConstants.kBackBeltSpeed+.35, -7);
+  private final Command z_VisionShootClose = new VisionShoot(s_DriveSubsystem, s_ShooterSubsystem, s_BeltSubsystem, 0.15, .020, .070, .25, .25, 1400, BeltConstants.kFrontBeltSpeed+.35, BeltConstants.kBackBeltSpeed+.35, 0.5);
+  private final Command z_VisionShoot = new VisionShoot(s_DriveSubsystem, s_ShooterSubsystem, s_BeltSubsystem, 0.15, .020, .070, .28, .28, 1560, BeltConstants.kFrontBeltSpeed+.35, BeltConstants.kBackBeltSpeed+.35, -3);
+  private final Command z_VisionShootPost = new VisionShoot(s_DriveSubsystem, s_ShooterSubsystem, s_BeltSubsystem, 0.15, .020, .070, .31, .31, 1715, BeltConstants.kFrontBeltSpeed+.35, BeltConstants.kBackBeltSpeed+.35, -7);
+  private final Command z_VisionAll = new VisionAll(s_DriveSubsystem, s_ShooterSubsystem, s_BeltSubsystem, 0.15, .020, .070, 0);
 
   SendableChooser<Command> o_AutoChooser = new SendableChooser<>();
 
@@ -151,7 +153,8 @@ public class RobotContainer {
     //Operator Controller Binds
     o_leftBumper.whileHeld(z_LiftRetract);
     o_rightBumper.whileHeld(z_LiftExtend);
-    o_startButton.whileHeld(z_RunBelt);
+    //o_startButton.whileHeld(z_RunBelt);
+    o_startButton.whileHeld(z_VisionAll);
     o_backButton.whileHeld(z_RunBeltBackwards);
     o_aButton.whileHeld(z_RunShooterBeltFenderLow);
     o_bButton.whileHeld(z_RunShooterBeltTarmacHigh);
